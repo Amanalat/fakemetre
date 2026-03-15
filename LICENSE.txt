@@ -1,0 +1,33 @@
+FakeMètre — Jeu éducatif de vérification de l'information
+© 2025 Antonin Atger — https://antoninatger.com
+
+Ce projet est placé sous licence Creative Commons
+Attribution-NonCommercial 4.0 International (CC BY-NC 4.0).
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+VOUS ÊTES AUTORISÉ À :
+
+  ✓ Partager — copier et redistribuer ce contenu sur tout support
+  ✓ Adapter — remixer, transformer et créer à partir de ce contenu
+
+SELON LES CONDITIONS SUIVANTES :
+
+  Attribution — Vous devez créditer Antonin Atger, indiquer si des
+  modifications ont été effectuées, et fournir un lien vers la licence.
+
+  Pas d'utilisation commerciale — Vous n'êtes pas autorisé à faire un
+  usage commercial de ce contenu, en tout ou partie.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+AUCUNE RESTRICTION SUPPLÉMENTAIRE — Vous n'êtes pas autorisé à appliquer
+des conditions légales ou des mesures techniques qui restreindraient
+légalement autrui à utiliser ce contenu dans les conditions décrites
+par la licence.
+
+Texte complet de la licence :
+https://creativecommons.org/licenses/by-nc/4.0/legalcode.fr
+
+Pour toute demande d'utilisation commerciale ou question :
+contact@antoninatger.com — https://antoninatger.com

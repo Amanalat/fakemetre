@@ -1,0 +1,936 @@
+<!DOCTYPE html>
+<!--
+  FakeMètre — Jeu éducatif de vérification de l'information
+  © 2025 Antonin Atger — https://antoninatger.com
+  Licence : Creative Commons Attribution-NonCommercial 4.0 International (CC BY-NC 4.0)
+  Vous êtes libre de partager et adapter ce contenu à des fins NON commerciales,
+  à condition de citer l'auteur. Toute utilisation commerciale est interdite.
+  https://creativecommons.org/licenses/by-nc/4.0/
+-->
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FakeMètre 🔍</title>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:#0f1b2d; --panel:#162236; --card:#1e3050;
+  --acc:#f7c948; --gr:#3ecf8e; --rd:#f75f5f; --bl:#4fa3f7;
+  --tx:#e8f1ff; --mu:#7a9cc0; --bord:rgba(255,255,255,0.08);
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Nunito',sans-serif;background:var(--bg);background-image:radial-gradient(ellipse at 15% 15%,rgba(79,163,247,.07) 0%,transparent 55%),radial-gradient(ellipse at 85% 85%,rgba(247,201,72,.06) 0%,transparent 55%);color:var(--tx);min-height:100vh;display:flex;flex-direction:column;align-items:center;padding:20px 16px;}
+h1{font-family:'Fredoka One',cursive;font-size:clamp(2rem,6vw,2.8rem);color:var(--acc);text-shadow:0 0 30px rgba(247,201,72,.35);}
+.sub{color:var(--mu);font-size:.9rem;font-weight:600;margin-top:4px;margin-bottom:6px;}
+.author{color:var(--mu);font-size:.78rem;font-weight:600;margin-bottom:16px;opacity:.8;}
+.author a{color:var(--acc);text-decoration:none;transition:opacity .2s;}
+.author a:hover{opacity:.75;text-decoration:underline;}
+
+/* ── Level selector ── */
+#levelscreen{width:100%;max-width:560px;text-align:center;padding:20px 0;}
+#levelscreen h2{font-family:'Fredoka One',cursive;font-size:1.6rem;color:var(--tx);margin-bottom:8px;}
+#levelscreen p{color:var(--mu);font-size:.9rem;font-weight:600;margin-bottom:28px;}
+.levelcards{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;}
+.levelcard{background:var(--panel);border:2px solid var(--bord);border-radius:20px;padding:28px 24px;cursor:pointer;transition:all .22s;flex:1;min-width:200px;max-width:240px;text-align:center;}
+.levelcard:hover{border-color:var(--acc);transform:translateY(-4px);box-shadow:0 8px 30px rgba(247,201,72,.15);}
+.levelcard.junior:hover{border-color:#4fa3f7;box-shadow:0 8px 30px rgba(79,163,247,.15);}
+.levelcard.pro:hover{border-color:#f75f5f;box-shadow:0 8px 30px rgba(247,95,95,.15);}
+.levelcard .lc-icon{font-size:2.8rem;display:block;margin-bottom:10px;}
+.levelcard .lc-title{font-family:'Fredoka One',cursive;font-size:1.4rem;color:var(--acc);margin-bottom:4px;}
+.levelcard.pro .lc-title{color:#f75f5f;}
+.levelcard .lc-age{font-size:.75rem;font-weight:800;color:var(--mu);margin-bottom:8px;text-transform:uppercase;letter-spacing:1px;}
+.levelcard .lc-desc{font-size:.8rem;font-weight:700;color:var(--mu);}
+
+/* ── Mode selector ── */
+#modescreen{width:100%;max-width:500px;text-align:center;padding:20px 0;display:none;}
+#modescreen h2{font-family:'Fredoka One',cursive;font-size:1.6rem;color:var(--tx);margin-bottom:8px;}
+#modescreen p{color:var(--mu);font-size:.9rem;font-weight:600;margin-bottom:28px;}
+.modecards{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;}
+.modecard{background:var(--panel);border:2px solid var(--bord);border-radius:20px;padding:28px 32px;cursor:pointer;transition:all .22s;flex:1;min-width:160px;max-width:200px;}
+.modecard:hover{border-color:var(--acc);transform:translateY(-4px);box-shadow:0 8px 30px rgba(247,201,72,.15);}
+.modecard .mc-icon{font-size:2.8rem;display:block;margin-bottom:10px;}
+.modecard .mc-title{font-family:'Fredoka One',cursive;font-size:1.4rem;color:var(--acc);margin-bottom:4px;}
+.modecard .mc-desc{font-size:.8rem;font-weight:700;color:var(--mu);}
+.back-btn{background:none;border:1px solid var(--bord);color:var(--mu);border-radius:50px;padding:8px 20px;font-family:'Nunito',sans-serif;font-size:.8rem;font-weight:700;cursor:pointer;margin-bottom:20px;transition:all .2s;}
+.back-btn:hover{border-color:var(--mu);color:var(--tx);}
+
+#scorebar{display:flex;align-items:center;gap:10px;background:var(--panel);border:1px solid var(--bord);border-radius:50px;padding:9px 20px;margin-bottom:14px;font-weight:700;font-size:.9rem;}
+.num{font-family:'Fredoka One',cursive;font-size:1.25rem;color:var(--acc);}
+#dots{display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap;justify-content:center;}
+.dot{width:13px;height:13px;border-radius:50%;background:var(--card);border:2px solid var(--mu);transition:all .3s;}
+.dot.active{background:var(--acc);border-color:var(--acc);}
+.dot.done{background:var(--gr);border-color:var(--gr);}
+#game{width:100%;max-width:680px;}
+.scard{background:var(--panel);border:1px solid var(--bord);border-radius:20px;padding:22px 24px;margin-bottom:16px;position:relative;overflow:hidden;}
+.scard::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--acc),var(--bl));}
+.stag{display:inline-block;background:rgba(247,201,72,.13);color:var(--acc);border:1px solid rgba(247,201,72,.3);border-radius:6px;font-size:.7rem;font-weight:800;padding:3px 10px;margin-bottom:10px;letter-spacing:1px;text-transform:uppercase;}
+.stxt{font-size:1.05rem;font-weight:700;line-height:1.55;color:#fff;}
+
+/* ── Meter (draggable) ── */
+.mwrap{background:var(--card);border-radius:16px;padding:16px 20px;margin-bottom:16px;border:1px solid var(--bord);}
+.mlabels{display:flex;justify-content:space-between;font-size:.7rem;font-weight:800;margin-bottom:8px;color:var(--mu);text-transform:uppercase;letter-spacing:.5px;}
+.mbg{height:26px;background:rgba(0,0,0,.3);border-radius:50px;position:relative;cursor:grab;user-select:none;}
+.mbg:active{cursor:grabbing;}
+.mfill{height:100%;border-radius:50px;transition:background .4s;pointer-events:none;}
+.mcursor{position:absolute;top:50%;transform:translate(-50%,-50%);width:24px;height:24px;background:#fff;border-radius:50%;box-shadow:0 2px 12px rgba(0,0,0,.6);z-index:2;pointer-events:none;transition:background .3s;}
+#mstatus{text-align:center;margin-top:8px;font-weight:800;font-size:.88rem;transition:color .4s;}
+.meter-hint{text-align:center;font-size:.72rem;font-weight:700;color:var(--mu);margin-top:4px;opacity:.7;}
+
+.sectitle{font-size:.78rem;font-weight:800;color:var(--mu);text-transform:uppercase;letter-spacing:1px;margin-bottom:4px;}
+#counter{font-size:.8rem;font-weight:700;color:var(--mu);margin-bottom:10px;}
+#sgrid{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:14px;}
+.sbtn{background:var(--card);border:2px solid var(--bord);border-radius:13px;padding:12px 10px;cursor:pointer;text-align:left;display:flex;align-items:flex-start;gap:9px;font-family:'Nunito',sans-serif;color:var(--tx);font-size:.85rem;font-weight:700;line-height:1.3;transition:all .18s;}
+.sbtn:hover:not(:disabled){border-color:rgba(255,255,255,.2);transform:translateY(-2px);}
+.sbtn:disabled{opacity:.35;cursor:not-allowed;transform:none;}
+.sbtn.ug{border-color:rgba(62,207,142,.5);background:rgba(62,207,142,.07);opacity:1!important;}
+.sbtn.ub{border-color:rgba(247,95,95,.5);background:rgba(247,95,95,.07);opacity:1!important;}
+.semoji{font-size:1.3rem;flex-shrink:0;}
+.sname{font-weight:800;}
+.sdesc{font-weight:600;color:var(--mu);font-size:.75rem;}
+.utag{display:inline-block;font-size:.68rem;font-weight:800;padding:1px 6px;border-radius:4px;margin-top:4px;}
+.utag.g{background:rgba(62,207,142,.2);color:var(--gr);}
+.utag.b{background:rgba(247,95,95,.2);color:var(--rd);}
+
+/* ── Verdict zone ── */
+#vzone{display:none;background:var(--panel);border:2px solid var(--acc);border-radius:18px;padding:18px 20px;margin-bottom:14px;text-align:center;}
+#vzone p{font-weight:800;font-size:1rem;margin-bottom:6px;color:var(--acc);}
+#vzone .vhint{font-size:.78rem;color:var(--mu);font-weight:700;margin-bottom:14px;}
+.vbtns{display:flex;gap:12px;justify-content:center;}
+.vbtn{flex:1;max-width:170px;padding:12px 8px;border:none;border-radius:50px;cursor:pointer;font-family:'Fredoka One',cursive;font-size:1.05rem;transition:transform .18s;}
+.vbtn:hover{transform:scale(1.05);}
+.vbtn.vrai{background:var(--gr);color:#0a2a1a;}
+.vbtn.faux{background:var(--rd);color:#2a0a0a;}
+
+#nextbtn{display:none;width:100%;background:linear-gradient(135deg,#f7c948,#f7a648);color:#1a1200;border:none;border-radius:50px;padding:15px;font-family:'Fredoka One',cursive;font-size:1.25rem;cursor:pointer;box-shadow:0 4px 20px rgba(247,201,72,.3);transition:transform .2s;}
+#nextbtn:hover{transform:translateY(-2px);}
+.overlay{position:fixed;inset:0;background:rgba(0,0,0,.65);z-index:98;opacity:0;pointer-events:none;transition:opacity .25s;}
+.overlay.show{opacity:1;pointer-events:all;}
+.modal{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%) scale(.88);background:var(--panel);border-radius:20px;padding:26px 24px;max-width:420px;width:90%;box-shadow:0 20px 60px rgba(0,0,0,.7);z-index:99;opacity:0;pointer-events:none;transition:all .28s cubic-bezier(.34,1.4,.64,1);}
+.modal.show{opacity:1;transform:translate(-50%,-50%) scale(1);pointer-events:all;}
+.mclose{display:block;width:100%;background:var(--acc);color:#1a1200;border:none;border-radius:50px;padding:12px;font-family:'Fredoka One',cursive;font-size:1.05rem;cursor:pointer;margin-top:4px;}
+.msname{font-family:'Fredoka One',cursive;font-size:1.05rem;color:var(--acc);margin-bottom:4px;}
+.msdesc{color:var(--mu);font-size:.78rem;font-weight:700;margin-bottom:12px;}
+.mssays{background:#0f1b2d;border-radius:12px;padding:12px 14px;font-style:italic;font-size:.92rem;line-height:1.55;color:#c8d9f0;margin-bottom:16px;border-left:3px solid var(--acc);}
+.msq{font-weight:800;font-size:.95rem;text-align:center;margin-bottom:14px;}
+.tbtns{display:flex;gap:10px;}
+.tbtn{flex:1;padding:11px 8px;border:none;border-radius:50px;font-family:'Fredoka One',cursive;font-size:1rem;cursor:pointer;transition:transform .18s;}
+.tbtn:hover{transform:scale(1.05);}
+.tbtn.y{background:var(--gr);color:#0a2a1a;}
+.tbtn.n{background:var(--rd);color:#2a0a0a;}
+/* ── Likert scale ── */
+.lbtn{width:36px;height:36px;border-radius:50%;border:2px solid var(--bord);background:var(--card);cursor:pointer;transition:all .18s;flex-shrink:0;font-size:.8rem;font-weight:800;color:var(--mu);display:flex;align-items:center;justify-content:center;}
+.lbtn:hover{border-color:var(--acc);color:var(--acc);transform:scale(1.15);}
+.lbtn.selected{border-color:var(--acc);background:var(--acc);color:#1a1200;transform:scale(1.2);}
+.lbtn[data-v="1"].selected,.lbtn[data-v="2"].selected{background:#f75f5f;border-color:#f75f5f;color:#fff;}
+.lbtn[data-v="3"].selected{background:#f7a548;border-color:#f7a548;color:#fff;}
+.lbtn[data-v="4"].selected{background:#f7c948;border-color:#f7c948;color:#1a1200;}
+.lbtn[data-v="5"].selected{background:#b3e88a;border-color:#b3e88a;color:#1a1200;}
+.lbtn[data-v="6"].selected,.lbtn[data-v="7"].selected{background:#3ecf8e;border-color:#3ecf8e;color:#0a2a1a;}
+.fbemoji{font-size:2.5rem;text-align:center;margin-bottom:8px;}
+.fbtitle{font-family:'Fredoka One',cursive;font-size:1.35rem;text-align:center;margin-bottom:10px;}
+.fbexpl{color:var(--mu);font-size:.9rem;line-height:1.55;margin-bottom:14px;text-align:center;}
+.fbpts{display:inline-block;font-weight:800;font-size:1rem;padding:7px 16px;border-radius:8px;margin-bottom:16px;}
+.fbpts.pos{background:rgba(62,207,142,.2);color:var(--gr);}
+.fbpts.neg{background:rgba(247,95,95,.2);color:var(--rd);}
+.ptswrap{text-align:center;}
+#final{display:none;max-width:580px;width:100%;text-align:center;padding:20px 0;}
+.fmedal{font-size:4rem;display:block;}
+.fh2{font-family:'Fredoka One',cursive;font-size:2.2rem;color:var(--acc);margin:8px 0;}
+.fscore{font-family:'Fredoka One',cursive;font-size:3.5rem;color:var(--acc);margin:12px 0;}
+.ftips{background:var(--panel);border-radius:16px;padding:20px 22px;text-align:left;border:1px solid var(--bord);margin-bottom:20px;}
+.ftips h3{font-family:'Fredoka One',cursive;color:var(--acc);margin-bottom:12px;}
+.tip{display:flex;gap:10px;padding:8px 0;border-bottom:1px solid var(--bord);font-size:.88rem;font-weight:700;}
+.tip:last-child{border-bottom:none;}
+#rbtn{background:#4fa3f7;color:#fff;border:none;border-radius:50px;padding:14px 36px;font-family:'Fredoka One',cursive;font-size:1.2rem;cursor:pointer;transition:transform .2s;margin-right:10px;}
+#rbtn:hover{transform:scale(1.05);}
+#mbtn{background:var(--panel);color:var(--acc);border:2px solid var(--acc);border-radius:50px;padding:14px 36px;font-family:'Fredoka One',cursive;font-size:1.2rem;cursor:pointer;transition:transform .2s;}
+#mbtn:hover{transform:scale(1.05);}
+@media(max-width:480px){#sgrid{grid-template-columns:1fr;}.modecards{flex-direction:column;align-items:center;}.levelcards{flex-direction:column;align-items:center;}}
+</style>
+</head>
+<body>
+
+<header style="text-align:center">
+  <h1>🔍 FakeMètre</h1>
+  <p class="sub">Vraie info ou fake news ? Trouve les bonnes sources !</p>
+  <p class="author">par Antonin Atger &nbsp;|&nbsp; <a href="/cdn-cgi/l/email-protection#1a7975746e7b796e5a7b746e757473747b6e7d7f6834797577"><span class="__cf_email__" data-cfemail="b2d1dddcc6d3d1c6f2d3dcc6dddcdbdcd3c6d5d7c09cd1dddf">[email&#160;protected]</span></a> &nbsp;|&nbsp; <a href="https://antoninatger.com" target="_blank">antoninatger.com</a></p>
+</header>
+
+<!-- LEVEL SELECTOR -->
+<div id="levelscreen">
+  <h2>Choisis ton niveau</h2>
+  <p>Deux parcours selon ton âge et ton expérience !</p>
+  <div class="levelcards">
+    <div class="levelcard junior" onclick="chooseLevel('junior')">
+      <span class="lc-icon">🔎</span>
+      <div class="lc-title">Apprenti Détective</div>
+      <div class="lc-age">À partir du CM1</div>
+      <div class="lc-desc">Des affirmations du quotidien<br>pour apprendre à douter !</div>
+    </div>
+    <div class="levelcard pro" onclick="chooseLevel('pro')">
+      <span class="lc-icon">⚡</span>
+      <div class="lc-title">Fact-Checker Confirmé</div>
+      <div class="lc-age">À partir de la 4e</div>
+      <div class="lc-desc">Sujets complexes, biais cognitifs<br>et vraies controverses !</div>
+    </div>
+  </div>
+</div>
+
+<!-- MODE SELECTOR -->
+<div id="modescreen">
+  <button class="back-btn" onclick="backToLevel()">← Changer de niveau</button>
+  <h2 id="modescreen-title">Choisis ton mode d'enquête</h2>
+  <p>Combien de questions veux-tu explorer ?</p>
+  <div class="modecards">
+    <div class="modecard" onclick="startGame(5)">
+      <span class="mc-icon">⚡</span>
+      <div class="mc-title">5 Questions</div>
+      <div class="mc-desc">Mode rapide<br>5 questions tirées au sort</div>
+    </div>
+    <div class="modecard" onclick="startGame(10)">
+      <span class="mc-icon">🔎</span>
+      <div class="mc-title">10 Questions</div>
+      <div class="mc-desc">Mode complet<br>Toutes les énigmes</div>
+    </div>
+  </div>
+</div>
+
+<div id="scorebar" style="display:none">
+  ⭐ Score : <span class="num" id="sc">0</span> pts &nbsp;|&nbsp; 🧪 Enquête <span class="num" id="qn">1</span>/<span id="qtotal">5</span>
+</div>
+<div id="dots" style="display:none"></div>
+
+<div id="game" style="display:none">
+  <div class="scard">
+    <div class="stag">Affirmation mystère</div>
+    <div class="stxt" id="stxt"></div>
+  </div>
+  <div class="mwrap">
+    <div class="mlabels"><span>❌ Faux</span><span id="mstatus">🤔 Incertain...</span><span>Vrai ✅</span></div>
+    <div class="mbg" id="mbg">
+      <div class="mfill" id="mfill"></div>
+      <div class="mcursor" id="mcursor"></div>
+    </div>
+    <div class="meter-hint">👆 Glisse le curseur pour indiquer ce que tu penses !</div>
+  </div>
+  <div class="sectitle">📂 Consulte des sources pour te faire une idée</div>
+  <div id="counter"></div>
+  <div id="sgrid"></div>
+  <div id="vzone">
+    <p>🧑‍⚖️ Après ton enquête, qu'est-ce que tu en penses ?</p>
+    <div class="vhint">Tu peux encore consulter d'autres sources, ou voter maintenant !</div>
+    <div class="vbtns">
+      <button class="vbtn vrai" onclick="submitV(true)">✅ C'est VRAI</button>
+      <button class="vbtn faux" onclick="submitV(false)">❌ C'est FAUX</button>
+    </div>
+  </div>
+</div>
+
+<div id="final"></div>
+<div class="overlay" id="ov"></div>
+
+<div class="modal" id="msrc">
+  <div class="msname" id="msname"></div>
+  <div class="msdesc" id="msdesc"></div>
+  <div class="mssays" id="mssays"></div>
+
+  <!-- Mode JUNIOR : boutons oui/non -->
+  <div id="msrc-junior">
+    <div class="msq">Est-ce que tu fais confiance à cette source ?</div>
+    <div class="tbtns">
+      <button class="tbtn y" onclick="trust(true)">👍 Oui, je la crois</button>
+      <button class="tbtn n" onclick="trust(false)">🙅 Je me méfie</button>
+    </div>
+  </div>
+
+  <!-- Mode PRO : échelle de Likert -->
+  <div id="msrc-pro" style="display:none;">
+    <div class="msq" style="margin-bottom:16px;">🎚️ À quel point fais-tu confiance à cette source ?</div>
+    <div id="likert-wrap" style="margin-bottom:18px;">
+      <div style="display:flex;justify-content:space-between;font-size:.65rem;font-weight:800;color:var(--mu);text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px;">
+        <span>Absolument<br>pas</span>
+        <span style="text-align:center;">Neutre</span>
+        <span style="text-align:right;">Totalement</span>
+      </div>
+      <div id="likert-btns" style="display:flex;gap:6px;justify-content:center;align-items:center;">
+        <!-- boutons injectés en JS -->
+      </div>
+      <div id="likert-label" style="text-align:center;margin-top:12px;font-weight:800;font-size:.88rem;color:var(--mu);min-height:1.2em;"></div>
+    </div>
+    <button class="mclose" id="likert-confirm" onclick="confirmLikert()" style="opacity:.4;pointer-events:none;">Valider mon évaluation →</button>
+  </div>
+</div>
+
+<div class="modal" id="mfb">
+  <div class="fbemoji" id="fbemoji"></div>
+  <div class="fbtitle" id="fbtitle"></div>
+  <div class="fbexpl"  id="fbexpl"></div>
+  <div class="ptswrap"><span class="fbpts" id="fbpts"></span></div>
+  <div id="cursor-prompt" style="margin-top:14px;padding-top:14px;border-top:1px solid rgba(255,255,255,0.08);">
+    <p style="font-weight:800;font-size:1.05rem;text-align:center;margin-bottom:10px;color:var(--acc);">🎚️ Souhaites-tu modifier le curseur après avoir lu cette source ?</p>
+    <div style="display:flex;gap:8px;">
+      <button class="tbtn n" style="font-size:.85rem;padding:9px 8px;" onclick="hide('mfb')">Non, continuer →</button>
+      <button class="tbtn y" style="font-size:.85rem;padding:9px 8px;" onclick="openMeterAdjust()">Oui, ajuster !</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal" id="mfb-meter" style="z-index:100;">
+  <p style="font-weight:800;font-size:.95rem;text-align:center;margin-bottom:12px;color:var(--acc);">🎚️ Ajuste ton curseur</p>
+  <div class="mwrap" style="margin-bottom:12px;">
+    <div class="mlabels"><span>❌ Faux</span><span id="mini-mstatus">🤔 Incertain...</span><span>Vrai ✅</span></div>
+    <div class="mbg" id="mini-mbg">
+      <div class="mfill" id="mini-mfill"></div>
+      <div class="mcursor" id="mini-mcursor"></div>
+    </div>
+    <div class="meter-hint">👆 Glisse pour ajuster !</div>
+  </div>
+  <button class="mclose" onclick="confirmMeterAdjust()">✅ Valider ma position</button>
+</div>
+
+<div class="modal" id="mvr">
+  <div class="fbemoji" id="vremoji"></div>
+  <div class="fbtitle" id="vrtitle"></div>
+  <div class="fbexpl"  id="vrexpl"></div>
+  <div class="ptswrap"><span class="fbpts" id="vrpts"></span></div>
+  <button class="mclose" onclick="closeV()">Continuer →</button>
+</div>
+
+
+<div class="modal" id="mhint-cursor" style="text-align:center;">
+  <div style="font-size:2.2rem;margin-bottom:10px;">🎚️</div>
+  <div style="font-family:'Fredoka One',cursive;font-size:1.2rem;color:var(--acc);margin-bottom:12px;">Avant de consulter les sources…</div>
+  <div style="color:var(--mu);font-size:.88rem;font-weight:700;line-height:1.55;margin-bottom:18px;">Positionne le curseur à ton niveau de croyance actuelle sur cette affirmation. Tu pourras le modifier au fil de ton enquête !</div>
+  <button class="mclose" onclick="closeCursorHint()">🎚️ Ok, je positionne le curseur !</button>
+</div>
+
+<script>
+try{var s=document.createElement('script');s.src='/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js';document.head.appendChild(s);}catch(e){}
+</script>
+<script>
+// ═══════════════════════════════════════════════
+// NIVEAU JUNIOR — Apprenti Détective (CM1 → 5e)
+// ═══════════════════════════════════════════════
+const QUESTIONS_JUNIOR=[
+  {s:"Les araignées entrent dans ta bouche pendant que tu dors ! En moyenne, on en avale 8 par an. 🕷️",t:false,
+   e:"C'est FAUX ! Les araignées fuient les vibrations des ronflements. Aucune étude sérieuse n'a jamais confirmé cette légende urbaine des années 90.",
+   src:[
+    {em:"🔬",n:"Revue de biologie scientifique",d:"Article dans une revue à comité de lecture",
+     say:"« Nos recherches n'ont trouvé aucune preuve que les araignées s'approchent des bouches la nuit. Elles fuient les vibrations. »",
+     g:true,fb:{tg:"Parfait ! Une revue scientifique avec des chercheurs spécialisés, c'est exactement ce qu'il faut consulter. C'est une des sources les plus fiables qui existe !",dg:"Dommage ! Une revue scientifique est très fiable. Des chercheurs ont mené de vraies expériences pour arriver à cette conclusion."}},
+    {em:"👍",n:"Post TikTok avec 2 millions de likes",d:"Vidéo virale très partagée, sans source citée",
+     say:"« CHOQUANT : on avale en moyenne 8 araignées par nuit ! Partagez avant suppression ! »",
+     g:false,fb:{tb:"Attention ! Les likes ne prouvent rien. Tu as cru une vidéo virale sans source sérieuse — et c'est faux !",db:"Bien joué ! Tu t'es méfié d'une vidéo TikTok sans source. Le nombre de likes ne prouve jamais que c'est vrai."}},
+    {em:"🌐",n:"Site Hoaxbuster (fact-checking)",d:"Site spécialisé dans la vérification des rumeurs",
+     say:"« FAUX. Cette affirmation est une légende urbaine sans fondement scientifique, qui circule depuis les années 1990. »",
+     g:true,fb:{tg:"Excellent ! Les sites de fact-checking existent précisément pour démêler le vrai du faux. Faire confiance à Hoaxbuster, c'est le bon réflexe !",dg:"Dommage de se méfier d'un site de fact-checking professionnel. Leur métier, c'est de vérifier les sources."}},
+    {em:"💬",n:"Voisin qui \"l'a lu quelque part\"",d:"Un adulte qui pense s'en souvenir vaguement",
+     say:"« Oui oui, c'est vrai ! J'ai lu ça dans un magazine y'a longtemps. »",
+     g:false,fb:{tb:"Aïe ! Quelqu'un qui \"a lu ça quelque part\" sans se souvenir où, ce n'est pas une source fiable. Tout le monde peut répéter une fausse info.",db:"Bien vu ! Se souvenir vaguement d'avoir lu quelque chose sans source précise, c'est insuffisant."}},
+  ]},
+  {s:"La Grande Muraille de Chine est visible depuis l'espace à l'œil nu. 🚀🧱",t:false,
+   e:"C'est FAUX ! La muraille ne mesure que 5 à 9 mètres de large. Plusieurs astronautes ont confirmé qu'ils ne pouvaient pas la distinguer à l'œil nu.",
+   src:[
+    {em:"🧑‍🚀",n:"Témoignage de l'astronaute Yang Liwei",d:"Premier Chinois dans l'espace (2003)",
+     say:"« J'ai cherché la Grande Muraille depuis l'espace. Je ne l'ai pas vue. »",
+     g:true,fb:{tg:"Super ! Yang Liwei EST allé dans l'espace et a CHERCHÉ la muraille. C'est la meilleure source possible : un témoin direct et qualifié.",dg:"Dommage ! Un astronaute qui a lui-même regardé depuis l'espace, c'est un témoin de première main."}},
+    {em:"📚",n:"Manuel scolaire de géographie",d:"Manuel validé par l'Éducation Nationale",
+     say:"« La Grande Muraille est souvent présentée comme visible depuis l'espace, mais c'est faux : elle est trop étroite pour être vue à cette distance. »",
+     g:true,fb:{tg:"Très bien ! Un manuel scolaire relu et validé par des experts est une source fiable. Et il corrige ce mythe très répandu !",dg:"Les manuels scolaires sont relus par des spécialistes. C'est bien plus fiable qu'une rumeur."}},
+    {em:"👫",n:"Les copains",d:"Ce que tout le monde dit dans la cour",
+     say:"« C'est vrai ! Tout le monde sait ça. C'est le seul monument visible depuis l'espace. »",
+     g:false,fb:{tb:"Piégé(e) ! Ce que disent les copains n'est pas une source fiable. C'est comme ça que les fausses idées se transmettent d'un élève à l'autre.",db:"Bien joué ! Même si les copains sont sympas, leur parole ne remplace pas une vraie vérification. Ils peuvent répéter une fausse info sans le savoir."}},
+    {em:"⭐",n:"Commentaire d'un touriste sur Google Maps",d:"Avis laissé par un visiteur ébloui",
+     say:"« Impressionnant ! On voit tellement loin. Ça doit être visible depuis la Lune ! »",
+     g:false,fb:{tb:"Oups ! Un touriste impressionné qui imagine... c'est une opinion personnelle, pas un fait vérifié.",db:"Bien vu ! L'avis d'un touriste ébloui ne remplace pas une vérification scientifique."}},
+  ]},
+  {s:"Manger plein de carottes améliorerait la vue dans le noir, comme un chat ! 🥕🐱",t:false,
+   e:"C'est exagéré et FAUX. La vitamine A des carottes est utile pour les yeux, mais si tu n'en manques pas, en manger plus ne changera rien. Ce mythe vient d'une propagande britannique de la Seconde Guerre mondiale !",
+   src:[
+    {em:"👁️",n:"Ophtalmologiste (médecin des yeux)",d:"Spécialiste de la vision",
+     say:"« La vitamine A des carottes est utile si vous en manquez. Mais pour quelqu'un qui mange normalement, manger plus de carottes n'améliore pas la vision nocturne. »",
+     g:true,fb:{tg:"Excellent ! L'ophtalmologiste est LE spécialiste de la vision. Son explication est précise et scientifiquement exacte.",dg:"Dommage ! Un médecin spécialisé dans les yeux, c'est exactement la bonne personne à consulter."}},
+    {em:"🥕",n:"Emballage d'un paquet de carottes bio",d:"L'étiquette du produit vendu en supermarché",
+     say:"« Les carottes sont riches en bêta-carotène pour une bonne vision ! Mangez-en tous les jours ! »",
+     g:false,fb:{tb:"Méfiance ! Un emballage veut vendre son produit. C'est exagéré pour te convaincre d'en acheter.",db:"Bien vu ! Les emballages font de la publicité, pas de la science."}},
+    {em:"📺",n:"Scène d'un dessin animé célèbre",d:"Un cartoon où le héros mange des carottes et voit dans le noir",
+     say:"« [Le personnage avale une carotte et voit soudainement parfaitement dans la nuit noire.] »",
+     g:false,fb:{tb:"Aïe ! Les dessins animés inventent des situations pour l'histoire, pas pour informer.",db:"Très bien ! Un dessin animé, c'est de la fiction. Ce n'est pas parce qu'on le voit à l'image que c'est vrai."}},
+    {em:"🏥",n:"Site du Ministère de la Santé français",d:"Source officielle de santé publique",
+     say:"« La vitamine A contribue au maintien d'une vision normale. Une alimentation variée suffit. Il n'est pas utile d'en consommer en excès. »",
+     g:true,fb:{tg:"Parfait ! Le Ministère de la Santé publie des informations vérifiées par des médecins. C'est une référence sérieuse.",dg:"Les sites officiels de santé sont rédigés par des experts médicaux. L'information y est fiable."}},
+  ]},
+  {s:"Les fourmis peuvent soulever jusqu'à 50 fois leur propre poids. 🐜💪",t:true,
+   e:"C'est VRAI ! Les fourmis peuvent soulever entre 10 et 50 fois leur poids. Leurs muscles représentent une part bien plus grande de leur corps que chez les humains.",
+   src:[
+    {em:"🐛",n:"Entomologiste du Muséum d'Histoire Naturelle",d:"Chercheur spécialisé dans les insectes",
+     say:"« Oui, nos expériences montrent que certaines espèces de fourmis soulèvent jusqu'à 50 fois leur poids. C'est lié à la proportion de muscle dans leur corps. »",
+     g:true,fb:{tg:"Excellent ! Un entomologiste spécialisé qui cite ses propres expériences — c'est la source idéale pour une question sur les insectes.",dg:"Dommage ! Un chercheur spécialisé qui cite ses expériences, c'est une source très solide. Parfois des choses incroyables sont vraies !"}},
+    {em:"📗",n:"Encyclopédie Larousse en ligne",d:"Dictionnaire encyclopédique vérifié par des experts",
+     say:"« Les fourmis sont capables de transporter des charges représentant plusieurs dizaines de fois leur propre masse corporelle. »",
+     g:true,fb:{tg:"Très bien ! Le Larousse est une encyclopédie sérieuse et vérifiée par des experts. C'est une référence solide.",dg:"Le Larousse est une source encyclopédique réputée. Même les faits incroyables peuvent y être confirmés !"}},
+    {em:"🤔",n:"Mon intuition",d:"Un sentiment personnel, sans vérification",
+     say:"« Ça ne peut pas être vrai. 50 fois son poids ? N'importe quoi. On me l'aurait appris à l'école. »",
+     g:false,fb:{tb:"Attention ! Rejeter une info parce qu'elle paraît incroyable, c'est une erreur. Notre instinct peut nous tromper — et ici il t'a trompé !",db:"Bien réfléchi ! Ton instinct te disait non, mais l'instinct n'est pas une source. Il t'aurait trompé ici !"}},
+    {em:"✂️",n:"Mon coiffeur",d:"Une personne de confiance... mais pas spécialiste",
+     say:"« C'est tellement incroyable que ça ne peut être qu'une vraie info. Partage ! »",
+     g:false,fb:{tb:"Danger ! Ton coiffeur est sympa, mais ce n'est pas un entomologiste. Croire quelqu'un de confiance sans vérifier, c'est risqué.",db:"Bonne méfiance ! Même une personne sympa et de confiance peut répéter une fausse info sans le savoir."}},
+  ]},
+  {s:"En France, la loi interdit d'appeler son cochon \"Napoléon\". ⚖️🐷",t:false,
+   e:"C'est FAUX ! Aucune loi française n'interdit de donner ce prénom à un animal. C'est une vieille légende urbaine qui circule depuis des décennies.",
+   src:[
+    {em:"🏛️",n:"Site service-public.fr",d:"Site officiel de l'administration et des lois françaises",
+     say:"« Aucune disposition légale n'interdit de donner un prénom historique à un animal domestique en France. »",
+     g:true,fb:{tg:"Parfait ! Service-public.fr, c'est LE site officiel pour vérifier les lois françaises. S'il dit qu'une loi n'existe pas, c'est qu'elle n'existe vraiment pas !",dg:"Dommage ! Service-public.fr est la source officielle du gouvernement. Pour vérifier si une loi existe, c'est l'endroit le plus fiable."}},
+    {em:"👨",n:"Mon tonton",d:"Un adulte de la famille, bien intentionné",
+     say:"« Sérieusement, qui inventerait une loi pareille ? Ça doit forcément être vrai ! »",
+     g:false,fb:{tb:"Piégé(e) ! Ton tonton a peut-être lui-même lu ça quelque part sans vérifier. Les adultes aussi répètent des fausses infos.",db:"Bien joué ! Même un adulte de confiance peut se tromper. Plus une info est amusante ou bizarre, plus il faut la vérifier."}},
+    {em:"📰",n:"AFP Factuel (service de fact-checking)",d:"Le service de vérification de l'Agence France-Presse",
+     say:"« FAUX. Nos recherches dans le code civil et pénal français ne font apparaître aucune loi de ce type. »",
+     g:true,fb:{tg:"Excellent ! L'AFP Factuel est l'une des agences de fact-checking les plus sérieuses. Leurs journalistes ont épluché les textes de loi.",dg:"L'AFP est une des plus grandes agences de presse mondiale. Leur service de fact-checking cite toujours ses sources."}},
+    {em:"🗺️",n:"Le message viral lui-même, partagé 50 000 fois",d:"Le post original sur les réseaux sociaux",
+     say:"« INCROYABLE mais vrai : en France, il est ILLÉGAL d'appeler son cochon Napoléon ! Partagez avant suppression ! »",
+     g:false,fb:{tb:"Oups ! Tu as cru le message viral lui-même. Un message très partagé n'est pas forcément vrai. \"Partagez avant suppression\" est souvent un signal d'alarme !",db:"Très bien ! \"Partagez avant suppression\" est une formule classique pour créer l'urgence et empêcher de réfléchir."}},
+  ]},
+  {s:"Les poissons ont une mémoire de seulement 3 secondes. 🐠",t:false,
+   e:"C'est FAUX ! Des études en biologie marine montrent que les poissons peuvent mémoriser des informations pendant des semaines, voire des mois. Ce mythe est très répandu, mais n'a aucun fondement scientifique.",
+   src:[
+    {em:"🔬",n:"Revue de biologie marine",d:"Publication scientifique à comité de lecture",
+     say:"« Nos expériences montrent que des poissons se souviennent d'itinéraires et de signaux appris plusieurs semaines après l'entraînement. »",
+     g:true,fb:{tg:"Excellent ! Une revue scientifique spécialisée, c'est exactement la source à consulter. Elle contredit clairement ce mythe populaire.",dg:"Dommage ! Des chercheurs qui ont testé la mémoire des poissons en laboratoire, c'est une source très solide."}},
+    {em:"📱",n:"Mème Instagram viral",d:"Image humoristique partagée des millions de fois",
+     say:"« Ha ha, les poissons ont 3 secondes de mémoire, c'est pour ça qu'ils sont heureux ! »",
+     g:false,fb:{tb:"Aïe ! Un mème, même très partagé, n'est pas une source scientifique. Les humains répètent souvent des idées fausses parce qu'elles sont drôles.",db:"Bien joué ! Un mème, aussi amusant soit-il, ne constitue jamais une source d'information fiable."}},
+    {em:"🌐",n:"Site Futura Sciences",d:"Magazine scientifique en ligne français",
+     say:"« Le mythe des 3 secondes est faux. Les poissons peuvent former des souvenirs durables et apprendre de leur environnement. »",
+     g:true,fb:{tg:"Très bien ! Futura Sciences est un magazine de vulgarisation scientifique sérieux, rédigé par des journalistes scientifiques.",dg:"Futura Sciences cite toujours ses sources et ses auteurs. C'est bien plus fiable qu'un mème ou une rumeur."}},
+    {em:"🗣️",n:"Croyance populaire",d:"\"J'ai toujours entendu ça\"",
+     say:"« Tout le monde sait que les poissons oublient tout au bout de 3 secondes. C'est connu ! »",
+     g:false,fb:{tb:"Attention ! Le fait d'\"avoir toujours entendu ça\" ne prouve rien. Les idées fausses se transmettent aussi facilement que les vraies.",db:"Bien vu ! Une croyance répandue ne devient pas un fait. Il faut des preuves."}},
+  ]},
+  {s:"Le miel ne se périme jamais. On a retrouvé du miel vieux de 3 000 ans dans des tombes égyptiennes, encore comestible. 🍯",t:true,
+   e:"C'est VRAI ! La faible teneur en eau et l'acidité naturelle du miel empêchent les bactéries de se développer. Du miel découvert dans des tombes pharaoniques était effectivement encore consommable.",
+   src:[
+    {em:"⚗️",n:"Chimiste alimentaire de l'INRAE",d:"Institut National de Recherche pour l'Agriculture",
+     say:"« La composition du miel — faible humidité, pH acide, peroxyde d'hydrogène naturel — lui confère une conservation quasi-indéfinie si bien stocké. »",
+     g:true,fb:{tg:"Excellent ! Un chercheur de l'INRAE qui explique la chimie du miel, c'est une source de première qualité.",dg:"Dommage ! Un chimiste spécialisé dans les aliments, c'est exactement la bonne personne pour répondre à cette question."}},
+    {em:"📜",n:"Archéologues de fouilles en Égypte",d:"Rapport de fouilles archéologiques",
+     say:"« Des jarres de miel retrouvées dans des tombes datant de 3 000 ans étaient scellées et encore comestibles, selon l'analyse des échantillons. »",
+     g:true,fb:{tg:"Très bien ! Des archéologues qui citent leurs fouilles, c'est une source directe et vérifiable.",dg:"Un rapport de fouilles archéologiques officielles, c'est une source fiable qui s'appuie sur des faits concrets."}},
+    {em:"🍯",n:"Producteur de miel sur son blog",d:"Blog personnel d'un apiculteur",
+     say:"« Mon miel dure forever ! Achetez-en beaucoup, ça se conserve à l'infini ! »",
+     g:false,fb:{tb:"Méfiance ! Le producteur a intérêt à vendre. Ce qu'il dit peut être vrai ou faux, mais ce n'est pas une source fiable !",db:"Bon réflexe de te méfier ! L'info est vraie ici, mais c'est une coïncidence heureuse : un vendeur n'est pas une source neutre."}},
+    {em:"💬",n:"Forum de cuisine en ligne",d:"Discussion entre internautes anonymes",
+     say:"« Moi j'ai laissé un pot ouvert 2 ans, il était toujours bon. Preuve que ça dure ! »",
+     g:false,fb:{tb:"Aïe ! Une expérience personnelle isolée sur un forum n'est pas une preuve scientifique. Ce raisonnement est risqué.",db:"L'info est vraie ici, mais te méfier d'un forum anonyme reste le bon réflexe ! Une anecdote isolée n'est pas une preuve."}},
+  ]},
+  {s:"On n'utilise que 10 % de notre cerveau. Les 90 % restants sont inutilisés. 🧠",t:false,
+   e:"C'est FAUX ! Les techniques d'imagerie cérébrale (IRM) montrent que l'ensemble du cerveau est actif, même pendant le sommeil. Ce mythe est souvent utilisé pour vendre des formations ou des gadgets.",
+   src:[
+    {em:"🧠",n:"Neurologue de l'hôpital universitaire",d:"Médecin spécialiste du cerveau",
+     say:"« L'idée que nous n'utilisons que 10 % de notre cerveau est totalement fausse. L'IRM fonctionnelle montre une activité dans tout le cerveau, même au repos. »",
+     g:true,fb:{tg:"Parfait ! Un neurologue qui cite l'IRM fonctionnelle, c'est la source médicale la plus fiable qui soit pour une question sur le cerveau.",dg:"Dommage ! Un médecin spécialiste du cerveau qui s'appuie sur des données d'imagerie, c'est exactement ce qu'il faut consulter."}},
+    {em:"🎬",n:"Film de science-fiction populaire",d:"Film grand public sur les pouvoirs du cerveau",
+     say:"« Dans ce film, le héros accède aux 90 % inutilisés de son cerveau et devient surpuissant ! »",
+     g:false,fb:{tb:"Aïe ! Un film de fiction n'est pas une source. Les scénaristes inventent des idées pour le spectacle, pas pour informer.",db:"Bien joué ! La fiction utilise des idées fausses pour créer du suspense. Un film n'est jamais une source fiable."}},
+    {em:"📡",n:"Site du CNRS (Centre National de la Recherche Scientifique)",d:"Organisme public de recherche scientifique",
+     say:"« Ce mythe est démenti par toutes les données de neurosciences. Le cerveau humain entier est actif en permanence. »",
+     g:true,fb:{tg:"Excellent ! Le CNRS est l'un des plus grands organismes de recherche au monde. Ses publications sont vérifiées par des experts.",dg:"Le CNRS est une référence en matière de recherche scientifique. C'est une source hautement fiable."}},
+    {em:"📢",n:"Coach en développement personnel",d:"Conférence en ligne non vérifiée",
+     say:"« Débloquez les 90 % de votre cerveau inutilisé ! Inscrivez-vous à ma formation pour 299€ ! »",
+     g:false,fb:{tb:"Piégé(e) ! Ce type d'argument est souvent utilisé pour vendre des formations. Méfie-toi des affirmations qui cherchent à te faire payer.",db:"Très bien ! Quand une affirmation sert à vendre quelque chose, la méfiance s'impose."}},
+  ]},
+  {s:"La foudre ne tombe jamais deux fois au même endroit. ⚡",t:false,
+   e:"C'est FAUX ! La foudre tombe régulièrement aux mêmes endroits. La Tour Eiffel, par exemple, est frappée environ 10 fois par an. C'est une expression populaire qui n'a aucune base scientifique.",
+   src:[
+    {em:"🌩️",n:"Météorologiste de Météo-France",d:"Spécialiste officiel de la météorologie",
+     say:"« La foudre est attirée par les points hauts et conducteurs. Elle peut frapper plusieurs fois le même endroit dans la même tempête. »",
+     g:true,fb:{tg:"Excellent ! Un météorologiste de Météo-France qui explique la physique des éclairs, c'est la meilleure source possible.",dg:"Dommage ! Un expert de la météo qui explique comment fonctionne la foudre, c'est exactement ce dont tu avais besoin."}},
+    {em:"🗣️",n:"Expression populaire",d:"\"Ça ne peut pas arriver deux fois\"",
+     say:"« On dit bien \"la foudre ne tombe jamais deux fois au même endroit\". Tout le monde le sait ! »",
+     g:false,fb:{tb:"Piégé(e) ! Une expression populaire n'est pas un fait scientifique. Beaucoup de proverbes sont faux ou exagérés.",db:"Bien joué ! Les expressions populaires reflètent des croyances, pas des vérités scientifiques."}},
+    {em:"🏗️",n:"Ingénieur de la Tour Eiffel",d:"Responsable technique du monument",
+     say:"« La Tour Eiffel dispose d'un paratonnerre précisément parce qu'elle est frappée par la foudre environ 10 fois par an. »",
+     g:true,fb:{tg:"Super ! L'ingénieur responsable du monument témoigne d'un fait technique concret. C'est une source directe et fiable.",dg:"Quelqu'un qui gère le bâtiment sait combien de fois la foudre le frappe. C'est un témoignage de première main."}},
+    {em:"💡",n:"Le bon sens",d:"Un raisonnement intuitif sans preuve",
+     say:"« Statistiquement, la foudre se répartit partout. Donc elle n'a aucune raison de retomber au même endroit ! »",
+     g:false,fb:{tb:"Danger ! Le \"bon sens\" n'est pas une preuve scientifique. Ce qui semble logique peut très bien être faux.",db:"Bien vu ! Le bon sens donne parfois de fausses certitudes. Il faut des données réelles pour vérifier."}},
+  ]},
+  {s:"La température normale du corps humain est exactement 37°C. Au-dessus, c'est la fièvre. 🌡️",t:false,
+   e:"C'est FAUX (ou du moins très simplifié). La norme de 37°C date d'une étude du XIXe siècle. Des recherches récentes montrent que la température varie de 36,2°C à 37,5°C. La fièvre commence généralement à 38°C.",
+   src:[
+    {em:"👨‍⚕️",n:"Médecin généraliste",d:"Praticien de santé",
+     say:"« La \"norme\" de 37°C est une moyenne ancienne. Chacun a sa propre température basale. La fièvre est généralement définie à partir de 38°C. »",
+     g:true,fb:{tg:"Parfait ! Un médecin généraliste qui nuance cette croyance répandue, c'est exactement la bonne source pour une question de santé.",dg:"Dommage ! Un médecin qui donne une explication précise et nuancée, c'est bien plus fiable qu'une idée reçue."}},
+    {em:"📺",n:"Pub pour du paracétamol",d:"Publicité télévisée d'un médicament",
+     say:"« Dès 37,5°C, votre enfant a de la fièvre. Pensez à Doliprane ! »",
+     g:false,fb:{tb:"Méfiance ! Une pub veut vendre son produit, pas t'informer avec précision. Elle simplifie à outrance pour que tu achètes.",db:"Bonne méfiance ! Une publicité simplifie toujours pour convaincre. Ce n'est pas une source médicale fiable."}},
+    {em:"📋",n:"Revue médicale The Lancet",d:"L'une des revues médicales les plus réputées au monde",
+     say:"« Une étude de 2020 confirme que la température corporelle normale a baissé depuis le XIXe siècle et varie individuellement. La norme de 37°C est obsolète. »",
+     g:true,fb:{tg:"Excellent ! The Lancet est l'une des revues médicales les plus sérieuses au monde. Une étude publiée là-dedans est très fiable.",dg:"Dommage ! Une étude dans The Lancet, c'est une des meilleures preuves scientifiques disponibles en médecine."}},
+    {em:"👩‍👧",n:"Maman sur un forum de parents",d:"Conseil donné sur un forum parental",
+     say:"« Si ton enfant dépasse 37°C, c'est la fièvre ! Donne-lui du paracétamol tout de suite ! »",
+     g:false,fb:{tb:"Attention ! Un conseil médical sur un forum de parents peut être dangereux. Pour la santé, il faut toujours vérifier avec un professionnel.",db:"Bien joué ! Pour tout ce qui touche à la santé, un forum de parents ne remplace pas un médecin ou une publication médicale."}},
+  ]},
+];
+
+// ═══════════════════════════════════════════════
+// NIVEAU PRO — Fact-Checker Confirmé (4e → 3e)
+// ═══════════════════════════════════════════════
+const QUESTIONS_PRO=[
+  {s:"Un médecin britannique a prouvé scientifiquement que les vaccins provoquent l'autisme. Des études l'ont confirmé. 💉",t:false,
+   e:"C'est FAUX. L'étude d'Andrew Wakefield (1998) a été retirée après qu'on a découvert que ses données avaient été falsifiées. Wakefield a perdu son droit d'exercer la médecine. Des dizaines d'études portant sur des millions d'enfants n'ont trouvé aucun lien.",
+   src:[
+    {em:"🏥",n:"Organisation Mondiale de la Santé (OMS)",d:"Agence spécialisée des Nations Unies pour la santé",
+     say:"« Aucun lien causal entre vaccins et autisme n'a été établi. Les études indépendantes menées sur des millions d'enfants confirment l'innocuité des vaccins. »",
+     g:true,fb:{tg:"Parfait ! L'OMS regroupe les données de santé du monde entier. C'est la référence absolue pour les questions de santé publique.",dg:"Dommage ! L'OMS compile les résultats de milliers d'études indépendantes. C'est une des sources les plus fiables qui existe."}},
+    {em:"📰",n:"Page Facebook 'Vérité sur les vaccins'",d:"Groupe militant anti-vaccins sur les réseaux sociaux",
+     say:"« L'étude EXISTE, ils ont juste fait pression pour la cacher ! Partagez avant censure ! »",
+     g:false,fb:{tb:"Piégé(e) ! L'argument de la 'censure' est un classique des théories du complot. Il est conçu pour te faire ignorer les vraies preuves.",db:"Bien joué ! 'Partagez avant censure' est une formule rhétorique pour créer l'urgence. Les vraies études scientifiques ne sont pas censurées."}},
+    {em:"📋",n:"The Lancet (revue médicale internationale)",d:"L'une des revues médicales les plus réputées au monde",
+     say:"« Nous retirons formellement l'article de Wakefield de 1998 qui faisait le lien entre vaccins et autismes : les données étaient fausses et l'auteur a enfreint l'éthique médicale. »",
+     g:true,fb:{tg:"Excellent ! The Lancet a lui-même retiré l'étude frauduleuse. Une revue qui reconnaît et corrige ses erreurs, c'est le signe d'une science sérieuse.",dg:"Dommage ! The Lancet a retiré cette étude après enquête sur les fraudes commises. C'est une source médicale de très haute fiabilité."}},
+    {em:"🎙️",n:"Influenceur santé sur YouTube",d:"Créateur de contenu, sans formation médicale",
+     say:"« J'ai lu des témoignages de parents : leurs enfants ont changé juste après le vaccin. Trop de coïncidences... »",
+     g:false,fb:{tb:"Danger ! Des témoignages isolés ne prouvent rien scientifiquement. La corrélation temporelle (ça s'est passé en même temps) n'est pas une causalité (l'un a causé l'autre).",db:"Bien joué ! Des anecdotes personnelles, aussi touchantes soient-elles, ne remplacent pas des études contrôlées sur des millions de personnes."}},
+  ]},
+  {s:"Le réchauffement climatique est un phénomène naturel. Le CO₂ produit par les humains ne peut pas vraiment changer le climat. 🌍",t:false,
+   e:"C'est FAUX. Le GIEC, qui regroupe des milliers de scientifiques mondiaux, conclut que le réchauffement est d'origine humaine. Même si le CO₂ est minoritaire dans l'atmosphère, son effet de serre est réel et mesuré depuis le XIXe siècle.",
+   src:[
+    {em:"🌡️",n:"GIEC — Rapport 2023",d:"Groupe d'experts intergouvernemental sur l'évolution du climat",
+     say:"« L'influence humaine sur le climat est sans équivoque. Chaque décennie depuis 1970 a été plus chaude que toutes les décennies précédentes depuis 125 000 ans. »",
+     g:true,fb:{tg:"Parfait ! Le GIEC regroupe des milliers de scientifiques de 195 pays. C'est le consensus scientifique mondial le plus documenté sur le climat.",dg:"Dommage ! Le GIEC ne produit pas ses propres études : il synthétise des milliers d'études indépendantes. C'est une source de référence absolue."}},
+    {em:"⛽",n:"Rapport sponsorisé par un lobby pétrolier",d:"Document financé par l'industrie des énergies fossiles",
+     say:"« Le CO₂ n'est que 0,04% de l'atmosphère. Prétendre qu'il change le climat, c'est de la propagande. Notre industrie finance des scientifiques qui le confirment. »",
+     g:false,fb:{tb:"Très bien d'avoir été méfiant ! Une source financée par l'industrie pétrolière a un intérêt direct à nier le réchauffement. C'est un conflit d'intérêts évident.",db:"Attention ! Même si l'argument sur le 0,04% semble logique, l'effet de serre est un phénomène physique mesuré depuis 1850. Et la source a un intérêt financier à nier les faits."}},
+    {em:"📡",n:"NASA — Climate.nasa.gov",d:"Agence spatiale américaine, données satellitaires",
+     say:"« Les mesures satellites confirment que la Terre se réchauffe à un rythme sans précédent depuis 10 000 ans, corrélé aux émissions de CO₂ humaines. »",
+     g:true,fb:{tg:"Excellent ! La NASA mesure le climat depuis l'espace avec des données objectives et vérifiables. C'est une source de premier rang.",dg:"Dommage ! La NASA dispose de décennies de données satellitaires objectives. C'est bien plus fiable qu'un lobby ou qu'une intuition."}},
+    {em:"💬",n:"Commentaire viral : 'Il faisait froid cet hiver !'",d:"Argument populaire sur les réseaux sociaux",
+     say:"« Vous avez vu le froid qu'il fait ? Le réchauffement climatique, c'est du flan ! »",
+     g:false,fb:{tb:"Piégé(e) ! Confondre météo locale (un hiver froid) et climat global (tendance sur des décennies), c'est une erreur classique. Le réchauffement ne supprime pas les hivers.",db:"Bien joué ! La météo d'une semaine ne dit rien sur le climat mondial sur 50 ans. C'est comme confondre humeur du jour et personnalité."}},
+  ]},
+  {s:"Les écrans rendent stupides : des études prouvent que les smartphones font baisser le QI des adolescents de manière permanente et irréversible. 📱",t:false,
+   e:"C'est FAUX (mais nuancé). Des recherches montrent que l'usage excessif peut affecter l'attention et le sommeil, mais aucune étude sérieuse ne prouve une baisse permanente et irréversible du QI. Le type d'usage compte beaucoup.",
+   src:[
+    {em:"🧪",n:"Revue Nature Human Behaviour (2019)",d:"Revue scientifique internationale de premier rang",
+     say:"« Nos données montrent une association entre temps d'écran excessif et légère baisse des capacités attentionnelles chez certains adolescents, mais l'effet est réversible et dépend fortement du contenu. »",
+     g:true,fb:{tg:"Parfait ! Une revue sérieuse qui nuance ses résultats — c'est exactement ce que fait la vraie science. Elle dit 'association', pas 'destruction irréversible'.",dg:"Dommage ! Cette étude existe réellement et dit quelque chose de plus nuancé que le titre choc. Les vraies études évitent les formulations absolues."}},
+    {em:"📰",n:"Titre choc sur un site d'info en ligne",d:"Article avec titre sensationnaliste, sans source citée",
+     say:"« ALERTE : Les smartphones DÉTRUISENT le cerveau de vos enfants de façon PERMANENTE, selon une étude ! »",
+     g:false,fb:{tb:"Piégé(e) ! Les titres chocs exagèrent systématiquement les résultats d'études. Le mot 'DÉTRUISENT' et les majuscules sont des signaux d'alarme.",db:"Très bien ! Les majuscules, les points d'exclamation et 'selon une étude' sans la citer sont des signaux d'un article non fiable."}},
+    {em:"👨‍🔬",n:"Chercheur en neurosciences de l'INSERM",d:"Institut national de la santé et de la recherche médicale",
+     say:"« L'impact des écrans dépend de l'âge, du contenu et de la durée. Il n'existe pas de preuve d'une destruction cérébrale irréversible chez les adolescents. »",
+     g:true,fb:{tg:"Excellent ! Un chercheur de l'INSERM qui nuance et précise ses affirmations, c'est le signe d'un scientifique rigoureux.",dg:"L'INSERM est l'organisme public français de référence en santé. Un chercheur qui nuance plutôt qu'alarmiste, c'est une bonne source."}},
+    {em:"👩",n:"Parent anonyme sur un forum parental",d:"Témoignage personnel non vérifié",
+     say:"« Mon fils était premier de classe, il a eu un smartphone et maintenant il a des mauvaises notes. La preuve que ça détruit les neurones ! »",
+     g:false,fb:{tb:"Attention ! Une anecdote isolée n'est pas une preuve. Mille autres facteurs auraient pu changer les notes de cet élève. C'est le biais de corrélation/causalité.",db:"Bien joué ! Une histoire personnelle peut avoir de nombreuses autres explications. En science, on appelle ça confondre corrélation et causalité."}},
+  ]},
+  {s:"L'élevage animal est responsable de plus d'émissions de gaz à effet de serre que tous les transports mondiaux réunis. 🐄",t:true,
+   e:"C'est VRAI. Selon la FAO, l'élevage représente environ 14,5% des émissions mondiales de GES, ce qui dépasse les transports (environ 12-13%). Cela inclut le méthane des ruminants, les déforestations et la production de fourrage.",
+   src:[
+    {em:"🌾",n:"FAO — Rapport 'Livestock's Long Shadow'",d:"Organisation des Nations Unies pour l'alimentation et l'agriculture",
+     say:"« Le secteur de l'élevage génère environ 14,5% des émissions mondiales de gaz à effet de serre, ce qui dépasse effectivement l'ensemble du secteur des transports. »",
+     g:true,fb:{tg:"Parfait ! La FAO est l'agence de l'ONU spécialisée dans l'alimentation. Ce rapport est une référence mondiale et souvent cité par le GIEC.",dg:"Dommage ! La FAO a mené une des études les plus complètes sur l'impact environnemental de l'élevage. C'est une source de référence."}},
+    {em:"🥩",n:"Fédération nationale bovine",d:"Organisation représentant les éleveurs français",
+     say:"« Ces chiffres sont exagérés et sortis de contexte. L'élevage français est parmi les moins polluants au monde. »",
+     g:false,fb:{tb:"Méfiance ! La Fédération nationale bovine représente les éleveurs : elle a un intérêt direct à minimiser ces chiffres. C'est un conflit d'intérêts.",db:"Bonne intuition de te méfier ! Même si leur critique mérite d'être examinée, une organisation professionnelle défend ses membres avant la vérité objective."}},
+    {em:"📊",n:"Agence Internationale de l'Énergie (AIE)",d:"Organisation intergouvernementale sur l'énergie mondiale",
+     say:"« Les transports représentent environ 16% des émissions mondiales selon nos calculs, légèrement au-dessus de l'élevage. Les deux secteurs sont très proches selon la méthode de calcul retenue. »",
+     g:true,fb:{tg:"Excellent et bravo pour la nuance ! L'AIE donne un chiffre légèrement différent selon la méthode. Les deux sources officielles sont fiables — elles montrent que les chiffres sont très proches.",dg:"Dommage ! L'AIE est une source fiable qui nuance légèrement le chiffre. En science, des sources différentes peuvent arriver à des résultats proches sans se contredire."}},
+    {em:"🌿",n:"Militant vegan sur Instagram",d:"Compte de sensibilisation, sans sources citées",
+     say:"« L'élevage = 51% des émissions ! Si tu manges de la viande tu tues la planète ! »",
+     g:false,fb:{tb:"Le chiffre de 51% est exagéré et contesté. L'affirmation vraie (14,5%) n'a pas besoin d'être gonflée — méfie-toi même des sources qui défendent une cause juste.",db:"Bien joué ! Même les causes justes peuvent véhiculer des chiffres faux. Un militant sans sources citées n'est pas une référence, même si son message de fond peut contenir du vrai."}},
+  ]},
+  {s:"Manger des aliments OGM est dangereux pour la santé : une étude scientifique a prouvé qu'ils provoquent des cancers chez les rats. 🧬",t:false,
+   e:"C'est FAUX. L'étude de Séralini (2012) prétendait prouver cela mais a été retirée pour graves défauts méthodologiques. Les agences sanitaires mondiales (EFSA, OMS) concluent qu'aucun OGM autorisé n'a démontré de danger pour la santé humaine.",
+   src:[
+    {em:"🏛️",n:"EFSA — Autorité européenne de sécurité des aliments",d:"Agence de l'Union Européenne pour la sécurité alimentaire",
+     say:"« Les OGM autorisés sur le marché européen ne présentent pas de risques supplémentaires par rapport aux aliments conventionnels, selon nos évaluations systématiques. »",
+     g:true,fb:{tg:"Parfait ! L'EFSA est l'agence indépendante chargée par l'UE d'évaluer la sécurité alimentaire. Son rôle est de protéger les consommateurs, pas de défendre l'industrie.",dg:"Dommage ! L'EFSA est une agence publique indépendante dont la mission est précisément d'évaluer ces risques pour protéger les Européens."}},
+    {em:"📹",n:"Documentaire militant anti-OGM",d:"Film de sensibilisation, sans peer-review",
+     say:"« L'industrie rachète les études qui la dérangent. Les vrais scientifiques indépendants prouvent les dangers des OGM ! »",
+     g:false,fb:{tb:"Attention à l'argument du complot ! L'idée que 'toutes les études officielles sont achetées' est infalsifiable — et donc non scientifique. C'est un signal d'alarme.",db:"Bien joué ! Un documentaire militant n'est pas soumis à la révision par des pairs. Et l'argument 'l'industrie achète tout' est une façon d'échapper à la preuve."}},
+    {em:"🔬",n:"Académie nationale des sciences des États-Unis (2016)",d:"Rapport de synthèse de plus de 900 études",
+     say:"« Notre analyse de plus de 900 études indépendantes ne révèle aucune preuve de risque pour la santé associé aux OGM actuellement commercialisés. »",
+     g:true,fb:{tg:"Excellent ! Une méta-analyse de 900 études, c'est le niveau de preuve le plus élevé en science. Bien plus solide qu'une seule étude, même spectaculaire.",dg:"Dommage ! 900 études analysées ensemble, c'est infiniment plus solide qu'une seule étude retirée pour fraude. La force de la preuve est dans le nombre."}},
+    {em:"💬",n:"Blog 'Sans OGM et fier de l'être'",d:"Blog personnel militant, sans formation scientifique",
+     say:"« Mes enfants ont des allergies depuis qu'on mange ces produits. C'est forcément les OGM. »",
+     g:false,fb:{tb:"Piégé(e) ! Une allergie qui apparaît en même temps qu'un changement alimentaire ne prouve pas le lien. Des millions de facteurs environnementaux peuvent déclencher des allergies.",db:"Bien joué ! Encore un exemple de confusion entre corrélation et causalité. Et un blog personnel n'est jamais une source scientifique fiable."}},
+  ]},
+  {s:"Certaines personnes sont naturellement 'cerveau gauche' (logiques) et d'autres 'cerveau droit' (créatives). C'est prouvé par les neurosciences. 🧠",t:false,
+   e:"C'est FAUX. Les neurosciences montrent que toutes les tâches complexes mobilisent les deux hémisphères simultanément. Le mythe du 'cerveau dominant' est une simplification erronée souvent exploitée pour vendre des formations.",
+   src:[
+    {em:"🧪",n:"Étude de l'Université d'Utah — PLOS ONE (2013)",d:"Analyse IRM de 1 000 cerveaux humains",
+     say:"« Nos analyses ne montrent aucune dominance hémisphérique systématique liée à la personnalité ou aux capacités. Le mythe 'cerveau gauche/droit' est scientifiquement infondé. »",
+     g:true,fb:{tg:"Parfait ! Une étude IRM sur 1 000 cerveaux publiée dans une revue à comité de lecture — c'est exactement le type de preuve solide qu'il faut chercher.",dg:"Dommage ! Cette étude est l'une des plus complètes sur le sujet. Elle contredit clairement la croyance populaire avec des données objectives."}},
+    {em:"📝",n:"Test de personnalité viral en ligne",d:"Quiz non scientifique, sans auteur identifié",
+     say:"« Réponds à ces 10 questions et découvre si tu es cerveau gauche ou cerveau droit ! Partage ton résultat ! »",
+     g:false,fb:{tb:"Aïe ! Un quiz en ligne sans auteur ni méthodologie n'a aucune valeur scientifique. Il est conçu pour être partagé, pas pour être juste.",db:"Bien joué ! Les tests viraux sont conçus pour le partage, pas pour la rigueur. L'absence d'auteur identifié et de méthodologie est un signal d'alarme."}},
+    {em:"🏥",n:"INSERM — Institut national de la santé et de la recherche médicale",d:"Principal organisme public français de recherche en santé",
+     say:"« La créativité, comme la logique, mobilise des réseaux distribués dans les deux hémisphères. La dichotomie cerveau gauche/droit est une simplification erronée sans base neurologique. »",
+     g:true,fb:{tg:"Excellent ! L'INSERM est la référence française en neurosciences. Une explication qui parle de réseaux distribués reflète l'état actuel de la recherche.",dg:"Dommage ! L'INSERM est une source publique indépendante de très haute fiabilité sur les questions de santé et de neurosciences."}},
+    {em:"🎓",n:"Coach en développement personnel",d:"Formation payante sans diplôme scientifique",
+     say:"« Identifie ton hémisphère dominant et tu comprendras enfin pourquoi tu es nul en maths ! Inscris-toi à ma formation ! »",
+     g:false,fb:{tb:"Piégé(e) ! L'utilisation d'une idée fausse pour vendre une formation est un classique. L'argument 'tu comprendras enfin pourquoi...' joue sur tes insécurités.",db:"Bien joué ! Quand une affirmation pseudo-scientifique est utilisée pour vendre quelque chose, la méfiance s'impose doublement."}},
+  ]},
+  {s:"Napoléon était très petit — environ 1m57 — ce qui lui aurait donné un complexe d'infériorité. 📜",t:false,
+   e:"C'est FAUX. Napoléon mesurait environ 1m69, légèrement au-dessus de la moyenne française de son époque. La confusion vient d'une erreur de conversion entre les pouces français et anglais, amplifiée par la propagande britannique.",
+   src:[
+    {em:"📚",n:"Historien spécialiste du Premier Empire (Sorbonne)",d:"Chercheur universitaire, publications peer-reviewed",
+     say:"« Les registres médicaux militaires mesurent Napoléon à 1m69, légèrement au-dessus de la moyenne de ses contemporains. Le mythe de sa petite taille est une construction de la propagande ennemie. »",
+     g:true,fb:{tg:"Parfait ! Un historien universitaire qui cite des archives primaires (registres militaires), c'est la meilleure source possible pour une question historique.",dg:"Dommage ! Les historiens travaillent à partir de sources primaires d'époque. Leur analyse critique des archives est bien plus fiable qu'une idée reçue."}},
+    {em:"🎭",n:"Caricature britannique de Gillray (1803)",d:"Propagande politique britannique anti-Napoléon",
+     say:"« [Napoléon représenté minuscule, dominé par le roi d'Angleterre — image conçue pour ridiculiser l'ennemi.] »",
+     g:false,fb:{tb:"Attention ! Une caricature de propagande n'est pas une source historique fiable. Elle est conçue pour manipuler l'opinion, pas refléter la réalité.",db:"Bien joué ! Tu as reconnu une source de propagande ! C'est précisément l'origine du mythe — une caricature destinée à humilier un ennemi."}},
+    {em:"🏛️",n:"Musée de l'Armée (Paris)",d:"Institution nationale, conservatrice des archives napoléoniennes",
+     say:"« D'après les documents d'époque, Napoléon mesurait entre 1m67 et 1m70. La confusion vient d'une erreur de conversion entre mesures françaises et anglaises. »",
+     g:true,fb:{tg:"Excellent ! Le Musée de l'Armée conserve les archives originales. Une institution qui cite ses sources primaires est une référence de qualité.",dg:"Dommage ! Un musée national qui conserve les documents d'époque est une source historique de premier plan."}},
+    {em:"💬",n:"'Tout le monde sait qu'il était petit !'",d:"Croyance populaire répétée sans vérification",
+     say:"« C'est dans tous les livres d'histoire ! Mon prof de primaire nous l'a dit ! »",
+     g:false,fb:{tb:"Piégé(e) ! Une croyance très répandue peut très bien être fausse. L'histoire est pleine d'erreurs transmises de génération en génération sans vérification.",db:"Bien joué ! 'Tout le monde le sait' est l'une des formules les plus dangereuses en fact-checking. Les erreurs les plus répandues sont souvent les plus difficiles à corriger."}},
+  ]},
+  {s:"Il existe un 'continent de plastique' dans le Pacifique : une île solide sur laquelle on pourrait marcher. 🌊",t:false,
+   e:"C'est FAUX (mais le problème est réel). La zone de déchets existe, mais ce n'est pas une île solide. Il s'agit surtout de micro-plastiques en suspension dans l'eau, majoritairement invisibles à l'œil nu. La pollution reste un problème majeur documenté.",
+   src:[
+    {em:"🔬",n:"CNRS — Laboratoire d'océanographie de Villefranche",d:"Organisme public français de recherche scientifique",
+     say:"« Le 'continent de plastique' est composé en majorité de micro-plastiques en suspension dans les premiers mètres d'eau, pas d'une surface solide praticable. L'image de l'île est trompeuse mais le problème est réel. »",
+     g:true,fb:{tg:"Parfait ! Le CNRS nuance sans nier le problème — c'est exactement ce que fait une source sérieuse. La réalité est souvent plus complexe que l'image virale.",dg:"Dommage ! Le CNRS ne nie pas le problème, il le décrit avec précision. Une source fiable distingue le fait de sa représentation populaire."}},
+    {em:"📸",n:"Photo virale 'L'île de plastique du Pacifique'",d:"Image partagée des millions de fois sur les réseaux",
+     say:"« [Photo d'une plage jonchée de déchets présentée comme 'le continent de plastique'] — En réalité, cette photo a été prise à Manille lors d'une inondation. »",
+     g:false,fb:{tb:"Piégé(e) ! L'image la plus partagée sur ce sujet est fausse dans son contexte. C'est un exemple parfait de photo vraie utilisée dans le mauvais contexte.",db:"Bien joué ! Tu as été méfiant face à une image virale. Vérifier l'origine d'une photo (Google Images, TinEye) est un réflexe essentiel de fact-checking."}},
+    {em:"🌐",n:"The Ocean Cleanup — Organisation spécialisée",d:"ONG dédiée à la dépollution des océans, données publiées",
+     say:"« La zone de déchets du Pacifique Nord couvre une surface estimée à 1,6 million de km², mais les plastiques sont majoritairement des micro-particules invisibles à l'œil nu. »",
+     g:true,fb:{tg:"Excellent ! The Ocean Cleanup publie ses données et méthodes. Une organisation qui cite ses chiffres précis et ses méthodes est bien plus fiable qu'une image virale.",dg:"Dommage ! The Ocean Cleanup travaille directement sur ce problème et publie des données vérifiables. C'est une source fiable sur ce sujet précis."}},
+    {em:"💬",n:"Commentaire sur X (ex-Twitter)",d:"Réaction spontanée d'un internaute",
+     say:"« J'ai vu les photos : c'est une île sur laquelle on peut marcher ! Pourquoi on ne l'enlève pas tout simplement ? »",
+     g:false,fb:{tb:"Attention ! Une réaction émotionnelle sur les réseaux, aussi bien intentionnée soit-elle, n'est pas une source. Elle peut même diffuser une fausse représentation d'un vrai problème.",db:"Bien joué ! Les réseaux sociaux diffusent souvent des représentations simplifiées de problèmes complexes. Bien comprendre un problème nécessite des sources spécialisées."}},
+  ]},
+  {s:"Les jeux vidéo violents rendent les joueurs violents dans la vraie vie. C'est scientifiquement prouvé. 🎮",t:false,
+   e:"C'est FAUX selon le consensus actuel. Les études sont très contestées : certaines trouvent une légère corrélation à court terme en labo, mais aucun consensus ne démontre un lien de causalité avec la violence réelle. Le Japon, premier marché mondial du jeu vidéo, a un des taux de violence les plus bas.",
+   src:[
+    {em:"🏛️",n:"Association Américaine de Psychologie — Révision 2020",d:"Organisation professionnelle regroupant 120 000 psychologues",
+     say:"« Les données actuelles ne permettent pas de conclure que les jeux vidéo violents causent des comportements violents dans la société. Le lien est bien plus complexe qu'un simple effet de cause à effet. »",
+     g:true,fb:{tg:"Parfait ! L'APA représente 120 000 psychologues et a révisé sa position après avoir accumulé des années de données. C'est le consensus professionnel actuel.",dg:"Dommage ! L'APA a revu sa position face à l'accumulation de preuves. Une organisation sérieuse qui révise ses conclusions selon les preuves, c'est un signe de rigueur."}},
+    {em:"📺",n:"Journal télévisé après une fusillade aux États-Unis",d:"Reportage d'actualité sans analyse scientifique",
+     say:"« Le suspect jouait régulièrement à des jeux vidéo violents, selon ses proches... »",
+     g:false,fb:{tb:"Piégé(e) ! Mentionner les jeux vidéo après un crime sans données comparatives crée une fausse association. Des centaines de millions de joueurs ne commettent pas de violence.",db:"Bien joué ! Les médias mentionnent souvent les jeux vidéo après des violences, créant un biais cognitif. Mais si 3 milliards de joueurs dans le monde jouent à des jeux violents, le taux de violence ne suit pas."}},
+    {em:"📊",n:"Étude comparative internationale — Université d'Oxford (2019)",d:"Recherche peer-reviewed sur 1 000 adolescents",
+     say:"« Dans notre étude longitudinale, nous n'avons pas trouvé de lien entre temps de jeu vidéo violent et comportement agressif réel dans la vie quotidienne. »",
+     g:true,fb:{tg:"Excellent ! Une étude longitudinale (sur la durée) peer-reviewed d'Oxford, c'est un niveau de preuve solide. Elle mesure des comportements réels, pas en laboratoire.",dg:"Dommage ! Oxford est une université de recherche de premier rang. Une étude longitudinale sur des comportements réels est plus fiable qu'une expérience de labo à court terme."}},
+    {em:"🎙️",n:"Politicien lors d'un discours électoral",d:"Déclaration politique sans source citée",
+     say:"« Ces jeux entraînent nos enfants à tuer ! Il faut les interdire ! Regardez ce qui se passe en Amérique ! »",
+     g:false,fb:{tb:"Signal d'alarme ! Un discours politique émotionnel sans source citée n'est pas une preuve. Comparer des taux de violence sans contrôler tous les autres facteurs, c'est du raisonnement biaisé.",db:"Bien joué ! Les discours politiques utilisent souvent des émotions et des associations rapides. Ce n'est pas une source de faits, c'est une source d'opinions."}},
+  ]},
+  {s:"La pleine lune perturbe le sommeil, rend les gens plus agressifs et fait augmenter les admissions aux urgences. Même les médecins le confirment. 🌙",t:false,
+   e:"C'est FAUX. Une méta-analyse portant sur 37 études n'a trouvé aucune corrélation. Les médecins qui 'confirment' sont victimes du biais de confirmation : ils retiennent les nuits de pleine lune agitées et oublient les autres.",
+   src:[
+    {em:"🔭",n:"Revue Psychological Bulletin — méta-analyse de 37 études",d:"Synthèse de plusieurs décennies de recherche",
+     say:"« L'analyse cumulative de 37 études indépendantes ne révèle aucun effet significatif de la pleine lune sur les comportements humains, les accidents ou les hospitalisations. »",
+     g:true,fb:{tg:"Parfait ! Une méta-analyse de 37 études est l'un des niveaux de preuve les plus élevés en science. Elle agrège des décennies de recherche pour en tirer une conclusion robuste.",dg:"Dommage ! 37 études analysées ensemble, c'est bien plus solide qu'un témoignage d'infirmier, aussi sincère soit-il. La force est dans le nombre et la rigueur."}},
+    {em:"🏥",n:"Infirmier aux urgences sur un forum professionnel",d:"Témoignage d'un soignant expérimenté",
+     say:"« Croyez-moi, les nuits de pleine lune c'est toujours le chaos aux urgences ! On le dit tous entre collègues. »",
+     g:false,fb:{tb:"Attention au biais de confirmation ! Les infirmiers retiennent les nuits de pleine lune agitées et oublient les autres nuits tout aussi chaotiques. C'est humain, mais ce n'est pas une preuve.",db:"Bien joué ! C'est l'exemple parfait du biais de confirmation : on remarque et retient les événements qui confirment notre croyance, on oublie les autres. Les infirmiers sont sincères, mais leur mémoire sélective les trompe."}},
+    {em:"🌙",n:"Site d'astrologie en ligne",d:"Contenu ésotérique sans base scientifique",
+     say:"« La pleine lune amplifie les émotions et perturbe le cycle circadien. C'est prouvé par la science de l'énergie lunaire ! »",
+     g:false,fb:{tb:"Piégé(e) ! 'Science de l'énergie lunaire' n'est pas une discipline scientifique reconnue. L'usage du mot 'science' ne rend pas un argument scientifique.",db:"Bien joué ! Les sites ésotériques utilisent souvent un vocabulaire scientifique pour donner une apparence de crédibilité. Vérifier si la discipline existe vraiment est un bon réflexe."}},
+    {em:"📋",n:"Étude de l'Université de Munich — journal Curr Biol (2013)",d:"Mesures objectives du sommeil sur plusieurs cycles lunaires",
+     say:"« Nos mesures polysomnographiques objectives sur plusieurs cycles lunaires complets ne montrent aucune corrélation significative avec les phases de la lune. »",
+     g:true,fb:{tg:"Excellent ! Des mesures polysomnographiques (enregistrement objectif du sommeil en laboratoire) sur plusieurs cycles, c'est une méthodologie rigoureuse. Bien plus fiable qu'une impression.",dg:"Dommage ! Des mesures objectives en laboratoire sur la durée, publiées dans une revue peer-reviewed, c'est exactement le type de preuve solide qu'il faut rechercher."}},
+  ]},
+];
+
+// ═══════════════════════════════════════════════
+// ÉTAT DU JEU
+// ═══════════════════════════════════════════════
+let QS=[], qi=0, score=0, meter=50, uc=0, sh=[], um={}, pend=null, gameMode=5, currentLevel='junior';
+let dragging=false, miniDragging=false, tempMeter=50;
+
+const $=id=>document.getElementById(id);
+function show(id){$('ov').classList.add('show');$(id).classList.add('show');}
+function hide(id){$(id).classList.remove('show');if(!['msrc','mfb','mvr','mfb-meter'].some(m=>$(m).classList.contains('show')))$('ov').classList.remove('show');}
+function shuf(a){return[...a].sort(()=>Math.random()-.5);}
+
+// ── Navigation niveaux/modes ──
+function chooseLevel(level){
+  currentLevel=level;
+  $('levelscreen').style.display='none';
+  $('modescreen').style.display='block';
+  $('modescreen-title').textContent = level==='junior'
+    ? '🔎 Apprenti Détective — Choisis ton mode'
+    : '⚡ Fact-Checker Confirmé — Choisis ton mode';
+}
+
+function backToLevel(){
+  $('modescreen').style.display='none';
+  $('levelscreen').style.display='block';
+}
+
+function chooseMode(){
+  $('final').style.display='none';
+  $('levelscreen').style.display='block';
+}
+
+// ── Démarrer la partie ──
+function startGame(mode){
+  gameMode=mode;
+  const pool=currentLevel==='pro'?QUESTIONS_PRO:QUESTIONS_JUNIOR;
+  const all=[...pool];
+  QS = mode===5 ? shuf(all).slice(0,5) : shuf(all);
+  qi=0;score=0;meter=50;
+  $('modescreen').style.display='none';
+  $('scorebar').style.display='flex';
+  $('dots').style.display='flex';
+  $('game').style.display='block';
+  $('qtotal').textContent=QS.length;
+  initMeterDrag();
+  renderQ();
+}
+
+function restart(){
+  $('final').style.display='none';
+  startGame(gameMode);
+}
+
+// ── Meter drag ──
+function initMeterDrag(){
+  const bg=$('mbg');
+  function getPos(e){
+    const rect=bg.getBoundingClientRect();
+    const clientX=e.touches?e.touches[0].clientX:e.clientX;
+    return Math.max(3,Math.min(97,(clientX-rect.left)/rect.width*100));
+  }
+  function onMove(e){if(!dragging)return;e.preventDefault();meter=getPos(e);updMeter();}
+  function onDown(e){dragging=true;meter=getPos(e);updMeter();}
+  function onUp(){dragging=false;}
+  bg.addEventListener('mousedown',onDown);
+  window.addEventListener('mousemove',onMove);
+  window.addEventListener('mouseup',onUp);
+  bg.addEventListener('touchstart',onDown,{passive:true});
+  window.addEventListener('touchmove',onMove,{passive:false});
+  window.addEventListener('touchend',onUp);
+}
+
+function openMeterAdjust(){
+  hide('mfb');
+  tempMeter=meter;
+  updMiniMeter(tempMeter);
+  show('mfb-meter');
+  initMiniMeterDrag();
+}
+
+function confirmMeterAdjust(){
+  meter=tempMeter;
+  updMeter();
+  hide('mfb-meter');
+}
+
+function updMiniMeter(p){
+  p=Math.max(3,Math.min(97,p));
+  $('mini-mfill').style.width=p+'%';
+  $('mini-mcursor').style.left=p+'%';
+  const s=$('mini-mstatus');
+  if(p<33){$('mini-mfill').style.background='linear-gradient(90deg,#f75f5f,#f7a548)';s.textContent='⬅️ Plutôt FAUX';s.style.color='#f75f5f';}
+  else if(p>66){$('mini-mfill').style.background='linear-gradient(90deg,#3ecf8e,#4fa3f7)';s.textContent='Plutôt VRAI ➡️';s.style.color='#3ecf8e';}
+  else{$('mini-mfill').style.background='linear-gradient(90deg,#f7c948,#4fa3f7)';s.textContent='🤔 Incertain...';s.style.color='#f7c948';}
+}
+
+let miniListenersAdded=false;
+function initMiniMeterDrag(){
+  if(miniListenersAdded)return;
+  miniListenersAdded=true;
+  const bg=$('mini-mbg');
+  function getPos(e){
+    const rect=bg.getBoundingClientRect();
+    const clientX=e.touches?e.touches[0].clientX:e.clientX;
+    return Math.max(3,Math.min(97,(clientX-rect.left)/rect.width*100));
+  }
+  function onMove(e){if(!miniDragging)return;e.preventDefault();tempMeter=getPos(e);updMiniMeter(tempMeter);}
+  function onDown(e){miniDragging=true;tempMeter=getPos(e);updMiniMeter(tempMeter);}
+  function onUp(){miniDragging=false;}
+  bg.addEventListener('mousedown',onDown);
+  window.addEventListener('mousemove',onMove);
+  window.addEventListener('mouseup',onUp);
+  bg.addEventListener('touchstart',onDown,{passive:true});
+  window.addEventListener('touchmove',onMove,{passive:false});
+  window.addEventListener('touchend',onUp);
+}
+
+function updMeter(){
+  const p=Math.max(3,Math.min(97,meter));
+  $('mfill').style.width=p+'%';
+  $('mcursor').style.left=p+'%';
+  const s=$('mstatus');
+  if(p<33){$('mfill').style.background='linear-gradient(90deg,#f75f5f,#f7a548)';s.textContent='⬅️ Plutôt FAUX';s.style.color='#f75f5f';}
+  else if(p>66){$('mfill').style.background='linear-gradient(90deg,#3ecf8e,#4fa3f7)';s.textContent='Plutôt VRAI ➡️';s.style.color='#3ecf8e';}
+  else{$('mfill').style.background='linear-gradient(90deg,#f7c948,#4fa3f7)';s.textContent='🤔 Incertain...';s.style.color='#f7c948';}
+}
+
+function updDots(){
+  const w=$('dots');w.innerHTML='';
+  QS.forEach((_,i)=>{const d=document.createElement('div');d.className='dot'+(i<qi?' done':i===qi?' active':'');w.appendChild(d);});
+}
+
+function updCounter(){
+  const total=sh.length;
+  const remaining=total-uc;
+  if(uc===0) $('counter').textContent=`Consulte au moins 1 source avant de voter (${total} disponibles)`;
+  else if(remaining>0) $('counter').textContent=`✅ Tu peux voter ou consulter encore ${remaining} source${remaining>1?'s':''} !`;
+  else $('counter').textContent=`✅ Tu as évalué toutes les sources. À toi de décider !`;
+}
+
+function renderQ(){
+  const q=QS[qi];
+  meter=50;uc=0;um={};
+  $('stxt').textContent=q.s;
+  $('qn').textContent=qi+1;
+  $('sc').textContent=score;
+  $('vzone').style.display='none';
+  updMeter();updDots();updCounter();
+  if(currentLevel==='pro'&&qi<=1){setTimeout(()=>show('mhint-cursor'),200);}
+  sh=shuf(q.src);
+  const g=$('sgrid');g.innerHTML='';
+  sh.forEach((src,i)=>{
+    const b=document.createElement('button');
+    b.className='sbtn';b.id='sb'+i;
+    b.innerHTML=`<span class="semoji">${src.em}</span><div><div class="sname">${src.n}</div><div class="sdesc">${src.d}</div></div>`;
+    b.onclick=()=>openSrc(src,i,b);
+    g.appendChild(b);
+  });
+}
+
+function closeCursorHint(){hide('mhint-cursor');}
+
+function openSrc(src,idx,btn){
+  if(um[idx]!==undefined)return;
+  pend={src,idx,btn};
+  $('msname').textContent=src.em+'  '+src.n;
+  $('msdesc').textContent=src.d;
+  $('mssays').textContent=src.say;
+
+  if(currentLevel==='pro'){
+    // Mode PRO : Likert, pas de feedback sur fiabilité
+    $('msrc-junior').style.display='none';
+    $('msrc-pro').style.display='block';
+    initLikert();
+  } else {
+    $('msrc-junior').style.display='block';
+    $('msrc-pro').style.display='none';
+  }
+  show('msrc');
+}
+
+let likertVal=0;
+const LIKERT_LABELS=['','Absolument pas fiable','Très peu fiable','Peu fiable','Neutre — difficile à dire','Plutôt fiable','Très fiable','Totalement fiable'];
+
+function initLikert(){
+  likertVal=0;
+  const container=$('likert-btns');
+  container.innerHTML='';
+  for(let v=1;v<=7;v++){
+    const b=document.createElement('button');
+    b.className='lbtn';b.dataset.v=v;b.textContent=v;
+    b.onclick=()=>selectLikert(v);
+    container.appendChild(b);
+  }
+  $('likert-label').textContent='';
+  $('likert-confirm').style.opacity='.4';
+  $('likert-confirm').style.pointerEvents='none';
+}
+
+function selectLikert(v){
+  likertVal=v;
+  document.querySelectorAll('.lbtn').forEach(b=>{
+    b.classList.toggle('selected',parseInt(b.dataset.v)===v);
+  });
+  $('likert-label').textContent=LIKERT_LABELS[v];
+  $('likert-confirm').style.opacity='1';
+  $('likert-confirm').style.pointerEvents='auto';
+}
+
+function confirmLikert(){
+  hide('msrc');
+  const{src,idx,btn}=pend;
+  // Pas de feedback sur fiabilité en mode pro — on note juste la source comme consultée
+  // On colore sobrement selon si la source est bonne ou non (invisible pour l'élève)
+  // On garde le score neutre (pas de pts pour l'évaluation source en mode pro)
+  um[idx]='visited';
+  uc++;
+  btn.classList.add('ug'); // légère teinte verte = "consultée"
+  btn.disabled=true;
+  // Afficher le score Likert discret sur le bouton
+  const tag=document.createElement('div');
+  tag.className='utag g';
+  tag.textContent='⭐ '+likertVal+'/7';
+  btn.querySelector('div').appendChild(tag);
+  updCounter();
+  // Ouvrir le modal feedback (pour proposer l'ajustement du curseur) comme en mode junior
+  $('fbemoji').textContent='🎚️';
+  $('fbtitle').textContent='Source évaluée !';
+  $('fbexpl').textContent='Tu as noté cette source '+likertVal+'/7. Tu peux consulter d\'autres sources ou voter directement.';
+  $('fbpts').textContent='';$('fbpts').className='fbpts';
+  setTimeout(()=>show('mfb'),80);
+  setTimeout(()=>{$('vzone').style.display='block';},600);
+}
+
+function trust(trusts){
+  hide('msrc');
+  const{src,idx,btn}=pend;
+  let pts,emoji,title,expl,pc,oc;
+  if(src.g&&trusts)     {pts=30;pc='pos';oc='ug';emoji='🎉';title='Excellent choix !';expl=src.fb.tg;}
+  else if(src.g)        {pts=-10;pc='neg';oc='ub';emoji='😬';title='Dommage...';       expl=src.fb.dg;}
+  else if(trusts)       {pts=-20;pc='neg';oc='ub';emoji='😬';title='Attention !';       expl=src.fb.tb;}
+  else                  {pts=20; pc='pos';oc='ug';emoji='👏';title='Bien joué !';       expl=src.fb.db;}
+  score=Math.max(0,score+pts);
+  uc++;um[idx]=oc;
+  btn.classList.add(oc);btn.disabled=true;
+  const tag=document.createElement('div');tag.className='utag '+(oc==='ug'?'g':'b');tag.textContent=trusts?'✅ Crue':'🙅 Ignorée';
+  btn.querySelector('div').appendChild(tag);
+  $('sc').textContent=score;
+  updCounter();
+  $('fbemoji').textContent=emoji;$('fbtitle').textContent=title;$('fbexpl').textContent=expl;
+  $('fbpts').textContent=(pts>=0?'+':'')+pts+' pts';$('fbpts').className='fbpts '+pc;
+  setTimeout(()=>show('mfb'),80);
+  setTimeout(()=>{$('vzone').style.display='block';},600);
+}
+
+function submitV(v){
+  const q=QS[qi];$('vzone').style.display='none';
+  const ok=v===q.t,pts=ok?50:-20;
+  score=Math.max(0,score+pts);$('sc').textContent=score;
+  $('vremoji').textContent=ok?'🎉':'😬';
+  $('vrtitle').textContent=ok?(q.t?"✅ Oui, c'est bien VRAI !":"✅ Oui, c'est bien FAUX !"):(q.t?"❌ Non, c'était VRAI !":"❌ Non, c'était FAUX !");
+  $('vrexpl').textContent=q.e;
+  $('vrpts').textContent=(pts>=0?'+':'')+pts+' pts';$('vrpts').className='fbpts '+(ok?'pos':'neg');
+  show('mvr');
+}
+
+function closeV(){
+  hide('mvr');
+  setTimeout(()=>{
+    if(qi+1<QS.length){nextQ();}else{showFinal();}
+  },400);
+}
+
+function nextQ(){
+  qi++;
+  if(qi>=QS.length)showFinal();else renderQ();
+}
+
+function showFinal(){
+  $('game').style.display='none';$('scorebar').style.display='none';$('dots').style.display='none';
+  const maxPts=QS.length*(3*30+50);
+  const pct=score/maxPts;
+  let m,c;
+  if(pct>=.8){m='🥇';c="Incroyable ! Tu es un vrai détective de l'info !";}
+  else if(pct>=.5){m='🥈';c="Bien joué ! Tu as de bons réflexes de vérification !";}
+  else if(pct>=.25){m='🥉';c="Pas mal ! Continue à t'entraîner à vérifier les infos !";}
+  else{m='📚';c="Les fake news t'ont bien eu... mais maintenant tu sais comment réagir !";}
+  const tips=[['✅','Consulte un expert ou spécialiste du sujet'],['✅','Utilise des sources officielles (.gouv, agences scientifiques)'],['✅','Vérifie sur un site de fact-checking (Hoaxbuster, AFP Factuel…)'],['✅','Lis des encyclopédies ou livres scientifiques'],['❌','Les likes et partages ne prouvent rien'],['❌','"Tout le monde le dit" ne prouve rien'],['❌','Une info drôle ou choquante doit être encore plus vérifiée']];
+  $('final').style.display='block';
+  $('final').innerHTML=`<span class="fmedal">${m}</span><h2 class="fh2">Enquête terminée !</h2><p style="color:var(--mu);font-weight:700;margin-bottom:8px">${c}</p><div class="fscore">${score} pts</div><div class="ftips"><h3>📋 Les bons réflexes à retenir</h3>${tips.map(t=>`<div class="tip"><span>${t[0]}</span><span>${t[1]}</span></div>`).join('')}</div><button id="rbtn" onclick="restart()">🔄 Rejouer</button><button id="mbtn" onclick="chooseMode()">🏠 Menu</button>`;
+}
+</script>
+</body>
+</html>
