@@ -222,7 +222,7 @@ h1{font-family:'Fredoka One',cursive;font-size:clamp(2rem,6vw,2.8rem);color:var(
 <header style="text-align:center">
   <h1>🔍 FakeMètre</h1>
   <p class="sub">Vraie info ou fake news ? Trouve les bonnes sources !</p>
-  <p class="author">par Antonin Atger &nbsp;|&nbsp; <a href="mailto:contact@antoninatger.com">contact@antoninatger.com</a> &nbsp;|&nbsp; <a href="https://antoninatger.com" target="_blank">antoninatger.com</a></p>
+  <p class="author">par Antonin Atger &nbsp;|&nbsp; <a href="mailto:antonin@antoninatger.com">antonin@antoninatger.com</a> &nbsp;|&nbsp; <a href="https://antoninatger.com" target="_blank">antoninatger.com</a></p>
 </header>
 
 <!-- LEVEL SELECTOR -->
@@ -505,7 +505,11 @@ h1{font-family:'Fredoka One',cursive;font-size:clamp(2rem,6vw,2.8rem);color:var(
   <button class="mclose" onclick="closeCursorHint()">🎚️ Ok, je positionne le curseur !</button>
 </div>
 
-<script>
+<footer style="text-align:center;padding:20px 0 10px;opacity:.5;font-size:.75rem;font-weight:600;color:var(--mu);">
+  © 2025 Antonin Atger &nbsp;|&nbsp; <a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" style="color:var(--mu);">CC BY-NC 4.0</a>
+</footer>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 
 </script>
 <script>
@@ -2380,15 +2384,4 @@ window.addEventListener('load', function(){
   
   const blob = new Blob([modifiedHTML], {type: 'text/html'});
   const url = URL.createObjectURL(blob);
-  const a = document.createElement('a');
-  a.href = url;
-  a.download = 'fakemetre_custom.html';
-  a.click();
-  URL.revokeObjectURL(url);
-}
-
-// Charger les questions au démarrage
-document.addEventListener('DOMContentLoaded', loadCustomQuestions);
-</script>
-</body>
-</html>
+  const a = document.
