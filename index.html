@@ -2356,19 +2356,35 @@ function handleImportCSV(event){
 
 function exportHTML(){
   if(customQuestions.length === 0) return;
-  
-  // Get current page HTML and inject custom questions
+
+  // Serialize custom questions into a self-contained HTML file
+  const questionsJSON = JSON.stringify(customQuestions, null, 2);
   const currentHTML = document.documentElement.outerHTML;
-  
-  // Create a modified version with custom questions as the default
-  const questionsJSON = JSON.stringify(customQuestions);
-  const injection = `
-<script>
-// Questions personnalisées intégrées
-const CUSTOM_EMBEDDED = ${questionsJSON};
-// Charger automatiquement ces questions
-window.addEventListener('load', function(){
-  try { 
-    const existing = localStorage.getItem('fakemetre_custom_questions');
+
+  // Inject a bootstrap script right before </head>
+  const bootstrap = `<script>
+window.addEventListener('DOMContentLoaded', function(){
+  try {
+    var CUSTOM_EMBEDDED = ${questionsJSON};
+    var existing = localStorage.getItem('fakemetre_custom_questions');
     if(!existing || JSON.parse(existing).length === 0){
-      localStorage.setItem('fakemetre_custom_questions', JSON.stringify(CUSTOM_E
+      localStorage.setItem('fakemetre_custom_questions', JSON.stringify(CUSTOM_EMBEDDED));
+    }
+  } catch(e){}
+});
+<\/script>`;
+
+  const exportedHTML = currentHTML.replace('</head>', bootstrap + '</head>');
+  const blob = new Blob([exportedHTML], {type: 'text/html;charset=utf-8'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'fakemetre_custom.html';
+  a.click();
+  URL.revokeObjectURL(url);
+}
+
+loadCustomQuestions();
+</script>
+</body>
+</html>
