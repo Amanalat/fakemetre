@@ -181,9 +181,16 @@ h1{font-family:'Fredoka One',cursive;font-size:clamp(2rem,6vw,2.8rem);color:var(
 .toggle-btn{background:var(--card);border:2px solid var(--bord);border-radius:50px;padding:8px 20px;cursor:pointer;font-family:'Nunito',sans-serif;font-weight:700;font-size:.85rem;color:var(--mu);transition:all .2s;}
 .toggle-btn.active{border-color:#3ecf8e;color:#3ecf8e;background:rgba(62,207,142,.1);}
 .toggle-btn.false.active{border-color:#f75f5f;color:#f75f5f;background:rgba(247,95,95,.1);}
+.toggle-btn.nuance.active{border-color:#f7c948;color:#f7c948;background:rgba(247,201,72,.1);}
+.enuan-group{background:rgba(247,201,72,.07);border:1px solid rgba(247,201,72,.25);border-radius:10px;padding:12px 14px;margin-bottom:16px;}
+.enuan-group label{color:#f7c948!important;}
+.nosearch-row{display:flex;align-items:center;gap:10px;margin-top:8px;}
+.nosearch-row label{font-size:.8rem;font-weight:700;color:var(--mu);margin-bottom:0;cursor:pointer;}
+.nosearch-row input[type=checkbox]{width:16px;height:16px;cursor:pointer;accent-color:#a855f7;}
 .source-card{background:var(--card);border:2px solid var(--bord);border-radius:14px;padding:16px;margin-bottom:12px;position:relative;}
 .source-card.reliable{border-color:rgba(62,207,142,.4);}
 .source-card.unreliable{border-color:rgba(247,95,95,.4);}
+.source-card.free{border-color:rgba(79,163,247,.4);}
 .source-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;}
 .source-num{font-family:'Fredoka One',cursive;font-size:1rem;color:#a855f7;}
 .source-actions{display:flex;gap:8px;}
@@ -191,6 +198,12 @@ h1{font-family:'Fredoka One',cursive;font-size:clamp(2rem,6vw,2.8rem);color:var(
 .source-action-btn:hover{border-color:var(--mu);color:var(--tx);}
 .source-action-btn.delete{color:#f75f5f;border-color:rgba(247,95,95,.4);}
 .source-action-btn.delete:hover{background:rgba(247,95,95,.1);}
+.stype-btns{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px;}
+.stype-btn{flex:1;min-width:100px;padding:7px 6px;border:2px solid var(--bord);border-radius:10px;background:var(--bg);cursor:pointer;font-family:'Nunito',sans-serif;font-size:.75rem;font-weight:800;color:var(--mu);transition:all .18s;text-align:center;}
+.stype-btn:hover{border-color:var(--mu);color:var(--tx);}
+.stype-btn.active-reliable{border-color:#3ecf8e;color:#3ecf8e;background:rgba(62,207,142,.1);}
+.stype-btn.active-unreliable{border-color:#f75f5f;color:#f75f5f;background:rgba(247,95,95,.1);}
+.stype-btn.active-free{border-color:#4fa3f7;color:#4fa3f7;background:rgba(79,163,247,.1);}
 .add-source-btn{width:100%;background:var(--card);border:2px dashed var(--bord);border-radius:14px;padding:16px;cursor:pointer;font-family:'Nunito',sans-serif;font-weight:700;font-size:.9rem;color:var(--mu);transition:all .2s;margin-top:12px;}
 .add-source-btn:hover{border-color:#a855f7;color:#a855f7;}
 .question-card{background:var(--card);border:2px solid var(--bord);border-radius:14px;padding:16px;margin-bottom:12px;cursor:pointer;transition:all .2s;}
@@ -222,7 +235,7 @@ h1{font-family:'Fredoka One',cursive;font-size:clamp(2rem,6vw,2.8rem);color:var(
 <header style="text-align:center">
   <h1>🔍 FakeMètre</h1>
   <p class="sub">Vraie info ou fake news ? Trouve les bonnes sources !</p>
-  <p class="author">par Antonin Atger &nbsp;|&nbsp; <a href="mailto:contact@antoninatger.com">contact@antoninatger.com</a> &nbsp;|&nbsp; <a href="https://antoninatger.com" target="_blank">antoninatger.com</a></p>
+  <p class="author">par Antonin Atger &nbsp;|&nbsp; <a href="/cdn-cgi/l/email-protection#adcec2c3d9ccced9edccc3d9c2c3c4c3ccd9cac8df83cec2c0"><span class="__cf_email__" data-cfemail="61020e0f1500021521000f150e0f080f00150604134f020e0c">[email&#160;protected]</span></a> &nbsp;|&nbsp; <a href="https://antoninatger.com" target="_blank">antoninatger.com</a></p>
 </header>
 
 <!-- LEVEL SELECTOR -->
@@ -310,6 +323,19 @@ h1{font-family:'Fredoka One',cursive;font-size:clamp(2rem,6vw,2.8rem);color:var(
       </div>
     </div>
     
+    <div class="form-group" style="margin-top:-4px;">
+      <label>Sujet nuancé (optionnel) :</label>
+      <div class="toggle-row">
+        <button class="toggle-btn nuance" id="tog-nuance" onclick="toggleNuance()">⚖️ Activer "Pas de consensus clair"</button>
+      </div>
+      <p style="color:var(--mu);font-size:.75rem;font-weight:600;margin-top:6px;margin-bottom:0;">Active cette option pour permettre aux joueurs en mode Fact-Checker de répondre "Pas de consensus clair".</p>
+    </div>
+    
+    <div class="enuan-group" id="enuan-group" style="display:none;">
+      <label style="display:block;font-weight:700;font-size:.85rem;margin-bottom:6px;">⚖️ Explication "Pas de consensus clair"</label>
+      <textarea id="c-enuan" placeholder="⚖️ SUJET NUANCÉ. Expliquez pourquoi il n'y a pas de consensus clair, quelles sont les nuances importantes..." style="width:100%;background:var(--card);border:2px solid rgba(247,201,72,.3);border-radius:10px;padding:12px;font-family:'Nunito',sans-serif;font-size:.9rem;color:var(--tx);min-height:80px;resize:vertical;"></textarea>
+    </div>
+    
     <div class="form-group">
       <label>Explication (révélée à la fin)</label>
       <textarea id="c-explanation" placeholder="Explique pourquoi c'est vrai ou faux, avec des détails intéressants..."></textarea>
@@ -351,8 +377,9 @@ h1{font-family:'Fredoka One',cursive;font-size:clamp(2rem,6vw,2.8rem);color:var(
         <div class="form-group" style="max-width:300px;margin:0 auto 20px;">
           <label>Mode de jeu</label>
           <select id="play-mode-select">
-            <option value="junior">🔎 Mode Apprenti (avec feedback)</option>
-            <option value="inter">🕵️ Mode Enquêteur (évaluation libre)</option>
+            <option value="junior">🔎 Mode Apprenti (avec feedback immédiat)</option>
+            <option value="inter">🕵️ Mode Enquêteur (évaluation libre, Likert)</option>
+            <option value="pro">⚡ Mode Fact-Checker (Likert + recherche + 3e option)</option>
           </select>
         </div>
         <button class="creator-btn success" onclick="playCustomQuestions()">▶️ Lancer la partie !</button>
@@ -380,6 +407,9 @@ h1{font-family:'Fredoka One',cursive;font-size:clamp(2rem,6vw,2.8rem);color:var(
         </div>
         <hr style="border:none;border-top:1px solid var(--bord);margin:20px 0;">
         <p style="color:var(--mu);font-size:.85rem;margin-bottom:12px;">📥 Importer des questions :</p>
+        <div style="background:rgba(247,201,72,.1);border:1px solid rgba(247,201,72,.3);border-radius:10px;padding:10px 14px;margin-bottom:14px;">
+          <p style="color:#f7c948;font-size:.78rem;font-weight:700;margin:0;">⚠️ <strong>Format requis :</strong> les fichiers importés doivent avoir exactement le même format que les exports de FakeMètre (JSON ou CSV). N'importe pas de fichiers créés manuellement sans te baser sur un export existant — les colonnes et la structure doivent correspondre exactement.</p>
+        </div>
         <div class="creator-actions" style="flex-direction:column;gap:12px;">
           <button class="creator-btn secondary" onclick="importJSON()">📄 Importer un fichier JSON</button>
           <button class="creator-btn secondary" onclick="importCSV()">📊 Importer un fichier CSV</button>
@@ -510,7 +540,7 @@ h1{font-family:'Fredoka One',cursive;font-size:clamp(2rem,6vw,2.8rem);color:var(
 </footer>
 
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 // ═══════════════════════════════════════════════
 // NIVEAU JUNIOR — Apprenti Détective (CM1 → 5e)
 // ═══════════════════════════════════════════════
@@ -1033,7 +1063,7 @@ const QUESTIONS_PRO=[
    e:"C'est FAUX. Le GIEC conclut que le réchauffement est d'origine humaine avec plus de 95% de certitude. L'effet de serre du CO₂ est mesuré depuis le XIXe siècle. Le consensus scientifique est écrasant.",
    src:[
     {em:"📄",n:"Article de Nature Climate Change (2023)",d:"Revue scientifique de référence sur le climat",
-     url:"https://www.nature.com/nclimate/",
+     url:"https://www.nature.com/nclimate",
      say:"« Nos modèles, validés par les observations satellitaires, confirment que 100% du réchauffement observé depuis 1950 est attribuable aux activités humaines. »",
      g:true,fb:{tg:"Parfait ! Nature Climate Change est une revue de pointe avec peer-review rigoureux. Le jargon technique est un signe de rigueur, pas un défaut.",dg:"Dommage ! Les revues scientifiques spécialisées publient les recherches les plus à jour. C'est le cœur du consensus scientifique."}},
     {em:"🎓",n:"William Happer, physicien émérite de Princeton",d:"Scientifique prestigieux, fondateur de la CO2 Coalition",
@@ -1062,7 +1092,7 @@ const QUESTIONS_PRO=[
      say:"« Les écrans détruisent le cerveau de nos enfants. Toutes les études le montrent. C'est une catastrophe sanitaire sans précédent. »",
      g:false,fb:{tb:"Piégé(e) ! L'auteur est un vrai neuroscientifique (Michel Desmurget), mais il cherry-pick les études et exagère. Un livre grand public n'est pas peer-reviewed.",db:"Bien joué ! Un titre prestigieux (CNRS) ne garantit pas l'objectivité. Les experts peuvent avoir des biais, surtout quand ils vendent un livre alarmiste."}},
     {em:"🏛️",n:"Rapport de l'Académie des Sciences 'L'enfant et les écrans' (2013)",d:"Avis de l'institution scientifique française",
-     url:"https://www.academie-sciences.fr/fr/Rapports-ouvrages-avis-et-recommandations-de-l-Academie/l-enfant-et-les-ecrans-un-avis-de-l-academie-des-sciences.html",
+     url:"https://www.academie-sciences.fr/fr/Rapports-ouvrages-avis-et-recommandations-de-l-Academie/l-enfant-et-les-ecrans-l-avis.html",
      say:"« Les effets des écrans dépendent du contenu, du contexte et de l'âge. Aucune conclusion simpliste n'est possible. Des recommandations nuancées s'imposent. »",
      g:true,fb:{tg:"Excellent ! L'Académie des Sciences nuance plutôt qu'alarmer : c'est le signe d'une institution rigoureuse qui refuse le sensationnalisme.",dg:"Dommage ! Une conclusion nuancée peut sembler moins percutante, mais c'est justement ce qui distingue la vraie science du marketing de la peur."}},
     {em:"📈",n:"Étude corrélant temps d'écran et résultats scolaires",d:"Recherche montrant une corrélation statistique",
@@ -1225,9 +1255,11 @@ const QUESTIONS_PRO=[
    enuan:"⚖️ DÉBAT SCIENTIFIQUE EN COURS. L'effet des antidépresseurs est réel et documenté, surtout pour les dépressions sévères. Pour les dépressions légères à modérées, la différence avec le placebo existe mais est plus faible. La question du seuil clinique significatif est un vrai débat entre experts.",
    src:[
     {em:"📊",n:"Méta-analyse Cipriani — The Lancet (2018, 522 essais)",d:"La plus grande méta-analyse jamais réalisée sur les antidépresseurs",
+     url:"https://www.thelancet.com/journals/lancet/article/PIIS0140-6736(17)32802-7/fulltext",
      say:"« Les antidépresseurs sont plus efficaces que les placebos pour tous les niveaux de dépression testés. L'effet est statistiquement solide et cliniquement significatif pour les formes sévères. »",
      g:true,fb:{tg:"Parfait ! 522 essais cliniques analysés — c'est titanesque. The Lancet est une des revues médicales les plus rigoureuses. Ce résultat a fait autorité dans le débat.",dg:"Dommage ! Cette méta-analyse est la référence actuelle. Elle ne clôt pas tout le débat, mais elle montre clairement un effet réel au-delà du placebo."}},
     {em:"🔬",n:"Méta-analyse Kirsch — PLOS Medicine (2008)",d:"Étude très médiatisée sur l'efficacité des antidépresseurs",
+     url:"https://journals.plos.org/plosmedicine/article?id=10.1371/journal.pmed.0050045",
      say:"« Pour les dépressions légères à modérées, la différence avec le placebo est statistiquement significative mais cliniquement faible. Seules les dépressions sévères justifient clairement leur usage. »",
      g:true,fb:{tg:"Excellent ! Kirsch est une vraie référence scientifique — pas une source à rejeter. Elle pose une vraie question sur le seuil clinique. Deux sources fiables qui nuancent différemment, c'est ça la science.",dg:"Dommage ! Kirsch n'a pas dit que les antidépresseurs 'ne fonctionnent pas' — il a dit que l'effet est faible pour certains niveaux. La nuance est essentielle ici."}},
     {em:"📰",n:"Titre de presse grand public",d:"Article repris dans de nombreux médias après la publication de Kirsch",
@@ -1527,8 +1559,7 @@ function openSrc(src,idx,btn){
   $('msdesc').textContent=src.d;
   $('mssays').textContent=src.say;
 
-  if(currentLevel==='pro'||currentLevel==='inter'){
-    // Mode PRO et INTER : Likert, évaluation personnelle de la source
+  if(currentLevel==='pro'||currentLevel==='inter'||src.g==='free'){
     $('msrc-junior').style.display='none';
     $('msrc-pro').style.display='block';
     initLikert();
@@ -1623,10 +1654,10 @@ function trust(trusts){
   hide('msrc');
   const{src,idx,btn}=pend;
   let pts,emoji,title,expl,pc,oc;
-  if(src.g&&trusts)     {pts=30;pc='pos';oc='ug';emoji='🎉';title='Excellent choix !';expl=src.fb.tg;}
-  else if(src.g)        {pts=-10;pc='neg';oc='ub';emoji='😬';title='Dommage...';       expl=src.fb.dg;}
-  else if(trusts)       {pts=-20;pc='neg';oc='ub';emoji='😬';title='Attention !';       expl=src.fb.tb;}
-  else                  {pts=20; pc='pos';oc='ug';emoji='👏';title='Bien joué !';       expl=src.fb.db;}
+  if(src.g===true&&trusts)  {pts=30; pc='pos';oc='ug';emoji='🎉';title='Excellent choix !';expl=src.fb.tg||'';}
+  else if(src.g===true)     {pts=-10;pc='neg';oc='ub';emoji='😬';title='Dommage...';       expl=src.fb.dg||'';}
+  else if(trusts)            {pts=-20;pc='neg';oc='ub';emoji='😬';title='Attention !';      expl=src.fb.tb||'';}
+  else                       {pts=20; pc='pos';oc='ug';emoji='👏';title='Bien joué !';      expl=src.fb.db||'';}
   score=Math.max(0,score+pts);
   uc++;um[idx]=oc;
   btn.classList.add(oc);btn.disabled=true;
@@ -1858,6 +1889,7 @@ let customQuestions = [];
 let editingIndex = -1;
 let currentSources = [];
 let currentTruth = true;
+let currentNuance = false;
 
 // Charger depuis localStorage au démarrage
 function loadCustomQuestions(){
@@ -1925,11 +1957,17 @@ function setTruth(val){
   $('tog-false').classList.toggle('active', !val);
 }
 
+function toggleNuance(){
+  currentNuance = !currentNuance;
+  $('tog-nuance').classList.toggle('active', currentNuance);
+  $('enuan-group').style.display = currentNuance ? 'block' : 'none';
+}
+
 function addSource(){
   const id = Date.now();
   currentSources.push({
-    id, em:'📄', n:'', d:'', say:'', g:true,
-    fb:{tg:'', dg:'', tb:'', db:''}
+    id, em:'📄', n:'', d:'', say:'', g:true, url:'', noSearch:false,
+    fb:{tg:'', dg:'', tb:'', db:'', gen:''}
   });
   renderSources();
 }
@@ -1939,21 +1977,80 @@ function removeSource(id){
   renderSources();
 }
 
+function srcTypeKey(g){
+  if(g===true)   return 'reliable';
+  if(g==='free') return 'free';
+  return 'unreliable';
+}
+
+function setSourceType(id, type){
+  const src = currentSources.find(s => s.id === id);
+  if(!src) return;
+  if(type==='reliable')  src.g = true;
+  else if(type==='free') src.g = 'free';
+  else                   src.g = false;
+  src.fb = {tg:'', dg:'', tb:'', db:'', gen:''};
+  renderSources();
+}
+
 function renderSources(){
   const container = $('sources-list');
   if(currentSources.length === 0){
     container.innerHTML = '<p style="color:var(--mu);font-size:.85rem;text-align:center;padding:20px;">Clique sur "Ajouter une source" pour commencer.</p>';
     return;
   }
-  container.innerHTML = currentSources.map((src, i) => `
-    <div class="source-card ${src.g ? 'reliable' : 'unreliable'}" id="src-${src.id}">
-      <div class="source-header">
-        <span class="source-num">${src.g ? '✅' : '❌'} Source ${i+1}</span>
-        <div class="source-actions">
-          <button class="source-action-btn" onclick="toggleSourceReliability(${src.id})">${src.g ? 'Marquer non fiable' : 'Marquer fiable'}</button>
-          <button class="source-action-btn delete" onclick="removeSource(${src.id})">🗑️</button>
+  container.innerHTML = currentSources.map((src, i) => {
+    const typeKey = srcTypeKey(src.g);
+    const typeInfo = {
+      reliable:   {icon:'✅', label:'Fiable',           desc:'Le joueur doit lui faire confiance'},
+      unreliable: {icon:'❌', label:'Non fiable',        desc:'Le joueur ne doit pas lui faire confiance'},
+      free:       {icon:'🎚️', label:'Joueur évalue',    desc:'Le joueur utilise l\'échelle de Likert — pas de bonne réponse imposée'},
+    }[typeKey];
+
+    let feedbackHTML = '';
+    if(typeKey === 'free'){
+      feedbackHTML = `
+        <div class="form-group">
+          <label>💬 Feedback général après évaluation (optionnel)</label>
+          <input type="text" value="${src.fb.gen||''}" onchange="updateSourceFb(${src.id},'gen',this.value)" placeholder="Ex: Cette source est complexe — voici pourquoi...">
+        </div>`;
+    } else if(typeKey === 'reliable'){
+      feedbackHTML = `
+        <div class="form-group">
+          <label>✅ Si le joueur lui fait confiance (bonne réponse)</label>
+          <input type="text" value="${src.fb.tg||''}" onchange="updateSourceFb(${src.id},'tg',this.value)" placeholder="Bravo ! Cette source est fiable car...">
         </div>
+        <div class="form-group">
+          <label>❌ Si le joueur l'ignore (mauvaise réponse)</label>
+          <input type="text" value="${src.fb.dg||''}" onchange="updateSourceFb(${src.id},'dg',this.value)" placeholder="Dommage ! Cette source était fiable car...">
+        </div>`;
+    } else {
+      feedbackHTML = `
+        <div class="form-group">
+          <label>❌ Si le joueur lui fait confiance (mauvaise réponse)</label>
+          <input type="text" value="${src.fb.tb||''}" onchange="updateSourceFb(${src.id},'tb',this.value)" placeholder="Attention ! Cette source n'est pas fiable car...">
+        </div>
+        <div class="form-group">
+          <label>✅ Si le joueur l'ignore (bonne réponse)</label>
+          <input type="text" value="${src.fb.db||''}" onchange="updateSourceFb(${src.id},'db',this.value)" placeholder="Bien joué ! Tu as bien fait de te méfier car...">
+        </div>`;
+    }
+
+    return `
+    <div class="source-card ${typeKey}" id="src-${src.id}">
+      <div class="source-header">
+        <span class="source-num">${typeInfo.icon} Source ${i+1} — <span style="font-family:'Nunito',sans-serif;font-size:.85rem;">${typeInfo.label}</span></span>
+        <button class="source-action-btn delete" onclick="removeSource(${src.id})">🗑️</button>
       </div>
+
+      <label style="display:block;font-weight:700;font-size:.8rem;color:var(--mu);margin-bottom:6px;">Type de source</label>
+      <div class="stype-btns">
+        <button class="stype-btn ${typeKey==='reliable'?'active-reliable':''}" onclick="setSourceType(${src.id},'reliable')">✅ Fiable</button>
+        <button class="stype-btn ${typeKey==='unreliable'?'active-unreliable':''}" onclick="setSourceType(${src.id},'unreliable')">❌ Non fiable</button>
+        <button class="stype-btn ${typeKey==='free'?'active-free':''}" onclick="setSourceType(${src.id},'free')">🎚️ Joueur évalue</button>
+      </div>
+      <p style="color:var(--mu);font-size:.73rem;font-weight:700;margin-bottom:12px;margin-top:-6px;">${typeInfo.desc}</p>
+
       <div class="form-row three">
         <div class="form-group">
           <label>Emoji</label>
@@ -1972,32 +2069,20 @@ function renderSources(){
         <label>Ce que dit la source (citation)</label>
         <textarea onchange="updateSource(${src.id},'say',this.value)" placeholder="Ex: « Nos recherches montrent que... »">${src.say}</textarea>
       </div>
-      <details style="margin-top:8px;">
+      <div class="form-group" style="margin-bottom:8px;">
+        <label>🔍 Lien internet de la source (optionnel, mode Fact-Checker)</label>
+        <input type="url" value="${src.url||''}" onchange="updateSource(${src.id},'url',this.value)" placeholder="https://..." style="${src.noSearch?'opacity:.4;pointer-events:none;':''}">
+      </div>
+      <div class="nosearch-row" style="margin-bottom:12px;">
+        <input type="checkbox" id="nosearch-${src.id}" ${src.noSearch?'checked':''} onchange="updateSourceNoSearch(${src.id},this.checked)">
+        <label for="nosearch-${src.id}">🚫 Source fictive / introuvable sur internet</label>
+      </div>
+      <details style="margin-top:4px;">
         <summary style="cursor:pointer;color:var(--mu);font-size:.8rem;font-weight:700;">💬 Feedbacks (optionnel)</summary>
-        <div style="margin-top:12px;">
-          ${src.g ? `
-            <div class="form-group">
-              <label>✅ Si le joueur fait confiance (bonne réponse)</label>
-              <input type="text" value="${src.fb.tg||''}" onchange="updateSourceFb(${src.id},'tg',this.value)" placeholder="Bravo ! Cette source est fiable car...">
-            </div>
-            <div class="form-group">
-              <label>❌ Si le joueur ignore (mauvaise réponse)</label>
-              <input type="text" value="${src.fb.dg||''}" onchange="updateSourceFb(${src.id},'dg',this.value)" placeholder="Dommage ! Cette source était fiable car...">
-            </div>
-          ` : `
-            <div class="form-group">
-              <label>❌ Si le joueur fait confiance (mauvaise réponse)</label>
-              <input type="text" value="${src.fb.tb||''}" onchange="updateSourceFb(${src.id},'tb',this.value)" placeholder="Attention ! Cette source n'est pas fiable car...">
-            </div>
-            <div class="form-group">
-              <label>✅ Si le joueur ignore (bonne réponse)</label>
-              <input type="text" value="${src.fb.db||''}" onchange="updateSourceFb(${src.id},'db',this.value)" placeholder="Bien joué ! Tu as bien fait de te méfier car...">
-            </div>
-          `}
-        </div>
+        <div style="margin-top:12px;">${feedbackHTML}</div>
       </details>
-    </div>
-  `).join('');
+    </div>`;
+  }).join('');
 }
 
 function updateSource(id, field, value){
@@ -2010,13 +2095,19 @@ function updateSourceFb(id, field, value){
   if(src) src.fb[field] = value;
 }
 
-function toggleSourceReliability(id){
+function updateSourceNoSearch(id, checked){
   const src = currentSources.find(s => s.id === id);
   if(src){
-    src.g = !src.g;
-    // Reset feedbacks when toggling
-    src.fb = {tg:'', dg:'', tb:'', db:''};
-    renderSources();
+    src.noSearch = checked;
+    // Visually disable the URL field when noSearch is checked
+    const srcCard = document.getElementById('src-' + id);
+    if(srcCard){
+      const urlInput = srcCard.querySelector('input[type=url]');
+      if(urlInput){
+        urlInput.style.opacity = checked ? '.4' : '1';
+        urlInput.style.pointerEvents = checked ? 'none' : 'auto';
+      }
+    }
   }
 }
 
@@ -2025,6 +2116,10 @@ function resetForm(){
   $('edit-title').textContent = '➕ Nouvelle question';
   $('c-statement').value = '';
   $('c-explanation').value = '';
+  $('c-enuan').value = '';
+  currentNuance = false;
+  $('tog-nuance').classList.remove('active');
+  $('enuan-group').style.display = 'none';
   setTruth(true);
   currentSources = [];
   renderSources();
@@ -2063,20 +2158,33 @@ function saveQuestion(){
     s: $('c-statement').value.trim(),
     t: currentTruth,
     e: $('c-explanation').value.trim(),
-    src: currentSources.map(s => ({
-      em: s.em || '📄',
-      n: s.n,
-      d: s.d || '',
-      say: s.say,
-      g: s.g,
-      fb: {
-        tg: s.fb.tg || (s.g ? 'Bonne source ! Tu as bien fait de lui faire confiance.' : ''),
-        dg: s.fb.dg || (s.g ? 'Cette source était pourtant fiable.' : ''),
-        tb: s.fb.tb || (!s.g ? 'Cette source n\'était pas fiable !' : ''),
-        db: s.fb.db || (!s.g ? 'Bien joué de t\'en méfier !' : '')
-      }
-    }))
+    src: currentSources.map(s => {
+      const tk = srcTypeKey(s.g);
+      const srcObj = {
+        em: s.em || '📄',
+        n: s.n,
+        d: s.d || '',
+        say: s.say,
+        g: s.g,
+        fb: {
+          tg: s.fb.tg || (tk==='reliable' ? 'Bonne source ! Tu as bien fait de lui faire confiance.' : ''),
+          dg: s.fb.dg || (tk==='reliable' ? 'Cette source était pourtant fiable.' : ''),
+          tb: s.fb.tb || (tk==='unreliable'||tk==='weak' ? 'Cette source n\'était pas fiable !' : ''),
+          db: s.fb.db || (tk==='unreliable'||tk==='weak' ? 'Bien joué de t\'en méfier !' : ''),
+          gen: s.fb.gen || (tk==='free' ? 'Source évaluée ! Tu peux consulter d\'autres sources ou voter.' : '')
+        }
+      };
+      if(s.url && s.url.trim()) srcObj.url = s.url.trim();
+      if(s.noSearch) srcObj.noSearch = true;
+      return srcObj;
+    })
   };
+  
+  if(currentNuance){
+    question.nuance = true;
+    const enuan = $('c-enuan').value.trim();
+    if(enuan) question.enuan = enuan;
+  }
   
   if(editingIndex >= 0){
     customQuestions[editingIndex] = question;
@@ -2104,6 +2212,7 @@ function renderQuestionsList(){
       <div class="q-statement">${q.s}</div>
       <div class="q-meta">
         <span class="q-badge ${q.t ? 'true' : 'false'}">${q.t ? 'VRAI' : 'FAUX'}</span>
+        ${q.nuance ? '<span class="q-badge" style="background:rgba(247,201,72,.2);color:#f7c948;">⚖️ NUANCÉ</span>' : ''}
         <span>📚 ${q.src.length} sources</span>
         <span style="margin-left:auto;">✏️ Modifier</span>
       </div>
@@ -2121,8 +2230,20 @@ function editQuestion(index){
   $('edit-title').textContent = '✏️ Modifier la question';
   $('c-statement').value = q.s;
   $('c-explanation').value = q.e;
+  
+  // Restore nuance state
+  currentNuance = q.nuance || false;
+  $('tog-nuance').classList.toggle('active', currentNuance);
+  $('enuan-group').style.display = currentNuance ? 'block' : 'none';
+  $('c-enuan').value = q.enuan || '';
+  
   setTruth(q.t);
-  currentSources = q.src.map((s,i) => ({...s, id: Date.now() + i}));
+  currentSources = q.src.map((s,i) => ({
+    ...s,
+    id: Date.now() + i,
+    url: s.url || '',
+    noSearch: s.noSearch || false
+  }));
   renderSources();
   switchCreatorTab('edit');
 }
@@ -2211,17 +2332,19 @@ function escapeCSV(str){
 function exportCSV(){
   if(customQuestions.length === 0) return;
   
-  // Header
-  let csv = 'Affirmation;Vrai/Faux;Explication;Source1_Emoji;Source1_Nom;Source1_Description;Source1_Citation;Source1_Fiable;Source1_FB_Positif;Source1_FB_Negatif;Source2_Emoji;Source2_Nom;Source2_Description;Source2_Citation;Source2_Fiable;Source2_FB_Positif;Source2_FB_Negatif;Source3_Emoji;Source3_Nom;Source3_Description;Source3_Citation;Source3_Fiable;Source3_FB_Positif;Source3_FB_Negatif;Source4_Emoji;Source4_Nom;Source4_Description;Source4_Citation;Source4_Fiable;Source4_FB_Positif;Source4_FB_Negatif\n';
+  // Header — nuance + enuan added after explanation; per source: url + noSearch added
+  let csv = 'Affirmation;Vrai/Faux;Explication;Nuance;ExplicationNuance;Source1_Emoji;Source1_Nom;Source1_Description;Source1_Citation;Source1_Fiable;Source1_URL;Source1_Fictive;Source1_FB_Positif;Source1_FB_Negatif;Source2_Emoji;Source2_Nom;Source2_Description;Source2_Citation;Source2_Fiable;Source2_URL;Source2_Fictive;Source2_FB_Positif;Source2_FB_Negatif;Source3_Emoji;Source3_Nom;Source3_Description;Source3_Citation;Source3_Fiable;Source3_URL;Source3_Fictive;Source3_FB_Positif;Source3_FB_Negatif;Source4_Emoji;Source4_Nom;Source4_Description;Source4_Citation;Source4_Fiable;Source4_URL;Source4_Fictive;Source4_FB_Positif;Source4_FB_Negatif\n';
   
   customQuestions.forEach(q => {
     let row = [
       escapeCSV(q.s),
       q.t ? 'VRAI' : 'FAUX',
-      escapeCSV(q.e)
+      escapeCSV(q.e),
+      q.nuance ? 'OUI' : 'NON',
+      escapeCSV(q.enuan || '')
     ];
     
-    // Add up to 4 sources
+    // Add up to 4 sources — 9 columns each now (added url + noSearch)
     for(let i=0; i<4; i++){
       if(q.src[i]){
         const s = q.src[i];
@@ -2231,11 +2354,13 @@ function exportCSV(){
           escapeCSV(s.d),
           escapeCSV(s.say),
           s.g ? 'OUI' : 'NON',
+          escapeCSV(s.url || ''),
+          s.noSearch ? 'OUI' : 'NON',
           escapeCSV(s.g ? s.fb.tg : s.fb.tb),
           escapeCSV(s.g ? s.fb.dg : s.fb.db)
         );
       } else {
-        row.push('','','','','','','');
+        row.push('','','','','','','','','');
       }
     }
     csv += row.join(';') + '\n';
@@ -2292,6 +2417,12 @@ function handleImportCSV(event){
         return;
       }
       
+      // Detect format version by counting columns in header
+      const headerCols = parseCSVLine(lines[0]);
+      // New format has 5 base cols + 9 per source = 5+36 = 41
+      // Old format has 3 base cols + 7 per source = 3+28 = 31
+      const isNewFormat = headerCols.length >= 41 || headerCols[3] === 'Nuance';
+      
       const imported = [];
       // Skip header (line 0)
       for(let i=1; i<lines.length; i++){
@@ -2305,9 +2436,22 @@ function handleImportCSV(event){
           src: []
         };
         
-        // Parse sources (7 columns each, starting at index 3)
+        let srcStart, srcStride;
+        if(isNewFormat){
+          // nuance at col 3, enuan at col 4, sources start at 5 with 9 cols each
+          question.nuance = cols[3] && cols[3].toUpperCase() === 'OUI';
+          question.enuan = cols[4] || '';
+          srcStart = 5;
+          srcStride = 9;
+        } else {
+          // Old format: sources start at 3 with 7 cols each
+          srcStart = 3;
+          srcStride = 7;
+        }
+        
+        // Parse sources
         for(let j=0; j<4; j++){
-          const base = 3 + (j * 7);
+          const base = srcStart + (j * srcStride);
           if(cols[base+1] && cols[base+1].trim()){ // If source name exists
             const isReliable = cols[base+4] && cols[base+4].toUpperCase() === 'OUI';
             const src = {
@@ -2318,12 +2462,18 @@ function handleImportCSV(event){
               g: isReliable,
               fb: {}
             };
-            if(isReliable){
-              src.fb.tg = cols[base+5] || 'Bonne source !';
-              src.fb.dg = cols[base+6] || 'Cette source était fiable.';
+            if(isNewFormat){
+              src.url = cols[base+5] || '';
+              src.noSearch = cols[base+6] && cols[base+6].toUpperCase() === 'OUI';
+              const fbPos = cols[base+7] || '';
+              const fbNeg = cols[base+8] || '';
+              if(isReliable){ src.fb.tg = fbPos; src.fb.dg = fbNeg; }
+              else { src.fb.tb = fbPos; src.fb.db = fbNeg; }
             } else {
-              src.fb.tb = cols[base+5] || 'Cette source n\'était pas fiable !';
-              src.fb.db = cols[base+6] || 'Bien joué de t\'en méfier !';
+              const fbPos = cols[base+5] || '';
+              const fbNeg = cols[base+6] || '';
+              if(isReliable){ src.fb.tg = fbPos || 'Bonne source !'; src.fb.dg = fbNeg || 'Cette source était fiable.'; }
+              else { src.fb.tb = fbPos || 'Cette source n\'était pas fiable !'; src.fb.db = fbNeg || 'Bien joué de t\'en méfier !'; }
             }
             question.src.push(src);
           }
@@ -2335,7 +2485,7 @@ function handleImportCSV(event){
       }
       
       if(imported.length === 0){
-        alert('❌ Aucune question valide trouvée dans le CSV');
+        alert('❌ Aucune question valide trouvée dans le CSV.\n\nVérifie que ton fichier correspond bien au format exporté par FakeMètre (colonnes identiques).');
         return;
       }
       
@@ -2347,7 +2497,7 @@ function handleImportCSV(event){
         alert('✅ Import CSV réussi !');
       }
     } catch(err){
-      alert('❌ Erreur lors de l\'import CSV : ' + err.message);
+      alert('❌ Erreur lors de l\'import CSV : ' + err.message + '\n\nAssure-toi que le fichier est bien un export FakeMètre.');
     }
   };
   reader.readAsText(file);
@@ -2375,11 +2525,11 @@ window.addEventListener('DOMContentLoaded', function(){
 <\/script>`;
 
   const exportedHTML = currentHTML.replace('</head>', bootstrap + '</head>');
-  const blob = new Blob([exportedHTML], {type: 'text/html;charset=utf-8'});
+  const blob = new Blob([exportedHTML], {type: 'text/html'});
   const url = URL.createObjectURL(blob);
   const a = document.createElement('a');
   a.href = url;
-  a.download = 'fakemetre_custom.html';
+  a.download = 'fakemetre_export.html';
   a.click();
   URL.revokeObjectURL(url);
 }
