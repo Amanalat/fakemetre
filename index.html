@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>FakeMètre 🔍</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
 <style>
 :root {
@@ -297,7 +298,7 @@ h1{font-family:'Fredoka One',cursive;font-size:clamp(2rem,6vw,2.8rem);color:var(
     <button class="creator-tab active" onclick="switchCreatorTab('edit')">📝 Créer/Modifier</button>
     <button class="creator-tab" onclick="switchCreatorTab('list')">📋 Mes questions (<span id="q-count">0</span>)</button>
     <button class="creator-tab" onclick="switchCreatorTab('play')">🎮 Jouer</button>
-    <button class="creator-tab" onclick="switchCreatorTab('export')">📤 Exporter</button>
+    <button class="creator-tab" onclick="switchCreatorTab('export')">📤 Importer / Exporter</button>
   </div>
   
   <!-- Panel: Edit -->
@@ -357,9 +358,14 @@ h1{font-family:'Fredoka One',cursive;font-size:clamp(2rem,6vw,2.8rem);color:var(
   <div class="creator-panel" id="panel-list">
     <h3>📋 Mes questions créées</h3>
     <div id="questions-list">
-      <div class="empty-state">
+      <div class="empty-state" id="list-empty-state">
         <div class="empty-icon">📭</div>
-        <p>Aucune question créée pour l'instant.<br>Commence par en créer une !</p>
+        <p>Aucune question créée pour l'instant.<br>Commence par en créer une, ou importe un fichier exporté depuis FakeMètre !</p>
+        <div style="margin-top:20px;display:flex;flex-direction:column;gap:10px;max-width:320px;margin-left:auto;margin-right:auto;">
+          <button class="creator-btn secondary" onclick="importJSON()">📄 Importer un fichier JSON</button>
+          <button class="creator-btn secondary" onclick="importCSV()">📊 Importer un fichier CSV</button>
+        </div>
+        <p style="color:var(--mu);font-size:.75rem;font-weight:600;margin-top:12px;">Le fichier doit avoir été exporté depuis FakeMètre.</p>
       </div>
     </div>
   </div>
@@ -389,35 +395,38 @@ h1{font-family:'Fredoka One',cursive;font-size:clamp(2rem,6vw,2.8rem);color:var(
   
   <!-- Panel: Export -->
   <div class="creator-panel" id="panel-export">
-    <h3>📤 Exporter & Partager</h3>
-    <div id="export-options">
-      <div class="empty-state" id="export-empty">
-        <div class="empty-icon">📤</div>
-        <p>Crée au moins 1 question pour pouvoir exporter !</p>
+    <h3>📤 Exporter &amp; Partager</h3>
+
+    <!-- Section export : visible seulement si questions existantes -->
+    <div id="export-empty" class="empty-state">
+      <div class="empty-icon">📤</div>
+      <p>Crée au moins 1 question pour pouvoir exporter !</p>
+    </div>
+    <div id="export-ready" style="display:none;">
+      <div style="background:rgba(168,85,247,.1);border:1px solid rgba(168,85,247,.3);border-radius:12px;padding:14px;margin-bottom:20px;">
+        <p style="color:#a855f7;font-size:.85rem;font-weight:700;margin:0;">💡 Pour plus de sécurité, exporte régulièrement tes questions ! Tu pourras les réimporter dans le jeu plus tard, ou les partager avec d'autres.</p>
       </div>
-      <div id="export-ready" style="display:none;">
-        <div style="background:rgba(168,85,247,.1);border:1px solid rgba(168,85,247,.3);border-radius:12px;padding:14px;margin-bottom:20px;">
-          <p style="color:#a855f7;font-size:.85rem;font-weight:700;margin:0;">💡 Pour plus de sécurité, exporte régulièrement tes questions ! Tu pourras les réimporter dans le jeu plus tard, ou les partager avec d'autres.</p>
-        </div>
-        <p style="color:var(--mu);font-size:.9rem;margin-bottom:20px;">Choisis ton format d'export :</p>
-        <div class="creator-actions" style="flex-direction:column;gap:12px;">
-          <button class="creator-btn primary" onclick="exportJSON()">📄 Télécharger en JSON (complet, réimportable)</button>
-          <button class="creator-btn secondary" onclick="exportCSV()">📊 Télécharger en CSV (éditable dans Excel)</button>
-          <button class="creator-btn success" onclick="exportHTML()">🌐 Télécharger en HTML (jeu autonome à partager)</button>
-        </div>
-        <hr style="border:none;border-top:1px solid var(--bord);margin:20px 0;">
-        <p style="color:var(--mu);font-size:.85rem;margin-bottom:12px;">📥 Importer des questions :</p>
-        <div style="background:rgba(247,201,72,.1);border:1px solid rgba(247,201,72,.3);border-radius:10px;padding:10px 14px;margin-bottom:14px;">
-          <p style="color:#f7c948;font-size:.78rem;font-weight:700;margin:0;">⚠️ <strong>Format requis :</strong> les fichiers importés doivent avoir exactement le même format que les exports de FakeMètre (JSON ou CSV). N'importe pas de fichiers créés manuellement sans te baser sur un export existant — les colonnes et la structure doivent correspondre exactement.</p>
-        </div>
-        <div class="creator-actions" style="flex-direction:column;gap:12px;">
-          <button class="creator-btn secondary" onclick="importJSON()">📄 Importer un fichier JSON</button>
-          <button class="creator-btn secondary" onclick="importCSV()">📊 Importer un fichier CSV</button>
-        </div>
-        <input type="file" id="import-file-json" accept=".json" style="display:none;" onchange="handleImportJSON(event)">
-        <input type="file" id="import-file-csv" accept=".csv" style="display:none;" onchange="handleImportCSV(event)">
+      <p style="color:var(--mu);font-size:.9rem;margin-bottom:20px;">Choisis ton format d'export :</p>
+      <div id="export-buttons" class="creator-actions" style="flex-direction:column;gap:12px;">
+        <button class="creator-btn primary" onclick="exportJSON()">📄 Télécharger en JSON (complet, réimportable)</button>
+        <button class="creator-btn secondary" onclick="exportCSV()">📊 Télécharger en CSV (éditable dans Excel)</button>
+        <button class="creator-btn success" onclick="exportHTML()">🌐 Télécharger en HTML (jeu autonome à partager)</button>
       </div>
     </div>
+
+    <!-- Section import : TOUJOURS visible -->
+    <hr style="border:none;border-top:1px solid var(--bord);margin:24px 0;">
+    <h3 style="margin-bottom:12px;">📥 Importer des questions</h3>
+    <div style="background:rgba(79,163,247,.08);border:1px solid rgba(79,163,247,.3);border-radius:12px;padding:14px;margin-bottom:16px;">
+      <p style="color:#4fa3f7;font-size:.83rem;font-weight:700;margin:0;">ℹ️ Le fichier importé doit avoir été <strong>exporté depuis FakeMètre</strong> (sur cet ordinateur ou un autre). Les formats acceptés sont <strong>JSON</strong> et <strong>CSV</strong>. Un fichier Excel ou CSV créé manuellement ne sera pas reconnu.</p>
+    </div>
+    <div class="creator-actions" style="flex-direction:column;gap:12px;">
+      <button class="creator-btn secondary" onclick="importJSON()">📄 Importer un fichier JSON</button>
+      <button class="creator-btn secondary" onclick="importCSV()">📊 Importer un fichier CSV</button>
+    </div>
+    <input type="file" id="import-file-json" accept=".json" style="display:none;" onchange="handleImportJSON(event)">
+    <input type="file" id="import-file-spreadsheet" accept=".csv,.xlsx,.xls" style="display:none;" onchange="handleImportSpreadsheet(event)">
+    <input type="file" id="import-file-csv" accept=".csv" style="display:none;" onchange="handleImportCSV(event)">
   </div>
 </div>
 
@@ -1915,7 +1924,6 @@ function showSavedIndicator(){
 
 function updateQuestionCount(){
   $('q-count').textContent = customQuestions.length;
-  // Update play panel
   if(customQuestions.length > 0){
     $('play-empty').style.display = 'none';
     $('play-ready').style.display = 'block';
@@ -1928,6 +1936,7 @@ function updateQuestionCount(){
     $('export-empty').style.display = 'block';
     $('export-ready').style.display = 'none';
   }
+  // La section import est toujours visible (gérée directement dans le HTML)
 }
 
 function openCreator(){
@@ -2532,6 +2541,100 @@ window.addEventListener('DOMContentLoaded', function(){
   a.download = 'fakemetre_export.html';
   a.click();
   URL.revokeObjectURL(url);
+}
+
+
+function importSpreadsheet(){
+  $('import-file-spreadsheet').click();
+}
+
+function handleImportSpreadsheet(event){
+  const file = event.target.files[0];
+  if(!file) return;
+
+  const isXLSX = file.name.endsWith('.xlsx') || file.name.endsWith('.xls');
+  const reader = new FileReader();
+
+  reader.onload = function(e){
+    try {
+      let rows;
+      if(isXLSX){
+        const wb = XLSX.read(e.target.result, {type: 'binary'});
+        const ws = wb.Sheets[wb.SheetNames[0]];
+        rows = XLSX.utils.sheet_to_csv(ws).split('\n').filter(l => l.trim());
+      } else {
+        rows = e.target.result.split('\n').filter(l => l.trim());
+      }
+
+      if(rows.length < 2){
+        alert('❌ Le fichier est vide ou invalide.');
+        return;
+      }
+
+      const headerCols = parseCSVLine(rows[0]);
+      const isNewFormat = headerCols.length >= 41 || headerCols[3] === 'Nuance';
+
+      const imported = [];
+      for(let i = 1; i < rows.length; i++){
+        const cols = parseCSVLine(rows[i]);
+        if(cols.length < 3 || !cols[0].trim()) continue;
+
+        const question = { s: cols[0], t: cols[1].toUpperCase() === 'VRAI', e: cols[2], src: [] };
+
+        let srcStart, srcStride;
+        if(isNewFormat){
+          question.nuance = cols[3] && cols[3].toUpperCase() === 'OUI';
+          question.enuan = cols[4] || '';
+          srcStart = 5; srcStride = 9;
+        } else {
+          srcStart = 3; srcStride = 7;
+        }
+
+        for(let j = 0; j < 4; j++){
+          const base = srcStart + (j * srcStride);
+          if(cols[base+1] && cols[base+1].trim()){
+            const isReliable = cols[base+4] && cols[base+4].toUpperCase() === 'OUI';
+            const src = { em: cols[base] || '📄', n: cols[base+1], d: cols[base+2] || '', say: cols[base+3] || '', g: isReliable, fb: {} };
+            if(isNewFormat){
+              src.url = cols[base+5] || '';
+              src.noSearch = cols[base+6] && cols[base+6].toUpperCase() === 'OUI';
+              const fbPos = cols[base+7] || '', fbNeg = cols[base+8] || '';
+              if(isReliable){ src.fb.tg = fbPos; src.fb.dg = fbNeg; }
+              else { src.fb.tb = fbPos; src.fb.db = fbNeg; }
+            } else {
+              const fbPos = cols[base+5] || '', fbNeg = cols[base+6] || '';
+              if(isReliable){ src.fb.tg = fbPos || 'Bonne source !'; src.fb.dg = fbNeg || 'Cette source était fiable.'; }
+              else { src.fb.tb = fbPos || 'Cette source n\'était pas fiable !'; src.fb.db = fbNeg || 'Bien joué de t\'en méfier !'; }
+            }
+            question.src.push(src);
+          }
+        }
+        if(question.src.length >= 1) imported.push(question);
+      }
+
+      if(imported.length === 0){
+        alert('❌ Aucune question valide trouvée.\n\nAssure-toi que le fichier a bien été exporté depuis FakeMètre (CSV ou Excel).');
+        return;
+      }
+
+      if(confirm(`Importer ${imported.length} question(s) ? (Les questions existantes seront conservées)`)){
+        customQuestions = [...customQuestions, ...imported];
+        saveToStorage();
+        updateQuestionCount();
+        renderQuestionsList();
+        alert('✅ Import réussi !');
+      }
+    } catch(err){
+      alert('❌ Erreur lors de l\'import : ' + err.message + '\n\nAssure-toi que le fichier a été exporté depuis FakeMètre.');
+    }
+  };
+
+  if(isXLSX){
+    reader.readAsBinaryString(file);
+  } else {
+    reader.readAsText(file);
+  }
+  event.target.value = '';
 }
 
 loadCustomQuestions();
