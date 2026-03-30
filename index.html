@@ -94,8 +94,9 @@ h1{font-family:'Fredoka One',cursive;font-size:clamp(2rem,6vw,2.8rem);color:var(
 #vzone p{font-weight:800;font-size:1rem;margin-bottom:6px;color:var(--acc);}
 #vzone .vhint{font-size:.78rem;color:var(--mu);font-weight:700;margin-bottom:14px;}
 .vbtns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;}
-.vbtn{flex:1;max-width:170px;padding:12px 8px;border:none;border-radius:50px;cursor:pointer;font-family:'Fredoka One',cursive;font-size:1.05rem;transition:transform .18s;}
+.vbtn{flex:1;max-width:170px;min-height:52px;padding:14px 8px;border:none;border-radius:50px;cursor:pointer;font-family:'Fredoka One',cursive;font-size:1.05rem;transition:transform .18s;touch-action:manipulation;-webkit-tap-highlight-color:transparent;}
 .vbtn:hover{transform:scale(1.05);}
+@media(hover:none){.vbtn:hover{transform:none;}}
 .vbtn.vrai{background:var(--gr);color:#0a2a1a;}
 .vbtn.faux{background:var(--rd);color:#2a0a0a;}
 .vbtn.consensus{background:linear-gradient(135deg,#f7c948,#f7a548);color:#2a1a0a;flex:1 1 100%;max-width:280px;}
@@ -104,7 +105,7 @@ h1{font-family:'Fredoka One',cursive;font-size:clamp(2rem,6vw,2.8rem);color:var(
 #nextbtn:hover{transform:translateY(-2px);}
 .overlay{position:fixed;inset:0;background:rgba(0,0,0,.65);z-index:98;opacity:0;pointer-events:none;transition:opacity .25s;}
 .overlay.show{opacity:1;pointer-events:all;}
-.modal{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%) scale(.88);background:var(--panel);border-radius:20px;padding:26px 24px;max-width:420px;width:90%;box-shadow:0 20px 60px rgba(0,0,0,.7);z-index:99;opacity:0;pointer-events:none;transition:all .28s cubic-bezier(.34,1.4,.64,1);}
+.modal{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%) scale(.88);background:var(--panel);border-radius:20px;padding:26px 24px;max-width:420px;width:90%;max-height:88vh;overflow-y:auto;box-shadow:0 20px 60px rgba(0,0,0,.7);z-index:99;opacity:0;pointer-events:none;transition:all .28s cubic-bezier(.34,1.4,.64,1);}
 .modal.show{opacity:1;transform:translate(-50%,-50%) scale(1);pointer-events:all;}
 .mclose{display:block;width:100%;background:var(--acc);color:#1a1200;border:none;border-radius:50px;padding:12px;font-family:'Fredoka One',cursive;font-size:1.05rem;cursor:pointer;margin-top:4px;}
 .msname{font-family:'Fredoka One',cursive;font-size:1.05rem;color:var(--acc);margin-bottom:4px;}
@@ -1059,9 +1060,9 @@ const QUESTIONS_PRO=[
      url:"https://fr.wikipedia.org/wiki/Andrew_Wakefield",
      say:"« J'ai observé dans ma clinique des cas de régression autistique survenant après la vaccination. Ces observations cliniques ne peuvent pas être ignorées. »",
      g:false,fb:{tb:"Piégé(e) ! C'est Andrew Wakefield lui-même. Un CV prestigieux ne garantit pas l'honnêteté : il a falsifié ses données et perdu son droit d'exercer.",db:"Bien joué ! Un ancien poste prestigieux ne suffit pas. Ce médecin a été radié pour fraude scientifique. Les observations isolées ne remplacent pas les études contrôlées."}},
-    {em:"📋",n:"The Lancet — Notice de rétractation (2010)",d:"Revue médicale de référence mondiale",
+    {em:"📋",n:"The Lancet — Notice de rétractation (2010)",d:"Revue médicale qui avait publié l'étude originale de Wakefield en 1998",
      url:"https://www.thelancet.com/journals/lancet/article/PIIS0140-6736(97)11096-0/fulltext",
-     say:"« Nous retirons formellement l'article de 1998 : les données étaient falsifiées et l'auteur a enfreint l'éthique médicale. Cette étude n'aurait jamais dû être publiée. »",
+     say:"« Nous retirons formellement l'article de Wakefield (1998) : ses données étaient falsifiées et il a enfreint l'éthique médicale. Cette étude n'aurait jamais dû être publiée. »",
      g:true,fb:{tg:"Excellent ! Une revue qui reconnaît et corrige publiquement ses erreurs, c'est le signe d'une science sérieuse. The Lancet a fait son travail d'auto-correction.",dg:"Dommage ! Quand la revue qui a publié l'étude la retire elle-même, c'est une information cruciale. La science s'auto-corrige."}},
     {em:"🎬",n:"Documentaire 'Vaxxed' (2016) réalisé par Andrew Wakefield",d:"Film présentant des témoignages de parents",
      url:"https://fr.wikipedia.org/wiki/Vaxxed",
