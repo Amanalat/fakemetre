@@ -1563,8 +1563,8 @@ function closeCursorHint(){
 }
 
 function openSrc(src,idx,btn){
-  if(um[idx]!==undefined)return;
-  pend={src,idx,btn};
+  const isEdit=um[idx]!==undefined;
+  pend={src,idx,btn,isEdit};
   $('msname').textContent=src.em+'  '+src.n;
   $('msdesc').textContent=src.d;
   $('mssays').textContent=src.say;
@@ -1572,7 +1572,7 @@ function openSrc(src,idx,btn){
   if(currentLevel==='pro'||currentLevel==='inter'||src.g==='free'){
     $('msrc-junior').style.display='none';
     $('msrc-pro').style.display='block';
-    initLikert();
+    initLikert(isEdit ? (src._likertScore||0) : 0);
   } else {
     $('msrc-junior').style.display='block';
     $('msrc-pro').style.display='none';
@@ -1583,7 +1583,7 @@ function openSrc(src,idx,btn){
 let likertVal=0;
 const LIKERT_LABELS=['','Absolument pas fiable','Très peu fiable','Peu fiable','Neutre — difficile à dire','Plutôt fiable','Très fiable','Totalement fiable'];
 
-function initLikert(){
+function initLikert(preVal=0){
   likertVal=0;
   const container=$('likert-btns');
   container.innerHTML='';
@@ -1596,6 +1596,7 @@ function initLikert(){
   $('likert-label').textContent='';
   $('likert-confirm').style.opacity='.4';
   $('likert-confirm').style.pointerEvents='none';
+  if(preVal>0) selectLikert(preVal);
 }
 
 function selectLikert(v){
@@ -1609,30 +1610,25 @@ function selectLikert(v){
 }
 
 function confirmLikert(){
-  hide('msrc');
-  const{src,idx,btn}=pend;
-  // Stocker le score likert dans la source pour le bilan
+  const{src,idx,btn,isEdit}=pend;
   src._likertScore = likertVal;
-  // Pas de feedback sur fiabilité en mode pro — on note juste la source comme consultée
-  // On colore sobrement selon si la source est bonne ou non (invisible pour l'élève)
-  // On garde le score neutre (pas de pts pour l'évaluation source en mode pro)
-  // um stocke si l'utilisateur a fait confiance (likert >= 5) ou non (likert <= 3)
   um[idx] = likertVal >= 5 ? 'ug' : (likertVal <= 3 ? 'ub' : 'neutral');
-  uc++;
-  btn.classList.add('ug'); // légère teinte verte = "consultée"
-  btn.disabled=true;
-  // Afficher le score Likert discret sur le bouton
-  const tag=document.createElement('div');
+  if(!isEdit) uc++;
+  btn.classList.remove('ug','ub');
+  btn.classList.add('ug');
+  // Mettre à jour le tag (créer ou recycler)
+  let tag=btn.querySelector('.utag');
+  if(!tag){tag=document.createElement('div');btn.querySelector('div').appendChild(tag);}
   tag.className='utag g';
   tag.textContent='⭐ '+likertVal+'/7';
-  btn.querySelector('div').appendChild(tag);
   updCounter();
-  // Ouvrir le modal feedback (pour proposer l'ajustement du curseur) comme en mode junior
   $('fbemoji').textContent='🎚️';
-  $('fbtitle').textContent='Source évaluée !';
+  $('fbtitle').textContent=isEdit?'Note modifiée !':'Source évaluée !';
   $('fbexpl').textContent='Tu as noté cette source '+likertVal+'/7. Tu peux consulter d\'autres sources ou voter directement.';
   $('fbpts').textContent='';$('fbpts').className='fbpts';
-  setTimeout(()=>show('mfb'),80);
+  // Swap atomique : montrer mfb avant de cacher msrc pour éviter le gap sans overlay
+  show('mfb');
+  setTimeout(()=>$('msrc').classList.remove('show'),50);
   setTimeout(()=>{$('vzone').style.display='block';},600);
 }
 
@@ -1661,23 +1657,40 @@ function searchSource(){
 }
 
 function trust(trusts){
-  hide('msrc');
-  const{src,idx,btn}=pend;
+  const{src,idx,btn,isEdit}=pend;
   let pts,emoji,title,expl,pc,oc;
   if(src.g===true&&trusts)  {pts=30; pc='pos';oc='ug';emoji='🎉';title='Excellent choix !';expl=src.fb.tg||'';}
   else if(src.g===true)     {pts=-10;pc='neg';oc='ub';emoji='😬';title='Dommage...';       expl=src.fb.dg||'';}
   else if(trusts)            {pts=-20;pc='neg';oc='ub';emoji='😬';title='Attention !';      expl=src.fb.tb||'';}
   else                       {pts=20; pc='pos';oc='ug';emoji='👏';title='Bien joué !';      expl=src.fb.db||'';}
+  if(isEdit){
+    // Inverser le score précédent avant d'appliquer le nouveau
+    const prevOc=um[idx];
+    let prevPts=0;
+    if(src.g===true&&prevOc==='ug') prevPts=30;
+    else if(src.g===true&&prevOc==='ub') prevPts=-10;
+    else if(prevOc==='ub') prevPts=20;
+    else prevPts=-20;
+    score=Math.max(0,score-prevPts);
+  } else {
+    uc++;
+  }
   score=Math.max(0,score+pts);
-  uc++;um[idx]=oc;
-  btn.classList.add(oc);btn.disabled=true;
-  const tag=document.createElement('div');tag.className='utag '+(oc==='ug'?'g':'b');tag.textContent=trusts?'✅ Crue':'🙅 Ignorée';
-  btn.querySelector('div').appendChild(tag);
+  um[idx]=oc;
+  btn.classList.remove('ug','ub');
+  btn.classList.add(oc);
+  // Mettre à jour le tag (créer ou recycler)
+  let tag=btn.querySelector('.utag');
+  if(!tag){tag=document.createElement('div');btn.querySelector('div').appendChild(tag);}
+  tag.className='utag '+(oc==='ug'?'g':'b');
+  tag.textContent=trusts?'✅ Crue':'🙅 Ignorée';
   $('sc').textContent=score;
   updCounter();
   $('fbemoji').textContent=emoji;$('fbtitle').textContent=title;$('fbexpl').textContent=expl;
-  $('fbpts').textContent=(pts>=0?'+':'')+pts+' pts';$('fbpts').className='fbpts '+pc;
-  setTimeout(()=>show('mfb'),80);
+  $('fbpts').textContent=(isEdit?'':( pts>=0?'+':'' )+(pts)+' pts');$('fbpts').className='fbpts '+pc;
+  // Swap atomique : montrer mfb avant de cacher msrc pour éviter le gap sans overlay
+  show('mfb');
+  setTimeout(()=>$('msrc').classList.remove('show'),50);
   setTimeout(()=>{$('vzone').style.display='block';},600);
 }
 
