@@ -3044,7 +3044,7 @@ function sbFetch(path, opts={}){
     }
   }).then(r=>{
     if(!r.ok) return r.text().then(t=>{throw new Error(t);});
-    return r.status===204 ? null : r.json();
+    return r.text().then(t=>t?JSON.parse(t):null);
   });
 }
 
