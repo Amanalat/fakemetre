@@ -262,6 +262,21 @@ h1{font-family:'Fredoka One',cursive;font-size:clamp(2rem,6vw,2.8rem);color:var(
 .modal-box{background:var(--panel);border:1px solid var(--bord);border-radius:20px;padding:28px;max-width:500px;width:100%;max-height:90vh;overflow-y:auto;}
 .modal-box h3{font-family:'Fredoka One',cursive;font-size:1.3rem;color:#f97316;margin-bottom:18px;}
 .modal-notice{background:rgba(249,115,22,.1);border:1px solid rgba(249,115,22,.3);border-radius:10px;padding:12px;margin-bottom:16px;font-size:.78rem;color:#f97316;font-weight:700;line-height:1.5;}
+.pack-actions{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap;align-items:center;}
+.vote-btn{background:var(--card);border:2px solid var(--bord);border-radius:50px;padding:6px 14px;font-size:.85rem;cursor:pointer;font-family:'Nunito',sans-serif;font-weight:700;color:var(--tx);transition:all .18s;}
+.vote-btn:hover:not(:disabled){transform:scale(1.05);}
+.vote-btn.up:hover:not(:disabled),.vote-btn.up.voted{border-color:var(--gr);color:var(--gr);background:rgba(62,207,142,.1);}
+.vote-btn.down:hover:not(:disabled),.vote-btn.down.voted{border-color:var(--rd);color:var(--rd);background:rgba(247,95,95,.1);}
+.vote-btn:disabled{opacity:.7;cursor:default;}
+.comment-btn{background:var(--card);border:2px solid var(--bord);border-radius:50px;padding:6px 14px;font-size:.85rem;cursor:pointer;font-family:'Nunito',sans-serif;font-weight:700;color:var(--mu);transition:all .18s;}
+.comment-btn:hover{border-color:var(--bl);color:var(--bl);}
+.comments-section{margin-top:14px;border-top:1px solid var(--bord);padding-top:14px;}
+.comments-list{margin-bottom:14px;}
+.comment-item{background:var(--card);border-radius:10px;padding:10px 14px;margin-bottom:8px;}
+.comment-author{font-weight:800;font-size:.8rem;color:var(--acc);margin-bottom:3px;}
+.comment-content{font-size:.85rem;font-weight:600;line-height:1.45;color:var(--tx);}
+.comment-date{font-size:.72rem;color:var(--mu);margin-top:4px;}
+.comment-form{display:flex;flex-direction:column;gap:8px;}
 </style>
 </head>
 <body>
@@ -3081,8 +3096,11 @@ function renderPacks(){
     grid.innerHTML='<div class="comm-loading">Aucun pack pour l\'instant.<br>Sois le premier à publier !</div>';
     return;
   }
-  grid.innerHTML=communityPacks.map(p=>`
-    <div class="pack-card">
+  grid.innerHTML=communityPacks.map(p=>{
+    const voted=localStorage.getItem('vote_'+p.id)||'';
+    const dis=voted?'disabled':'';
+    return `
+    <div class="pack-card" id="pack-${p.id}">
       <div class="pack-title">${escH(p.title)}</div>
       <div class="pack-meta">Par ${escH(p.author||'Anonyme')} · ${new Date(p.created_at).toLocaleDateString('fr-FR')}</div>
       ${p.description?`<div class="pack-desc">${escH(p.description)}</div>`:''}
@@ -3090,10 +3108,82 @@ function renderPacks(){
         <span class="pack-badge ${escH(p.level)}">${LEVEL_LABELS[p.level]||escH(p.level)}</span>
         <span class="pack-stat">📋 ${(p.questions||[]).length} question(s)</span>
         <span class="pack-stat">🎮 ${p.play_count||0} parties</span>
-        <span class="pack-stat">❤️ ${p.likes||0}</span>
-        <button class="pack-play-btn" onclick="playCommunityPack('${escH(p.id)}')">Jouer ▶</button>
       </div>
-    </div>`).join('');
+      <div class="pack-actions">
+        <button class="vote-btn up${voted==='up'?' voted':''}" onclick="votePack('${p.id}','up')" ${dis}>👍 ${p.likes||0}</button>
+        <button class="vote-btn down${voted==='down'?' voted':''}" onclick="votePack('${p.id}','down')" ${dis}>👎 ${p.dislikes||0}</button>
+        <button class="comment-btn" onclick="toggleComments('${p.id}')">💬 Commentaires</button>
+        <button class="pack-play-btn" onclick="playCommunityPack('${p.id}')">Jouer ▶</button>
+      </div>
+      <div class="comments-section" id="comments-${p.id}" style="display:none;">
+        <div id="comments-list-${p.id}" class="comments-list"></div>
+        <div class="comment-form">
+          <input type="text" id="comment-author-${p.id}" class="form-input" placeholder="Ton pseudo (optionnel)" maxlength="30">
+          <textarea id="comment-content-${p.id}" class="form-input" placeholder="Écris ton avis sur ce pack..." maxlength="500" rows="2" style="resize:none;"></textarea>
+          <button id="comment-submit-${p.id}" class="creator-btn primary" style="padding:9px 20px;font-size:.9rem;" onclick="submitComment('${p.id}')">Envoyer</button>
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function votePack(id, type){
+  const key='vote_'+id;
+  if(localStorage.getItem(key)){return;}
+  const pack=communityPacks.find(p=>p.id===id);
+  if(!pack) return;
+  const field=type==='up'?'likes':'dislikes';
+  const newVal=(pack[field]||0)+1;
+  sbFetch('packs?id=eq.'+id,{method:'PATCH',prefer:'return=minimal',body:JSON.stringify({[field]:newVal})})
+    .then(()=>{
+      pack[field]=newVal;
+      localStorage.setItem(key,type);
+      renderPacks();
+    }).catch(()=>alert('Erreur lors du vote.'));
+}
+
+function toggleComments(id){
+  const section=document.getElementById('comments-'+id);
+  if(section.style.display==='none'){
+    section.style.display='block';
+    loadComments(id);
+  } else {
+    section.style.display='none';
+  }
+}
+
+function loadComments(packId){
+  const container=document.getElementById('comments-list-'+packId);
+  container.innerHTML='<div style="color:var(--mu);font-size:.8rem;padding:8px 0;">Chargement...</div>';
+  sbFetch('comments?pack_id=eq.'+packId+'&order=created_at.asc&limit=50')
+    .then(data=>{
+      if(!data||!data.length){
+        container.innerHTML='<div style="color:var(--mu);font-size:.8rem;text-align:center;padding:12px 0;">Aucun commentaire. Sois le premier !</div>';
+        return;
+      }
+      container.innerHTML=data.map(c=>`
+        <div class="comment-item">
+          <div class="comment-author">${escH(c.author||'Anonyme')}</div>
+          <div class="comment-content">${escH(c.content)}</div>
+          <div class="comment-date">${new Date(c.created_at).toLocaleDateString('fr-FR')}</div>
+        </div>`).join('');
+    }).catch(()=>{
+      container.innerHTML='<div style="color:var(--rd);font-size:.8rem;">Erreur de chargement.</div>';
+    });
+}
+
+function submitComment(packId){
+  const content=document.getElementById('comment-content-'+packId).value.trim();
+  const author=document.getElementById('comment-author-'+packId).value.trim()||'Anonyme';
+  if(!content){alert('Écris un commentaire avant d\'envoyer !');return;}
+  const btn=document.getElementById('comment-submit-'+packId);
+  btn.disabled=true;btn.textContent='Envoi...';
+  sbFetch('comments',{method:'POST',prefer:'return=minimal',body:JSON.stringify({pack_id:packId,author,content})})
+    .then(()=>{
+      document.getElementById('comment-content-'+packId).value='';
+      loadComments(packId);
+    }).catch(e=>alert('Erreur : '+e.message))
+    .finally(()=>{btn.disabled=false;btn.textContent='Envoyer';});
 }
 
 function playCommunityPack(id){
