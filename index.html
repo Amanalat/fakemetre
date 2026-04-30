@@ -230,6 +230,38 @@ h1{font-family:'Fredoka One',cursive;font-size:clamp(2rem,6vw,2.8rem);color:var(
 .saved-indicator.show{opacity:1;transform:translateY(0);}
 
 @media(max-width:480px){#sgrid{grid-template-columns:1fr;}.modecards{flex-direction:column;align-items:center;}.levelcards{flex-direction:column;align-items:center;}.form-row,.form-row.three{grid-template-columns:1fr;}.creator-actions{flex-direction:column;}.creator-btn{width:100%;}}
+
+/* ── Community Mode ── */
+.levelcard.community:hover{border-color:#f97316;box-shadow:0 8px 30px rgba(249,115,22,.15);}
+.levelcard.community .lc-title{color:#f97316;}
+#communityscreen{display:none;width:100%;max-width:800px;padding:20px 0;}
+.community-header{text-align:center;margin-bottom:20px;}
+.community-header h2{font-family:'Fredoka One',cursive;font-size:1.6rem;color:#f97316;margin-bottom:8px;}
+.community-header p{color:var(--mu);font-size:.9rem;font-weight:600;}
+.community-filters{display:flex;gap:8px;margin-bottom:20px;flex-wrap:wrap;justify-content:center;}
+.cfbtn{background:var(--card);border:2px solid var(--bord);border-radius:50px;padding:7px 18px;cursor:pointer;font-family:'Nunito',sans-serif;font-weight:700;font-size:.8rem;color:var(--mu);transition:all .2s;}
+.cfbtn:hover,.cfbtn.active{border-color:#f97316;color:#f97316;background:rgba(249,115,22,.1);}
+.pack-grid{display:grid;gap:14px;}
+.pack-card{background:var(--panel);border:1px solid var(--bord);border-radius:16px;padding:18px 20px;transition:all .2s;}
+.pack-card:hover{border-color:rgba(249,115,22,.4);transform:translateY(-2px);box-shadow:0 6px 20px rgba(249,115,22,.1);}
+.pack-title{font-family:'Fredoka One',cursive;font-size:1.15rem;color:var(--acc);margin-bottom:4px;}
+.pack-meta{font-size:.75rem;color:var(--mu);font-weight:600;margin-bottom:8px;}
+.pack-desc{font-size:.83rem;color:var(--tx);font-weight:600;margin-bottom:12px;opacity:.85;}
+.pack-footer{display:flex;align-items:center;gap:10px;flex-wrap:wrap;}
+.pack-badge{font-size:.7rem;font-weight:800;padding:3px 9px;border-radius:6px;text-transform:uppercase;letter-spacing:.7px;}
+.pack-badge.junior{background:rgba(79,163,247,.2);color:#4fa3f7;}
+.pack-badge.inter{background:rgba(62,207,142,.2);color:#3ecf8e;}
+.pack-badge.pro{background:rgba(247,95,95,.2);color:#f75f5f;}
+.pack-badge.mixed{background:rgba(249,115,22,.2);color:#f97316;}
+.pack-stat{font-size:.75rem;color:var(--mu);font-weight:700;}
+.pack-play-btn{margin-left:auto;background:#f97316;color:#fff;border:none;border-radius:50px;padding:8px 20px;font-family:'Fredoka One',cursive;font-size:.9rem;cursor:pointer;transition:transform .18s;touch-action:manipulation;}
+.pack-play-btn:hover{transform:scale(1.05);}
+.comm-loading{text-align:center;padding:40px;color:var(--mu);font-weight:700;}
+.comm-error{text-align:center;padding:30px;color:var(--rd);font-weight:700;line-height:1.6;}
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:200;display:flex;align-items:center;justify-content:center;padding:16px;}
+.modal-box{background:var(--panel);border:1px solid var(--bord);border-radius:20px;padding:28px;max-width:500px;width:100%;max-height:90vh;overflow-y:auto;}
+.modal-box h3{font-family:'Fredoka One',cursive;font-size:1.3rem;color:#f97316;margin-bottom:18px;}
+.modal-notice{background:rgba(249,115,22,.1);border:1px solid rgba(249,115,22,.3);border-radius:10px;padding:12px;margin-bottom:16px;font-size:.78rem;color:#f97316;font-weight:700;line-height:1.5;}
 </style>
 </head>
 <body>
@@ -264,6 +296,11 @@ h1{font-family:'Fredoka One',cursive;font-size:clamp(2rem,6vw,2.8rem);color:var(
       <span class="lc-icon">✏️</span>
       <div class="lc-title">Créateur</div>
       <div class="lc-desc">Crée tes propres questions<br>et partage-les !</div>
+    </div>
+    <div class="levelcard community" onclick="openCommunity()">
+      <span class="lc-icon">🌍</span>
+      <div class="lc-title">Communauté</div>
+      <div class="lc-desc">Joue les packs créés<br>par d'autres joueurs !</div>
     </div>
   </div>
 </div>
@@ -412,6 +449,7 @@ h1{font-family:'Fredoka One',cursive;font-size:clamp(2rem,6vw,2.8rem);color:var(
         <button class="creator-btn primary" onclick="exportJSON()">📄 Télécharger en JSON (complet, réimportable)</button>
         <button class="creator-btn secondary" onclick="exportCSV()">📊 Télécharger en CSV (éditable dans Excel)</button>
         <button class="creator-btn success" onclick="exportHTML()">🌐 Télécharger en HTML (jeu autonome à partager)</button>
+        <button class="creator-btn primary" style="background:linear-gradient(135deg,#f97316,#ea580c);" onclick="openPublishModal()">🌍 Publier sur la Communauté</button>
       </div>
     </div>
 
@@ -428,6 +466,58 @@ h1{font-family:'Fredoka One',cursive;font-size:clamp(2rem,6vw,2.8rem);color:var(
     <input type="file" id="import-file-json" accept=".json" style="display:none;" onchange="handleImportJSON(event)">
     <input type="file" id="import-file-spreadsheet" accept=".csv,.xlsx,.xls" style="display:none;" onchange="handleImportSpreadsheet(event)">
     <input type="file" id="import-file-csv" accept=".csv" style="display:none;" onchange="handleImportCSV(event)">
+  </div>
+</div>
+
+<!-- COMMUNITY MODE -->
+<div id="communityscreen">
+  <button class="back-btn" onclick="closeCommunity()">← Retour au menu</button>
+  <div class="community-header">
+    <h2>🌍 Communauté</h2>
+    <p>Des sets de questions créés par d'autres joueurs !</p>
+  </div>
+  <div class="community-filters">
+    <button class="cfbtn active" onclick="filterPacks('all',this)">Tous</button>
+    <button class="cfbtn" onclick="filterPacks('junior',this)">🔎 Apprenti</button>
+    <button class="cfbtn" onclick="filterPacks('inter',this)">🕵️ Enquêteur</button>
+    <button class="cfbtn" onclick="filterPacks('pro',this)">⚡ Fact-Checker</button>
+    <button class="cfbtn" onclick="filterPacks('mixed',this)">🎲 Mixte</button>
+  </div>
+  <div id="pack-grid" class="pack-grid">
+    <div class="comm-loading">Chargement des packs...</div>
+  </div>
+</div>
+
+<!-- PUBLISH MODAL -->
+<div id="publish-modal" class="modal-overlay" style="display:none;" onclick="if(event.target===this)closePublishModal()">
+  <div class="modal-box">
+    <h3>🌍 Publier sur la Communauté</h3>
+    <div class="form-group">
+      <label>Titre du pack *</label>
+      <input type="text" id="pub-title" class="form-input" placeholder="Ex : Mythes scientifiques rigolos" maxlength="60">
+    </div>
+    <div class="form-group">
+      <label>Description</label>
+      <textarea id="pub-desc" class="form-input" rows="2" placeholder="De quoi parlent tes questions ?" maxlength="200" style="resize:none;"></textarea>
+    </div>
+    <div class="form-group">
+      <label>Ton pseudo (affiché publiquement)</label>
+      <input type="text" id="pub-author" class="form-input" placeholder="Anonyme" maxlength="30">
+    </div>
+    <div class="form-group">
+      <label>Niveau</label>
+      <select id="pub-level" class="form-input">
+        <option value="mixed">🎲 Mixte</option>
+        <option value="junior">🔎 Apprenti Détective</option>
+        <option value="inter">🕵️ Enquêteur Junior</option>
+        <option value="pro">⚡ Fact-Checker Confirmé</option>
+      </select>
+    </div>
+    <div class="modal-notice">⚖️ En publiant, tu acceptes que tes questions soient visibles par tous les utilisateurs de FakeMètre. Ne publie pas d'informations personnelles dans tes questions ou ton pseudo.</div>
+    <div class="creator-actions">
+      <button class="creator-btn secondary" onclick="closePublishModal()">Annuler</button>
+      <button id="pub-submit-btn" class="creator-btn primary" style="background:linear-gradient(135deg,#f97316,#ea580c);" onclick="submitPublish()">🚀 Publier !</button>
+    </div>
   </div>
 </div>
 
@@ -1595,6 +1685,7 @@ const QUESTIONS_PRO=[
 let QS=[], qi=0, score=0, meter=50, uc=0, sh=[], um={}, pend=null, gameMode=5, currentLevel='junior';
 let dragging=false, miniDragging=false, tempMeter=50;
 let playingCustom=false;
+let playingCommunity=false;
 let cursorTutorialSeen=false; // Ne montrer le tutoriel curseur qu'une fois
 
 // Historique détaillé pour le bilan personnalisé
@@ -1632,7 +1723,11 @@ function backToLevel(){
 
 function chooseMode(){
   $('final').style.display='none';
-  if(playingCustom){
+  if(playingCommunity){
+    playingCommunity=false;
+    playingCustom=false;
+    $('communityscreen').style.display='block';
+  } else if(playingCustom){
     playingCustom=false;
     $('creatorscreen').style.display='block';
     switchCreatorTab('play');
@@ -1647,7 +1742,11 @@ function backToMenu(){
     $('scorebar').style.display='none';
     $('dots').style.display='none';
     $('final').style.display='none';
-    if(playingCustom){
+    if(playingCommunity){
+      playingCommunity=false;
+      playingCustom=false;
+      $('communityscreen').style.display='block';
+    } else if(playingCustom){
       playingCustom=false;
       $('creatorscreen').style.display='block';
     } else {
@@ -2909,6 +3008,157 @@ function handleImportSpreadsheet(event){
 }
 
 loadCustomQuestions();
+
+// ═══════════════════════════════════════════════
+// SUPABASE — COMMUNAUTÉ
+// Remplace les deux valeurs ci-dessous par celles
+// de ton projet Supabase (Settings → API)
+// ═══════════════════════════════════════════════
+const SB_URL = 'https://hkuwalmnvjeazsegdlgf.supabase.co';
+const SB_KEY = 'sb_publishable_I58Oi2FVnQdyzhf9UGoywA_WrCDcuIj';
+
+function sbFetch(path, opts={}){
+  return fetch(SB_URL+'/rest/v1/'+path, {
+    ...opts,
+    headers:{
+      'apikey': SB_KEY,
+      'Authorization': 'Bearer '+SB_KEY,
+      'Content-Type': 'application/json',
+      'Prefer': opts.prefer||'',
+      ...(opts.headers||{})
+    }
+  }).then(r=>{
+    if(!r.ok) return r.text().then(t=>{throw new Error(t);});
+    return r.status===204 ? null : r.json();
+  });
+}
+
+let communityPacks=[];
+let communityFilter='all';
+
+function openCommunity(){
+  $('levelscreen').style.display='none';
+  $('communityscreen').style.display='block';
+  loadPacks();
+}
+
+function closeCommunity(){
+  $('communityscreen').style.display='none';
+  $('levelscreen').style.display='block';
+}
+
+function filterPacks(level, btn){
+  communityFilter=level;
+  document.querySelectorAll('.cfbtn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  loadPacks();
+}
+
+function loadPacks(){
+  const grid=$('pack-grid');
+  grid.innerHTML='<div class="comm-loading">⏳ Chargement...</div>';
+  if(SB_URL==='REMPLACER_PAR_TON_URL_SUPABASE'){
+    grid.innerHTML='<div class="comm-error">⚙️ Supabase non configuré.<br><small>Suis les instructions dans le code source (SB_URL / SB_KEY).</small></div>';
+    return;
+  }
+  let q='packs?select=id,title,description,author,level,play_count,likes,created_at,questions&order=created_at.desc&limit=50';
+  if(communityFilter!=='all') q+='&level=eq.'+communityFilter;
+  sbFetch(q).then(data=>{
+    communityPacks=data||[];
+    renderPacks();
+  }).catch(()=>{
+    grid.innerHTML='<div class="comm-error">❌ Impossible de charger les packs.<br><small>Vérifie ta connexion internet.</small></div>';
+  });
+}
+
+function escH(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+
+const LEVEL_LABELS={junior:'Apprenti',inter:'Enquêteur',pro:'Fact-Checker',mixed:'Mixte'};
+
+function renderPacks(){
+  const grid=$('pack-grid');
+  if(!communityPacks.length){
+    grid.innerHTML='<div class="comm-loading">Aucun pack pour l\'instant.<br>Sois le premier à publier !</div>';
+    return;
+  }
+  grid.innerHTML=communityPacks.map(p=>`
+    <div class="pack-card">
+      <div class="pack-title">${escH(p.title)}</div>
+      <div class="pack-meta">Par ${escH(p.author||'Anonyme')} · ${new Date(p.created_at).toLocaleDateString('fr-FR')}</div>
+      ${p.description?`<div class="pack-desc">${escH(p.description)}</div>`:''}
+      <div class="pack-footer">
+        <span class="pack-badge ${escH(p.level)}">${LEVEL_LABELS[p.level]||escH(p.level)}</span>
+        <span class="pack-stat">📋 ${(p.questions||[]).length} question(s)</span>
+        <span class="pack-stat">🎮 ${p.play_count||0} parties</span>
+        <span class="pack-stat">❤️ ${p.likes||0}</span>
+        <button class="pack-play-btn" onclick="playCommunityPack('${escH(p.id)}')">Jouer ▶</button>
+      </div>
+    </div>`).join('');
+}
+
+function playCommunityPack(id){
+  const pack=communityPacks.find(p=>p.id===id);
+  if(!pack||!pack.questions||!pack.questions.length){alert('Pack invalide ou vide.');return;}
+
+  sbFetch('packs?id=eq.'+id,{method:'PATCH',prefer:'return=minimal',body:JSON.stringify({play_count:(pack.play_count||0)+1})}).catch(()=>{});
+
+  playingCustom=true;
+  playingCommunity=true;
+  currentLevel=pack.level==='mixed'?'inter':(pack.level||'inter');
+  QS=shuf([...pack.questions]);
+  qi=0;score=0;meter=50;gameHistory=[];
+
+  $('communityscreen').style.display='none';
+  $('scorebar').style.display='flex';
+  $('dots').style.display='flex';
+  $('game').style.display='block';
+  $('qtotal').textContent=QS.length;
+  initMeterDrag();
+  renderQ();
+}
+
+function openPublishModal(){
+  if(!customQuestions.length){alert('Crée d\'abord des questions dans le Mode Créateur !');return;}
+  $('pub-title').value='';
+  $('pub-desc').value='';
+  $('pub-author').value='';
+  $('pub-level').value='mixed';
+  $('publish-modal').style.display='flex';
+}
+
+function closePublishModal(){
+  $('publish-modal').style.display='none';
+}
+
+function submitPublish(){
+  const title=$('pub-title').value.trim();
+  if(!title){alert('Donne un titre à ton pack !');$('pub-title').focus();return;}
+  if(SB_URL==='REMPLACER_PAR_TON_URL_SUPABASE'){alert('Supabase non configuré.');return;}
+
+  const btn=$('pub-submit-btn');
+  btn.textContent='Publication...';
+  btn.disabled=true;
+
+  sbFetch('packs',{
+    method:'POST',
+    prefer:'return=minimal',
+    body:JSON.stringify({
+      title,
+      description:$('pub-desc').value.trim(),
+      author:$('pub-author').value.trim()||'Anonyme',
+      level:$('pub-level').value,
+      questions:customQuestions
+    })
+  }).then(()=>{
+    closePublishModal();
+    alert('🎉 Pack publié ! Il est maintenant visible dans la section Communauté.');
+  }).catch(e=>{
+    alert('❌ Erreur lors de la publication.\n'+e.message);
+  }).finally(()=>{
+    btn.textContent='🚀 Publier !';
+    btn.disabled=false;
+  });
+}
 </script>
 </body>
 </html>
