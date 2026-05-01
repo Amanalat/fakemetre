@@ -13,7 +13,7 @@
   --tx:#e8f1ff; --mu:#7a9cc0; --bord:rgba(255,255,255,0.08);
 }
 *{box-sizing:border-box;margin:0;padding:0;}
-body{font-family:'Nunito',sans-serif;background:var(--bg);background-image:radial-gradient(ellipse at 15% 15%,rgba(79,163,247,.07) 0%,transparent 55%),radial-gradient(ellipse at 85% 85%,rgba(247,201,72,.06) 0%,transparent 55%);color:var(--tx);min-height:100vh;display:flex;flex-direction:column;align-items:center;padding:20px 16px;}
+body{font-family:'Nunito',sans-serif;background:var(--bg);background-image:radial-gradient(ellipse at 15% 15%,rgba(79,163,247,.07) 0%,transparent 55%),radial-gradient(ellipse at 85% 85%,rgba(247,201,72,.06) 0%,transparent 55%);color:var(--tx);min-height:100vh;display:flex;flex-direction:column;align-items:center;padding:20px 16px;overscroll-behavior:contain;}
 h1{font-family:'Fredoka One',cursive;font-size:clamp(2rem,6vw,2.8rem);color:var(--acc);text-shadow:0 0 30px rgba(247,201,72,.35);}
 .sub{color:var(--mu);font-size:.9rem;font-weight:600;margin-top:4px;margin-bottom:6px;}
 .author{color:var(--mu);font-size:.78rem;font-weight:600;margin-bottom:16px;opacity:.8;}
@@ -232,6 +232,8 @@ h1{font-family:'Fredoka One',cursive;font-size:clamp(2rem,6vw,2.8rem);color:var(
 .lang-switch:hover{transform:scale(1.18);box-shadow:0 4px 16px rgba(0,0,0,.4);}
 
 @media(max-width:480px){#sgrid{grid-template-columns:1fr;}.modecards{flex-direction:column;align-items:center;}.levelcards{flex-direction:column;align-items:center;}.form-row,.form-row.three{grid-template-columns:1fr;}.creator-actions{flex-direction:column;}.creator-btn{width:100%;}}
+.fs-btn{position:fixed;bottom:16px;right:16px;z-index:9999;background:var(--acc);color:#1a1200;border:none;border-radius:50px;padding:10px 18px;font-family:'Fredoka One',cursive;font-size:.9rem;cursor:pointer;display:none;align-items:center;gap:8px;box-shadow:0 4px 20px rgba(247,201,72,.4);touch-action:manipulation;-webkit-tap-highlight-color:transparent;}
+@media(hover:none),(max-width:768px){.fs-btn{display:flex;}}
 
 /* ── Community Mode ── */
 .levelcard.community:hover{border-color:#f97316;box-shadow:0 8px 30px rgba(249,115,22,.15);}
@@ -3670,6 +3672,28 @@ function adminDeletePack(id){
       }).catch(()=>alert('Unable to load this pack.'));
   });
 })();
+
+// ── Fullscreen (mobile) ──
+function toggleFS(){
+  const el=document.documentElement;
+  const isFs=document.fullscreenElement||document.webkitFullscreenElement;
+  if(!isFs){
+    if(el.requestFullscreen) el.requestFullscreen();
+    else if(el.webkitRequestFullscreen) el.webkitRequestFullscreen();
+  } else {
+    if(document.exitFullscreen) document.exitFullscreen();
+    else if(document.webkitExitFullscreen) document.webkitExitFullscreen();
+  }
+}
+function _updFsBtn(){
+  const btn=document.getElementById('fs-btn');
+  if(!btn) return;
+  const isFs=document.fullscreenElement||document.webkitFullscreenElement;
+  btn.innerHTML=isFs?'✕ Exit':'⛶ Fullscreen';
+}
+document.addEventListener('fullscreenchange',_updFsBtn);
+document.addEventListener('webkitfullscreenchange',_updFsBtn);
 </script>
+<button class="fs-btn" id="fs-btn" onclick="toggleFS()">⛶ Fullscreen</button>
 </body>
 </html>
