@@ -228,6 +228,8 @@ h1{font-family:'Fredoka One',cursive;font-size:clamp(2rem,6vw,2.8rem);color:var(
 .empty-state p{font-weight:600;font-size:.9rem;}
 .saved-indicator{position:fixed;bottom:20px;right:20px;background:#3ecf8e;color:#0a2a1a;padding:10px 20px;border-radius:50px;font-weight:700;font-size:.85rem;opacity:0;transform:translateY(20px);transition:all .3s;z-index:100;}
 .saved-indicator.show{opacity:1;transform:translateY(0);}
+.lang-switch{position:fixed;top:14px;right:14px;font-size:1.5rem;text-decoration:none;z-index:999;background:var(--panel);border:1px solid var(--bord);border-radius:50%;width:44px;height:44px;display:flex;align-items:center;justify-content:center;transition:transform .2s,box-shadow .2s;}
+.lang-switch:hover{transform:scale(1.18);box-shadow:0 4px 16px rgba(0,0,0,.4);}
 
 @media(max-width:480px){#sgrid{grid-template-columns:1fr;}.modecards{flex-direction:column;align-items:center;}.levelcards{flex-direction:column;align-items:center;}.form-row,.form-row.three{grid-template-columns:1fr;}.creator-actions{flex-direction:column;}.creator-btn{width:100%;}}
 
@@ -280,6 +282,8 @@ h1{font-family:'Fredoka One',cursive;font-size:clamp(2rem,6vw,2.8rem);color:var(
 </style>
 </head>
 <body>
+
+<a class="lang-switch" href="index_en.html" title="English version">🇬🇧</a>
 
 <header style="text-align:center">
   <h1>🔍 FakeMètre</h1>
@@ -352,6 +356,7 @@ h1{font-family:'Fredoka One',cursive;font-size:clamp(2rem,6vw,2.8rem);color:var(
     <button class="creator-tab" onclick="switchCreatorTab('list')">📋 Mes questions (<span id="q-count">0</span>)</button>
     <button class="creator-tab" onclick="switchCreatorTab('play')">🎮 Jouer</button>
     <button class="creator-tab" onclick="switchCreatorTab('export')">📤 Importer / Exporter</button>
+    <button class="creator-tab" onclick="switchCreatorTab('help')">❓ Comment ça marche</button>
   </div>
   
   <!-- Panel: Edit -->
@@ -481,6 +486,49 @@ h1{font-family:'Fredoka One',cursive;font-size:clamp(2rem,6vw,2.8rem);color:var(
     <input type="file" id="import-file-spreadsheet" accept=".csv,.xlsx,.xls" style="display:none;" onchange="handleImportSpreadsheet(event)">
     <input type="file" id="import-file-csv" accept=".csv" style="display:none;" onchange="handleImportCSV(event)">
   </div>
+
+  <!-- Panel: Help -->
+  <div class="creator-panel" id="panel-help">
+    <h3>❓ Comment ça marche ?</h3>
+
+    <div style="display:flex;flex-direction:column;gap:14px;">
+
+      <div style="background:var(--card);border-radius:12px;padding:16px 18px;">
+        <div style="font-family:'Fredoka One',cursive;font-size:1rem;color:var(--acc);margin-bottom:8px;">1️⃣ Crée tes questions</div>
+        <div style="font-size:.85rem;color:var(--mu);font-weight:600;line-height:1.6;">
+          Dans l'onglet <strong style="color:var(--tx);">📝 Créer/Modifier</strong>, rédige une affirmation (vraie ou fausse), son explication, puis ajoute entre 2 et 4 sources. Pour chaque source, indique si elle est <strong style="color:var(--gr);">fiable</strong> ou <strong style="color:var(--rd);">non fiable</strong> — c'est ce que le joueur devra deviner !<br><br>
+          Tu peux aussi joindre une <strong style="color:var(--tx);">image ou un PDF</strong> comme source via le bouton 📎.
+        </div>
+      </div>
+
+      <div style="background:var(--card);border-radius:12px;padding:16px 18px;">
+        <div style="font-family:'Fredoka One',cursive;font-size:1rem;color:var(--acc);margin-bottom:8px;">2️⃣ Teste ton set</div>
+        <div style="font-size:.85rem;color:var(--mu);font-weight:600;line-height:1.6;">
+          Tes questions s'accumulent dans <strong style="color:var(--tx);">📋 Mes questions</strong>. Tu peux les modifier, les supprimer, ou en ajouter d'autres.<br><br>
+          Utilise l'onglet <strong style="color:var(--tx);">🎮 Jouer</strong> pour tester ton set avant de le publier.
+        </div>
+      </div>
+
+      <div style="background:var(--card);border-radius:12px;padding:16px 18px;">
+        <div style="font-family:'Fredoka One',cursive;font-size:1rem;color:#f97316;margin-bottom:8px;">3️⃣ Publie dans la Communauté</div>
+        <div style="font-size:.85rem;color:var(--mu);font-weight:600;line-height:1.6;">
+          Quand ton set est prêt, va dans <strong style="color:var(--tx);">📤 Importer / Exporter</strong> et clique sur <strong style="color:#f97316;">🌍 Publier sur la Communauté</strong>.<br><br>
+          Donne un titre à ton set, une courte description, ton pseudo (optionnel) et le niveau de difficulté. Accepte la charte de publication, puis clique sur <strong style="color:#f97316;">Publier !</strong><br><br>
+          Ton set sera immédiatement visible par tous les joueurs dans la section <strong style="color:var(--tx);">🌍 Communauté</strong>.
+        </div>
+      </div>
+
+      <div style="background:var(--card);border-radius:12px;padding:16px 18px;">
+        <div style="font-family:'Fredoka One',cursive;font-size:1rem;color:var(--bl);margin-bottom:8px;">💡 Bons à savoir</div>
+        <div style="font-size:.85rem;color:var(--mu);font-weight:600;line-height:1.6;">
+          • Tes questions sont sauvegardées dans ton navigateur — si tu changes d'appareil, exporte-les en JSON d'abord.<br>
+          • Une fois publié, un set ne peut pas être modifié (exporte d'abord, modifie, puis republie).<br>
+          • Les contenus ne respectant pas la charte peuvent être supprimés sans préavis.
+        </div>
+      </div>
+
+    </div>
+  </div>
 </div>
 
 <!-- COMMUNITY MODE -->
@@ -491,14 +539,61 @@ h1{font-family:'Fredoka One',cursive;font-size:clamp(2rem,6vw,2.8rem);color:var(
     <p>Des sets de questions créés par d'autres joueurs !</p>
   </div>
   <div class="community-filters">
-    <button class="cfbtn active" onclick="filterPacks('all',this)">Tous</button>
-    <button class="cfbtn" onclick="filterPacks('junior',this)">🔎 Apprenti</button>
-    <button class="cfbtn" onclick="filterPacks('inter',this)">🕵️ Enquêteur</button>
-    <button class="cfbtn" onclick="filterPacks('pro',this)">⚡ Fact-Checker</button>
-    <button class="cfbtn" onclick="filterPacks('mixed',this)">🎲 Mixte</button>
+    <button class="cfbtn active" onclick="showCommunityTab('browse',this)">🌍 Parcourir</button>
+    <button class="cfbtn" onclick="showCommunityTab('howto',this)">✏️ Créer mon set</button>
   </div>
-  <div id="pack-grid" class="pack-grid">
-    <div class="comm-loading">Chargement des packs...</div>
+
+  <!-- Onglet Parcourir -->
+  <div id="community-browse">
+    <div class="community-filters" style="margin-bottom:14px;">
+      <button class="cfbtn active" onclick="filterPacks('all',this)">Tous</button>
+      <button class="cfbtn" onclick="filterPacks('junior',this)">🔎 Apprenti</button>
+      <button class="cfbtn" onclick="filterPacks('inter',this)">🕵️ Enquêteur</button>
+      <button class="cfbtn" onclick="filterPacks('pro',this)">⚡ Fact-Checker</button>
+      <button class="cfbtn" onclick="filterPacks('mixed',this)">🎲 Mixte</button>
+    </div>
+    <div id="pack-grid" class="pack-grid">
+      <div class="comm-loading">Chargement des packs...</div>
+    </div>
+  </div>
+
+  <!-- Onglet Comment créer -->
+  <div id="community-howto" style="display:none;">
+    <div style="display:flex;flex-direction:column;gap:14px;margin-top:4px;">
+
+      <div style="background:var(--panel);border:1px solid var(--bord);border-radius:12px;padding:18px 20px;">
+        <div style="font-family:'Fredoka One',cursive;font-size:1.1rem;color:var(--acc);margin-bottom:10px;">Tu veux créer ton propre set de questions ?</div>
+        <div style="font-size:.88rem;color:var(--mu);font-weight:600;line-height:1.7;">
+          C'est simple ! Voici comment faire en 3 étapes :
+        </div>
+      </div>
+
+      <div style="background:var(--panel);border:1px solid var(--bord);border-radius:12px;padding:16px 20px;">
+        <div style="font-family:'Fredoka One',cursive;font-size:1rem;color:var(--acc);margin-bottom:8px;">1️⃣ Va dans le Mode Créateur</div>
+        <div style="font-size:.85rem;color:var(--mu);font-weight:600;line-height:1.6;">
+          Depuis le menu principal, clique sur la carte <strong style="color:#a855f7;">✏️ Créateur</strong>. Tu pourras y rédiger tes questions, ajouter des sources (fiables ou non), et tester ton set avant de le publier.
+        </div>
+      </div>
+
+      <div style="background:var(--panel);border:1px solid var(--bord);border-radius:12px;padding:16px 20px;">
+        <div style="font-family:'Fredoka One',cursive;font-size:1rem;color:var(--acc);margin-bottom:8px;">2️⃣ Crée tes questions</div>
+        <div style="font-size:.85rem;color:var(--mu);font-weight:600;line-height:1.6;">
+          Chaque question contient une affirmation (vraie ou fausse), une explication et 2 à 4 sources. Tu peux même joindre des images ou des PDF comme preuves ! Consulte l'onglet <strong style="color:var(--tx);">❓ Comment ça marche</strong> dans le Créateur pour un guide détaillé.
+        </div>
+      </div>
+
+      <div style="background:var(--panel);border:1px solid var(--bord);border-radius:12px;padding:16px 20px;">
+        <div style="font-family:'Fredoka One',cursive;font-size:1rem;color:#f97316;margin-bottom:8px;">3️⃣ Publie ici !</div>
+        <div style="font-size:.85rem;color:var(--mu);font-weight:600;line-height:1.6;">
+          Dans le Créateur → onglet <strong style="color:var(--tx);">📤 Importer / Exporter</strong> → <strong style="color:#f97316;">🌍 Publier sur la Communauté</strong>. Ton set apparaîtra ici pour que tout le monde puisse y jouer !
+        </div>
+      </div>
+
+      <button class="creator-btn primary" style="background:linear-gradient(135deg,#a855f7,#7c3aed);padding:14px;font-size:1rem;" onclick="closeCommunity();openCreator();">
+        ✏️ Aller dans le Mode Créateur
+      </button>
+
+    </div>
   </div>
 </div>
 
@@ -3106,6 +3201,7 @@ const SB_KEY = 'sb_publishable_I58Oi2FVnQdyzhf9UGoywA_WrCDcuIj';
 function sbFetch(path, opts={}){
   return fetch(SB_URL+'/rest/v1/'+path, {
     ...opts,
+    cache:'no-store',
     headers:{
       'apikey': SB_KEY,
       'Authorization': 'Bearer '+SB_KEY,
@@ -3121,6 +3217,13 @@ function sbFetch(path, opts={}){
 
 let communityPacks=[];
 let communityFilter='all';
+
+function showCommunityTab(tab, btn){
+  $('community-browse').style.display = tab==='browse' ? 'block' : 'none';
+  $('community-howto').style.display  = tab==='howto'  ? 'block' : 'none';
+  document.querySelectorAll('.community-filters .cfbtn').forEach(b=>b.classList.remove('active'));
+  if(btn) btn.classList.add('active');
+}
 
 function openCommunity(){
   $('levelscreen').style.display='none';
@@ -3175,9 +3278,11 @@ function renderPacks(){
     grid.innerHTML='<div class="comm-loading">Aucun pack pour l\'instant.<br>Sois le premier à publier !</div>';
     return;
   }
+  const myTokens=getMyPackTokens();
   grid.innerHTML=communityPacks.map(p=>{
     const voted=localStorage.getItem('vote_'+p.id)||'';
     const dis=voted?'disabled':'';
+    const isMine=!!myTokens[p.id];
     return `
     <div class="pack-card" id="pack-${p.id}">
       <div class="pack-title">${escH(p.title)}</div>
@@ -3193,6 +3298,7 @@ function renderPacks(){
         <button class="vote-btn down${voted==='down'?' voted':''}" onclick="votePack('${p.id}','down')" ${dis}>👎 ${p.dislikes||0}</button>
         <button class="comment-btn" onclick="toggleComments('${p.id}')">💬 Commentaires</button>
         <button class="pack-play-btn" onclick="playCommunityPack('${p.id}')">Jouer ▶</button>
+        ${isMine?`<button class="pack-delete-btn" onclick="deletePack('${p.id}')">🗑️ Supprimer</button>`:''}
       </div>
       <div class="comments-section" id="comments-${p.id}" style="display:none;">
         <div id="comments-list-${p.id}" class="comments-list"></div>
@@ -3323,12 +3429,47 @@ function submitPublish(){
   }).then(()=>{
     closePublishModal();
     alert('🎉 Pack publié ! Il est maintenant visible dans la section Communauté.');
+    loadPacks();
   }).catch(e=>{
     alert('❌ Erreur lors de la publication.\n'+e.message);
   }).finally(()=>{
     btn.textContent='🚀 Publier !';
     btn.disabled=false;
   });
+}
+
+// ── Mode Admin (suppression) ──
+let adminMode=false;
+const ADMIN_HASH='a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3'; // sha256 de "123"
+
+async function sha256(str){
+  const buf=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(str));
+  return Array.from(new Uint8Array(buf)).map(b=>b.toString(16).padStart(2,'0')).join('');
+}
+
+async function toggleAdminMode(){
+  if(adminMode){
+    adminMode=false;
+    renderPacks();
+    return;
+  }
+  const pw=prompt('Mot de passe admin :');
+  if(!pw) return;
+  const h=await sha256(pw);
+  if(h===ADMIN_HASH){
+    adminMode=true;
+    renderPacks();
+  } else {
+    alert('Mot de passe incorrect.');
+  }
+}
+
+function deletePack(id){
+  if(!adminMode) return;
+  if(!confirm('Supprimer définitivement ce pack ?')) return;
+  sbFetch('packs?id=eq.'+id,{method:'DELETE',prefer:'return=minimal'})
+    .then(()=>{ alert('Pack supprimé.'); loadPacks(); })
+    .catch(e=>alert('❌ Erreur : '+e.message));
 }
 </script>
 </body>
