@@ -243,6 +243,8 @@ h1{font-family:'Fredoka One',cursive;font-size:clamp(2rem,6vw,2.8rem);color:var(
 .community-filters{display:flex;gap:8px;margin-bottom:20px;flex-wrap:wrap;justify-content:center;}
 .cfbtn{background:var(--card);border:2px solid var(--bord);border-radius:50px;padding:7px 18px;cursor:pointer;font-family:'Nunito',sans-serif;font-weight:700;font-size:.8rem;color:var(--mu);transition:all .2s;}
 .cfbtn:hover,.cfbtn.active{border-color:#f97316;color:#f97316;background:rgba(249,115,22,.1);}
+.cfbtn-lang{background:var(--card);border:2px solid var(--bord);border-radius:50px;padding:7px 18px;cursor:pointer;font-family:'Nunito',sans-serif;font-weight:700;font-size:.8rem;color:var(--mu);transition:all .2s;}
+.cfbtn-lang:hover,.cfbtn-lang.active{border-color:var(--bl);color:var(--bl);background:rgba(79,163,247,.1);}
 .pack-grid{display:grid;gap:14px;}
 .pack-card{background:var(--panel);border:1px solid var(--bord);border-radius:16px;padding:18px 20px;transition:all .2s;}
 .pack-card:hover{border-color:rgba(249,115,22,.4);transform:translateY(-2px);box-shadow:0 6px 20px rgba(249,115,22,.1);}
@@ -258,6 +260,8 @@ h1{font-family:'Fredoka One',cursive;font-size:clamp(2rem,6vw,2.8rem);color:var(
 .pack-stat{font-size:.75rem;color:var(--mu);font-weight:700;}
 .pack-play-btn{margin-left:auto;background:#f97316;color:#fff;border:none;border-radius:50px;padding:8px 20px;font-family:'Fredoka One',cursive;font-size:.9rem;cursor:pointer;transition:transform .18s;touch-action:manipulation;}
 .pack-play-btn:hover{transform:scale(1.05);}
+.pack-delete-btn{background:rgba(247,95,95,.12);border:2px solid rgba(247,95,95,.35);border-radius:50px;padding:6px 14px;font-size:.85rem;cursor:pointer;font-family:'Nunito',sans-serif;font-weight:700;color:#f75f5f;transition:all .18s;}
+.pack-delete-btn:hover{background:rgba(247,95,95,.22);}
 .comm-loading{text-align:center;padding:40px;color:var(--mu);font-weight:700;}
 .comm-error{text-align:center;padding:30px;color:var(--rd);font-weight:700;line-height:1.6;}
 .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:200;display:flex;align-items:center;justify-content:center;padding:16px;}
@@ -545,12 +549,17 @@ h1{font-family:'Fredoka One',cursive;font-size:clamp(2rem,6vw,2.8rem);color:var(
 
   <!-- Onglet Parcourir -->
   <div id="community-browse">
-    <div class="community-filters" style="margin-bottom:14px;">
+    <div class="community-filters" style="margin-bottom:8px;">
       <button class="cfbtn active" onclick="filterPacks('all',this)">Tous</button>
       <button class="cfbtn" onclick="filterPacks('junior',this)">🔎 Apprenti</button>
       <button class="cfbtn" onclick="filterPacks('inter',this)">🕵️ Enquêteur</button>
       <button class="cfbtn" onclick="filterPacks('pro',this)">⚡ Fact-Checker</button>
       <button class="cfbtn" onclick="filterPacks('mixed',this)">🎲 Mixte</button>
+    </div>
+    <div class="community-filters" style="margin-bottom:14px;" id="lang-filter-row">
+      <button class="cfbtn-lang active" onclick="filterLang('all',this)">🌍 Toutes langues</button>
+      <button class="cfbtn-lang" onclick="filterLang('fr',this)">🇫🇷 Français</button>
+      <button class="cfbtn-lang" onclick="filterLang('en',this)">🇬🇧 Anglais</button>
     </div>
     <div id="pack-grid" class="pack-grid">
       <div class="comm-loading">Chargement des packs...</div>
@@ -614,7 +623,10 @@ h1{font-family:'Fredoka One',cursive;font-size:clamp(2rem,6vw,2.8rem);color:var(
 <!-- PUBLISH MODAL -->
 <div id="publish-modal" class="modal-overlay" style="display:none;" onclick="if(event.target===this)closePublishModal()">
   <div class="modal-box">
-    <h3>🌍 Publier sur la Communauté</h3>
+    <h3 id="publish-modal-title">🌍 Publier sur la Communauté</h3>
+    <div id="edit-mode-banner" style="display:none;background:rgba(247,201,72,.12);border:1px solid rgba(247,201,72,.3);border-radius:10px;padding:10px 14px;margin-bottom:16px;">
+      <p style="color:var(--acc);font-size:.85rem;font-weight:700;margin:0;">✏️ Modification de : <span id="edit-pack-name"></span></p>
+    </div>
     <div class="form-group">
       <label>Titre du pack *</label>
       <input type="text" id="pub-title" class="form-input" placeholder="Ex : Mythes scientifiques rigolos" maxlength="60">
@@ -636,7 +648,20 @@ h1{font-family:'Fredoka One',cursive;font-size:clamp(2rem,6vw,2.8rem);color:var(
         <option value="pro">⚡ Fact-Checker Confirmé</option>
       </select>
     </div>
-    <div style="background:var(--card);border:1px solid var(--bord);border-radius:12px;padding:14px;margin-bottom:16px;font-size:.8rem;color:var(--tx);line-height:1.6;">
+    <div class="form-group">
+      <label>Langue des questions</label>
+      <select id="pub-lang" class="form-input">
+        <option value="fr">🇫🇷 Français</option>
+        <option value="en">🇬🇧 Anglais</option>
+        <option value="both">🌍 Bilingue</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label>Code secret <span style="font-weight:600;color:var(--mu);font-size:.75rem;" id="secret-hint-text">(optionnel — nécessaire pour modifier ou supprimer plus tard)</span></label>
+      <input type="password" id="pub-secret" class="form-input" placeholder="Choisis un code..." maxlength="50" autocomplete="new-password">
+      <p style="color:var(--mu);font-size:.75rem;font-weight:600;margin-top:4px;margin-bottom:0;">⚠️ Retiens bien ce code — il n'est pas récupérable.</p>
+    </div>
+    <div id="pub-charter-section" style="background:var(--card);border:1px solid var(--bord);border-radius:12px;padding:14px;margin-bottom:16px;font-size:.8rem;color:var(--tx);line-height:1.6;">
       <div style="font-family:'Fredoka One',cursive;color:#f97316;margin-bottom:8px;font-size:.95rem;">📋 Charte de publication</div>
       En publiant un set de questions sur FakeMètre, tu t'engages à respecter les règles suivantes :<br><br>
       <b>🚫 Sont strictement interdits :</b> les propos racistes, sexistes, homophobes, discriminatoires ou haineux envers toute personne ou groupe ; les contenus à caractère sexuel ou violent ; le harcèlement ; les attaques personnelles.<br><br>
@@ -644,7 +669,7 @@ h1{font-family:'Fredoka One',cursive;font-size:clamp(2rem,6vw,2.8rem);color:var(
       <b>🔒 Données personnelles :</b> ne publie pas d'informations personnelles (nom réel, adresse, etc.) dans tes questions ou ton pseudo.<br><br>
       Les contenus non conformes pourront être supprimés sans préavis.
     </div>
-    <label style="display:flex;align-items:flex-start;gap:10px;cursor:pointer;margin-bottom:16px;font-size:.85rem;font-weight:700;color:var(--tx);">
+    <label id="pub-charter-label" style="display:flex;align-items:flex-start;gap:10px;cursor:pointer;margin-bottom:16px;font-size:.85rem;font-weight:700;color:var(--tx);">
       <input type="checkbox" id="pub-charter-check" style="margin-top:3px;accent-color:#f97316;width:16px;height:16px;flex-shrink:0;">
       J'ai lu et j'accepte la charte de publication
     </label>
@@ -3217,6 +3242,7 @@ function sbFetch(path, opts={}){
 
 let communityPacks=[];
 let communityFilter='all';
+let langFilter='all';
 
 function showCommunityTab(tab, btn){
   $('community-browse').style.display = tab==='browse' ? 'block' : 'none';
@@ -3246,7 +3272,14 @@ function closeCommunity(){
 
 function filterPacks(level, btn){
   communityFilter=level;
-  document.querySelectorAll('.cfbtn').forEach(b=>b.classList.remove('active'));
+  document.querySelectorAll('#community-browse .community-filters:first-child .cfbtn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  loadPacks();
+}
+
+function filterLang(lang, btn){
+  langFilter=lang;
+  document.querySelectorAll('.cfbtn-lang').forEach(b=>b.classList.remove('active'));
   btn.classList.add('active');
   loadPacks();
 }
@@ -3258,8 +3291,9 @@ function loadPacks(){
     grid.innerHTML='<div class="comm-error">⚙️ Supabase non configuré.<br><small>Suis les instructions dans le code source (SB_URL / SB_KEY).</small></div>';
     return;
   }
-  let q='packs?select=id,title,description,author,level,play_count,likes,created_at,questions&order=created_at.desc&limit=50';
+  let q='packs?select=id,title,description,author,level,lang,play_count,likes,created_at,questions&order=created_at.desc&limit=50';
   if(communityFilter!=='all') q+='&level=eq.'+communityFilter;
+  if(langFilter!=='all') q+='&lang=eq.'+langFilter;
   sbFetch(q).then(data=>{
     communityPacks=data||[];
     renderPacks();
@@ -3271,6 +3305,7 @@ function loadPacks(){
 function escH(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
 
 const LEVEL_LABELS={junior:'Apprenti',inter:'Enquêteur',pro:'Fact-Checker',mixed:'Mixte'};
+const LANG_FLAGS={fr:'🇫🇷',en:'🇬🇧',both:'🌍'};
 
 function renderPacks(){
   const grid=$('pack-grid');
@@ -3290,6 +3325,7 @@ function renderPacks(){
       ${p.description?`<div class="pack-desc">${escH(p.description)}</div>`:''}
       <div class="pack-footer">
         <span class="pack-badge ${escH(p.level)}">${LEVEL_LABELS[p.level]||escH(p.level)}</span>
+        ${p.lang?`<span class="pack-stat">${LANG_FLAGS[p.lang]||'🌍'}</span>`:''}
         <span class="pack-stat">📋 ${(p.questions||[]).length} question(s)</span>
         <span class="pack-stat">🎮 ${p.play_count||0} parties</span>
       </div>
@@ -3297,8 +3333,10 @@ function renderPacks(){
         <button class="vote-btn up${voted==='up'?' voted':''}" onclick="votePack('${p.id}','up')" ${dis}>👍 ${p.likes||0}</button>
         <button class="vote-btn down${voted==='down'?' voted':''}" onclick="votePack('${p.id}','down')" ${dis}>👎 ${p.dislikes||0}</button>
         <button class="comment-btn" onclick="toggleComments('${p.id}')">💬 Commentaires</button>
+        <button class="comment-btn" onclick="editPack('${p.id}')">✏️ Modifier</button>
+        ${isMine?`<button class="pack-delete-btn" onclick="deleteMyPack('${p.id}')">🗑️ Supprimer</button>`:''}
+        ${adminMode?`<button class="pack-delete-btn" onclick="adminDeletePack('${p.id}')">🗑️ Admin</button>`:''}
         <button class="pack-play-btn" onclick="playCommunityPack('${p.id}')">Jouer ▶</button>
-        ${isMine?`<button class="pack-delete-btn" onclick="deletePack('${p.id}')">🗑️ Supprimer</button>`:''}
       </div>
       <div class="comments-section" id="comments-${p.id}" style="display:none;">
         <div id="comments-list-${p.id}" class="comments-list"></div>
@@ -3394,11 +3432,33 @@ function playCommunityPack(id){
 
 function openPublishModal(){
   if(!customQuestions.length){alert('Crée d\'abord des questions dans le Mode Créateur !');return;}
-  $('pub-title').value='';
-  $('pub-desc').value='';
-  $('pub-author').value='';
-  $('pub-level').value='mixed';
-  $('pub-charter-check').checked=false;
+  $('pub-secret').value='';
+  if(editingPackId&&editingPackData){
+    $('pub-title').value=editingPackData.title;
+    $('pub-desc').value=editingPackData.description;
+    $('pub-author').value=editingPackData.author;
+    $('pub-level').value=editingPackData.level;
+    $('pub-lang').value=editingPackData.lang;
+    $('edit-mode-banner').style.display='block';
+    $('edit-pack-name').textContent=editingPackData.title;
+    $('publish-modal-title').textContent='✏️ Mettre à jour le pack';
+    $('pub-submit-btn').textContent='💾 Mettre à jour';
+    $('secret-hint-text').textContent='(entre ton code pour confirmer)';
+    $('pub-charter-section').style.display='none';
+    $('pub-charter-label').style.display='none';
+  } else {
+    $('pub-title').value='';
+    $('pub-desc').value='';
+    $('pub-author').value='';
+    $('pub-level').value='mixed';
+    $('edit-mode-banner').style.display='none';
+    $('publish-modal-title').textContent='🌍 Publier sur la Communauté';
+    $('pub-submit-btn').textContent='🚀 Publier !';
+    $('secret-hint-text').textContent='(optionnel — nécessaire pour modifier ou supprimer plus tard)';
+    $('pub-charter-section').style.display='';
+    $('pub-charter-label').style.display='flex';
+    $('pub-charter-check').checked=false;
+  }
   $('publish-modal').style.display='flex';
 }
 
@@ -3406,29 +3466,65 @@ function closePublishModal(){
   $('publish-modal').style.display='none';
 }
 
-function submitPublish(){
+async function submitPublish(){
   const title=$('pub-title').value.trim();
   if(!title){alert('Donne un titre à ton pack !');$('pub-title').focus();return;}
-  if(!$('pub-charter-check').checked){alert('Tu dois accepter la charte de publication avant de continuer.');return;}
   if(SB_URL==='REMPLACER_PAR_TON_URL_SUPABASE'){alert('Supabase non configuré.');return;}
-
+  const secretRaw=$('pub-secret').value.trim();
   const btn=$('pub-submit-btn');
+
+  if(editingPackId){
+    if(!secretRaw){alert('Entre ton code secret pour confirmer la mise à jour.');return;}
+    const hash=await sha256(secretRaw);
+    if(hash!==editingPackSecret){alert('❌ Code incorrect.');return;}
+    btn.textContent='Mise à jour...';btn.disabled=true;
+    sbFetch('packs?id=eq.'+editingPackId+'&secret_hash=eq.'+editingPackSecret,{
+      method:'PATCH',
+      prefer:'return=minimal',
+      body:JSON.stringify({
+        title,
+        description:$('pub-desc').value.trim(),
+        level:$('pub-level').value,
+        lang:$('pub-lang').value,
+        questions:customQuestions
+      })
+    }).then(()=>{
+      closePublishModal();
+      cancelEditPack();
+      alert('✅ Pack mis à jour !');
+      loadPacks();
+    }).catch(e=>{
+      alert('❌ Erreur lors de la mise à jour.\n'+e.message);
+    }).finally(()=>{
+      btn.textContent='💾 Mettre à jour';btn.disabled=false;
+    });
+    return;
+  }
+
+  if(!$('pub-charter-check').checked){alert('Tu dois accepter la charte de publication avant de continuer.');return;}
+  const secret_hash=secretRaw?await sha256(secretRaw):null;
   btn.textContent='Publication...';
   btn.disabled=true;
 
   sbFetch('packs',{
     method:'POST',
-    prefer:'return=minimal',
+    headers:{'Prefer':'return=representation'},
     body:JSON.stringify({
       title,
       description:$('pub-desc').value.trim(),
       author:$('pub-author').value.trim()||'Anonyme',
       level:$('pub-level').value,
+      lang:$('pub-lang').value,
+      secret_hash,
       questions:customQuestions
     })
-  }).then(()=>{
+  }).then(data=>{
     closePublishModal();
-    alert('🎉 Pack publié ! Il est maintenant visible dans la section Communauté.');
+    if(data&&data[0]&&data[0].id){
+      if(secret_hash) saveMyPackToken(data[0].id,secret_hash);
+      const url=window.location.origin+window.location.pathname+'?pack='+data[0].id;
+      showShareModal(url);
+    }
     loadPacks();
   }).catch(e=>{
     alert('❌ Erreur lors de la publication.\n'+e.message);
@@ -3436,6 +3532,93 @@ function submitPublish(){
     btn.textContent='🚀 Publier !';
     btn.disabled=false;
   });
+}
+
+function showShareModal(url){
+  const existing=document.getElementById('share-modal');
+  if(existing) existing.remove();
+  const m=document.createElement('div');
+  m.id='share-modal';
+  m.className='modal-overlay';
+  m.style.cssText='display:flex;';
+  m.innerHTML=`
+    <div class="modal-box" style="max-width:440px;text-align:center;">
+      <div style="font-size:2rem;margin-bottom:8px;">🎉</div>
+      <h3 style="margin-bottom:8px;">Pack publié !</h3>
+      <p style="color:var(--mu);font-size:.85rem;font-weight:600;margin-bottom:16px;">Partage ce lien pour que les joueurs accèdent directement à ton set :</p>
+      <div style="display:flex;gap:8px;align-items:center;">
+        <input id="share-url-input" type="text" value="${url}" readonly class="form-input" style="font-size:.78rem;flex:1;">
+        <button onclick="copyShareUrl()" class="creator-btn primary" style="padding:10px 14px;white-space:nowrap;">Copier</button>
+      </div>
+      <button class="creator-btn" style="margin-top:14px;width:100%;" onclick="document.getElementById('share-modal').remove()">Fermer</button>
+    </div>`;
+  document.body.appendChild(m);
+}
+
+function copyShareUrl(){
+  const input=document.getElementById('share-url-input');
+  navigator.clipboard.writeText(input.value).then(()=>{
+    const btn=input.nextElementSibling;
+    btn.textContent='Copié !';
+    setTimeout(()=>btn.textContent='Copier',2000);
+  });
+}
+
+// ── Mes packs (propriété localStorage) ──
+function getMyPackTokens(){
+  try{return JSON.parse(localStorage.getItem('fakemetre_my_packs')||'{}');}catch(e){return {};}
+}
+function saveMyPackToken(id,hash){
+  const t=getMyPackTokens();t[id]=hash;
+  localStorage.setItem('fakemetre_my_packs',JSON.stringify(t));
+}
+async function deleteMyPack(id){
+  const tokens=getMyPackTokens();
+  const hash=tokens[id];
+  if(!hash){alert('Aucun code secret enregistré pour ce pack sur cet appareil.');return;}
+  if(!confirm('Supprimer définitivement ton pack ?')) return;
+  sbFetch('packs?id=eq.'+id+'&secret_hash=eq.'+hash,{method:'DELETE',prefer:'return=minimal'})
+    .then(()=>{delete tokens[id];localStorage.setItem('fakemetre_my_packs',JSON.stringify(tokens));alert('Pack supprimé.');loadPacks();})
+    .catch(e=>alert('❌ Erreur : '+e.message));
+}
+
+// ── Mode édition Creator ──
+let editingPackId=null;
+let editingPackSecret=null;
+let editingPackData=null;
+
+async function editPack(id){
+  const tokens=getMyPackTokens();
+  let hash=tokens[id];
+  if(!hash){
+    const code=prompt('Entre le code secret de ce pack :');
+    if(code===null) return;
+    if(!code.trim()){alert('Saisis un code secret.');return;}
+    hash=await sha256(code.trim());
+  }
+  let data;
+  try{
+    data=await sbFetch('packs?id=eq.'+id+'&secret_hash=eq.'+hash+'&select=id,title,description,author,level,lang,questions');
+  }catch(e){alert('❌ Erreur de connexion.');return;}
+  if(!data||!data.length){alert('❌ Code incorrect.');return;}
+  const pack=data[0];
+  editingPackId=id;
+  editingPackSecret=hash;
+  editingPackData={title:pack.title,description:pack.description||'',author:pack.author||'',level:pack.level||'mixed',lang:pack.lang||'fr'};
+  customQuestions=[...(pack.questions||[])];
+  saveCustomQuestions();
+  updateQuestionCount();
+  renderQuestionsList();
+  closeCommunity();
+  openCreator();
+  switchCreatorTab('export');
+  alert(`✅ Pack chargé (${customQuestions.length} question(s)). Modifie tes questions, puis clique sur "Mettre à jour" dans cet onglet.`);
+}
+
+function cancelEditPack(){
+  editingPackId=null;
+  editingPackSecret=null;
+  editingPackData=null;
 }
 
 // ── Mode Admin (suppression) ──
@@ -3464,13 +3647,34 @@ async function toggleAdminMode(){
   }
 }
 
-function deletePack(id){
+function adminDeletePack(id){
   if(!adminMode) return;
-  if(!confirm('Supprimer définitivement ce pack ?')) return;
+  if(!confirm('Supprimer définitivement ce pack ? (admin)')) return;
   sbFetch('packs?id=eq.'+id,{method:'DELETE',prefer:'return=minimal'})
     .then(()=>{ alert('Pack supprimé.'); loadPacks(); })
     .catch(e=>alert('❌ Erreur : '+e.message));
 }
+
+// ── Deep link ?pack=ID ──
+(function(){
+  const params=new URLSearchParams(window.location.search);
+  const packId=params.get('pack');
+  if(!packId) return;
+  window.addEventListener('load',function(){
+    openCommunity();
+    sbFetch('packs?id=eq.'+packId+'&select=id,title,description,author,level,play_count,likes,created_at,questions&limit=1')
+      .then(data=>{
+        if(!data||!data.length){alert('Pack introuvable.');return;}
+        const p=data[0];
+        communityPacks=[p,...communityPacks.filter(x=>x.id!==p.id)];
+        renderPacks();
+        setTimeout(()=>{
+          const el=document.getElementById('pack-'+p.id);
+          if(el){el.scrollIntoView({behavior:'smooth',block:'center'});el.style.outline='2px solid #f97316';}
+        },300);
+      }).catch(()=>alert('Impossible de charger ce pack.'));
+  });
+})();
 </script>
 </body>
 </html>
