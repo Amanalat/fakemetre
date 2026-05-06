@@ -297,7 +297,7 @@ body.css-fs{position:fixed;top:0;left:0;right:0;bottom:0;overflow-y:auto;height:
 <header style="text-align:center">
   <h1 data-i18n="h1">🔍 FakeMètre</h1>
   <p class="sub" data-i18n="sub">Vraie info ou fake news ? Trouve les bonnes sources !</p>
-  <p class="author"><span data-i18n="authorBy">par</span> Antonin Atger &nbsp;|&nbsp; <a href="/cdn-cgi/l/email-protection#adcec2c3d9ccced9edccc3d9c2c3c4c3ccd9cac8df83cec2c0"><span class="__cf_email__" data-cfemail="61020e0f1500021521000f150e0f080f00150604134f020e0c">[email&#160;protected]</span></a> &nbsp;|&nbsp; <a href="https://antoninatger.com" target="_blank">antoninatger.com</a></p>
+  <p class="author"><span data-i18n="authorBy">par</span> Antonin Atger &nbsp;|&nbsp; <a href="mailto:contact@antoninatger.com">contact(at)antoninatger.com</a> &nbsp;|&nbsp; <a href="https://antoninatger.com" target="_blank">antoninatger.com</a></p>
 </header>
 
 <!-- LEVEL SELECTOR -->
@@ -2147,7 +2147,7 @@ function updateSourceNoSearch(id, checked){
 
 function resetForm(){
   editingIndex = -1;
-  $('edit-title').textContent = '➕ Nouvelle question';
+  $('edit-title').textContent = t('editTitle');
   $('c-statement').value = '';
   $('c-explanation').value = '';
   $('c-enuan').value = '';
