@@ -973,6 +973,9 @@ const I18N = {
     templateImportConfirm: 'Importer {n} question(s) ? (Les questions existantes seront conservées)',
     templateImportOk: '✅ Import réussi !',
     templateImportError: '❌ Erreur lors de l\'import : {msg}\n\nAssure-toi que le fichier a été exporté depuis FakeMètre.',
+    importErrNoStatement: 'affirmation vide',
+    importErrMinSources: '{n} source(s) — min. 2 requises',
+    importSkipped: '⚠️ {n} ligne(s) ignorée(s) :',
     uploadTooBig: 'Fichier trop volumineux (max 5 Mo).',
     uploadProgress: '⏳ Upload en cours...',
     uploadError: '❌ Erreur upload : ',
@@ -1235,6 +1238,9 @@ const I18N = {
     templateImportConfirm: 'Import {n} question(s) ? (Existing questions will be kept)',
     templateImportOk: '✅ Import successful!',
     templateImportError: '❌ Error during import : {msg}\n\nMake sure the file was exported from FakeMeter.',
+    importErrNoStatement: 'empty statement',
+    importErrMinSources: '{n} source(s) — min. 2 required',
+    importSkipped: '⚠️ {n} row(s) ignored:',
     uploadTooBig: 'File too large (max 5 Mo).',
     uploadProgress: '⏳ Upload in progress...',
     uploadError: '❌ Upload error : ',
@@ -2435,6 +2441,24 @@ function parseCSVLine(line){
   return result;
 }
 
+function _validateAndCollect(question, rowLabel, imported, skipped){
+  const reasons = [];
+  if(!question.s?.trim()) reasons.push(t('importErrNoStatement'));
+  if(question.src.length < 2) reasons.push(t('importErrMinSources').replace('{n}', question.src.length));
+  if(reasons.length > 0){
+    skipped.push(`  • ${rowLabel} — ${reasons.join(', ')}`);
+  } else {
+    imported.push(question);
+  }
+}
+
+function _importConfirmMsg(confirmKey, imported, skipped){
+  let msg = t(confirmKey).replace('{n}', imported.length);
+  if(skipped.length > 0)
+    msg += '\n' + t('importSkipped').replace('{n}', skipped.length) + '\n' + skipped.join('\n');
+  return msg;
+}
+
 function handleImportCSV(event){
   const file = event.target.files[0];
   if(!file) return;
@@ -2453,36 +2477,32 @@ function handleImportCSV(event){
       // Old format has 3 base cols + 7 per source = 3+28 = 31
       const isNewFormat = headerCols.length >= 41 || headerCols[3] === 'Nuance';
       
-      const imported = [];
-      // Skip header (line 0)
+      const imported = [], skipped = [];
       for(let i=1; i<lines.length; i++){
         const cols = parseCSVLine(lines[i]);
         if(cols.length < 3 || !cols[0].trim()) continue;
-        
+
         const question = {
           s: cols[0],
           t: ['VRAI','TRUE'].includes(cols[1].toUpperCase()),
           e: cols[2],
           src: []
         };
-        
+
         let srcStart, srcStride;
         if(isNewFormat){
-          // nuance at col 3, enuan at col 4, sources start at 5 with 9 cols each
           question.nuance = cols[3] && cols[3].toUpperCase() === 'OUI';
           question.enuan = cols[4] || '';
           srcStart = 5;
           srcStride = 9;
         } else {
-          // Old format: sources start at 3 with 7 cols each
           srcStart = 3;
           srcStride = 7;
         }
-        
-        // Parse sources
+
         for(let j=0; j<4; j++){
           const base = srcStart + (j * srcStride);
-          if(cols[base+1] && cols[base+1].trim()){ // If source name exists
+          if(cols[base+1] && cols[base+1].trim()){
             const isReliable = cols[base+4] && cols[base+4].toUpperCase() === 'OUI';
             const src = {
               em: cols[base] || '📄',
@@ -2495,13 +2515,11 @@ function handleImportCSV(event){
             if(isNewFormat){
               src.url = cols[base+5] || '';
               src.noSearch = cols[base+6] && cols[base+6].toUpperCase() === 'OUI';
-              const fbPos = cols[base+7] || '';
-              const fbNeg = cols[base+8] || '';
+              const fbPos = cols[base+7] || '', fbNeg = cols[base+8] || '';
               if(isReliable){ src.fb.tg = fbPos; src.fb.dg = fbNeg; }
               else { src.fb.tb = fbPos; src.fb.db = fbNeg; }
             } else {
-              const fbPos = cols[base+5] || '';
-              const fbNeg = cols[base+6] || '';
+              const fbPos = cols[base+5] || '', fbNeg = cols[base+6] || '';
               if(isReliable){ src.fb.tg = fbPos || t('fbSrcDefaultGood'); src.fb.dg = fbNeg || t('fbSrcDefaultGoodExpl'); }
               else { src.fb.tb = fbPos || t('fbSrcDefaultBadTitle'); src.fb.db = fbNeg || t('fbSrcDefaultBadExpl'); }
             }
@@ -2509,9 +2527,7 @@ function handleImportCSV(event){
           }
         }
 
-        if(question.src.length >= 1){
-          imported.push(question);
-        }
+        _validateAndCollect(question, `"${question.s.slice(0,40)}"`, imported, skipped);
       }
 
       if(imported.length === 0){
@@ -2519,7 +2535,7 @@ function handleImportCSV(event){
         return;
       }
 
-      if(confirm(t('csvImportConfirm').replace('{n}',imported.length))){
+      if(confirm(_importConfirmMsg('csvImportConfirm', imported, skipped))){
         customQuestions = [...customQuestions, ...imported];
         saveToStorage();
         updateQuestionCount();
@@ -2595,7 +2611,7 @@ function handleImportSpreadsheet(event){
       const headerCols = parseCSVLine(rows[0]);
       const isNewFormat = headerCols.length >= 41 || headerCols[3] === 'Nuance';
 
-      const imported = [];
+      const imported = [], skipped = [];
       for(let i = 1; i < rows.length; i++){
         const cols = parseCSVLine(rows[i]);
         if(cols.length < 3 || !cols[0].trim()) continue;
@@ -2630,7 +2646,8 @@ function handleImportSpreadsheet(event){
             question.src.push(src);
           }
         }
-        if(question.src.length >= 1) imported.push(question);
+
+        _validateAndCollect(question, `"${question.s.slice(0,40)}"`, imported, skipped);
       }
 
       if(imported.length === 0){
@@ -2638,7 +2655,7 @@ function handleImportSpreadsheet(event){
         return;
       }
 
-      if(confirm(t('templateImportConfirm').replace('{n}',imported.length))){
+      if(confirm(_importConfirmMsg('templateImportConfirm', imported, skipped))){
         customQuestions = [...customQuestions, ...imported];
         saveToStorage();
         updateQuestionCount();
