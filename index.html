@@ -1343,15 +1343,14 @@ function applyI18n() {
 // ═══════════════════════════════════════════════
 // ÉTAT DU JEU
 // ═══════════════════════════════════════════════
-let QS=[], qi=0, score=0, meter=50, uc=0, sh=[], um={}, pend=null, gameMode=5, currentLevel='junior';
-let tempMeter=50;
-let playingCustom=false;
-let playingCommunity=false;
-let cursorTutorialSeen=false; // Ne montrer le tutoriel curseur qu'une fois
+// ── État de session (réinitialisé à chaque nouvelle partie) ──
+let QS=[], qi=0, score=0, meter=50, uc=0, sh=[], um={}, pend=null, tempMeter=50, gameHistory=[];
+// ── État persistant entre les questions / parties ──
+let gameMode=5, currentLevel='junior', playingCustom=false, playingCommunity=false, cursorTutorialSeen=false;
 
-// Historique détaillé pour le bilan personnalisé
-let gameHistory = [];
-// Structure: { question, userVote, correctAnswer, hasNuance, sourceEvals: [{src, likertScore, isGoodSource}] }
+function resetGameState(){
+  qi=0; score=0; meter=50; uc=0; sh=[]; um={}; pend=null; tempMeter=50; gameHistory=[];
+}
 
 // Charger l'état du tutoriel depuis localStorage
 try {
@@ -1427,8 +1426,7 @@ function startGame(mode){
   else pool=isEN?QUESTIONS_JUNIOR_EN:QUESTIONS_JUNIOR;
   const all=[...pool];
   QS = mode===5 ? shuf(all).slice(0,5) : shuf(all).slice(0,10);
-  qi=0;score=0;meter=50;
-  gameHistory=[]; // Réinitialiser l'historique pour le bilan
+  resetGameState();
   $('modescreen').style.display='none';
   $('scorebar').style.display='flex';
   $('dots').style.display='flex';
@@ -1444,7 +1442,7 @@ function restart(){
   if(playingCustom){
     // Rejouer les questions custom
     QS = shuf([...customQuestions]);
-    qi = 0; score = 0; meter = 50;
+    resetGameState();
     $('scorebar').style.display = 'flex';
     $('dots').style.display = 'flex';
     $('game').style.display = 'block';
@@ -2302,8 +2300,7 @@ function playCustomQuestions(){
   
   // Use custom questions
   QS = shuf([...customQuestions]);
-  qi = 0; score = 0; meter = 50;
-  
+  resetGameState();
   $('creatorscreen').style.display = 'none';
   $('scorebar').style.display = 'flex';
   $('dots').style.display = 'flex';
@@ -2922,7 +2919,7 @@ function playCommunityPack(id){
   playingCommunity=true;
   currentLevel=pack.level==='mixed'?'inter':(pack.level||'inter');
   QS=shuf([...pack.questions]);
-  qi=0;score=0;meter=50;gameHistory=[];
+  resetGameState();
 
   $('communityscreen').style.display='none';
   $('scorebar').style.display='flex';
