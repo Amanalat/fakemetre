@@ -1543,7 +1543,7 @@ function renderQ(){
   sh.forEach((src,i)=>{
     const b=document.createElement('button');
     b.className='sbtn';b.id='sb'+i;
-    b.innerHTML=`<span class="semoji">${src.em}</span><div><div class="sname">${src.n}</div><div class="sdesc">${src.d}</div></div>`;
+    b.innerHTML=`<span class="semoji">${escH(src.em||'')}</span><div><div class="sname">${escH(src.n)}</div><div class="sdesc">${escH(src.d||'')}</div></div>`;
     b.onclick=()=>openSrc(src,i,b);
     g.appendChild(b);
   });
@@ -1844,7 +1844,7 @@ function generateBilan(){
       <span class="bilan-icon">⚠️</span>
       <div>
         <strong>Tu as fait confiance à des sources peu fiables :</strong><br>
-        <em>${trustedBadSources.slice(0,3).join(', ')}</em><br>
+        <em>${trustedBadSources.slice(0,3).map(escH).join(', ')}</em><br>
         <span class="bilan-tip">→ Méfie-toi des sources qui ont l'air sérieuses mais qui ne citent pas leurs propres sources, ou qui ont un intérêt à te convaincre.</span>
       </div>
     </div>`);
@@ -1855,7 +1855,7 @@ function generateBilan(){
       <span class="bilan-icon">🤔</span>
       <div>
         <strong>Tu t'es méfié(e) de sources pourtant fiables :</strong><br>
-        <em>${distrustedGoodSources.slice(0,3).join(', ')}</em><br>
+        <em>${distrustedGoodSources.slice(0,3).map(escH).join(', ')}</em><br>
         <span class="bilan-tip">→ Les sources institutionnelles, scientifiques ou de fact-checking sont généralement fiables, même si elles semblent moins "fun" que d'autres.</span>
       </div>
     </div>`);
@@ -1876,7 +1876,7 @@ function generateBilan(){
       <span class="bilan-icon">⚖️</span>
       <div>
         <strong>Tu as manqué des nuances :</strong><br>
-        <em>${missedNuances.slice(0,2).join(', ')}</em><br>
+        <em>${missedNuances.slice(0,2).map(escH).join(', ')}</em><br>
         <span class="bilan-tip">→ Certains sujets n'ont pas de réponse tranchée VRAI/FAUX. Repérer les débats scientifiques, c'est aussi du fact-checking !</span>
       </div>
     </div>`);
@@ -2036,27 +2036,27 @@ function renderSources(){
       feedbackHTML = `
         <div class="form-group">
           <label>💬 Feedback général après évaluation (optionnel)</label>
-          <input type="text" value="${src.fb.gen||''}" onchange="updateSourceFb(${src.id},'gen',this.value)" placeholder="Ex: Cette source est complexe — voici pourquoi...">
+          <input type="text" value="${escH(src.fb.gen||'')}" onchange="updateSourceFb(${src.id},'gen',this.value)" placeholder="Ex: Cette source est complexe — voici pourquoi...">
         </div>`;
     } else if(typeKey === 'reliable'){
       feedbackHTML = `
         <div class="form-group">
           <label>✅ Si le joueur lui fait confiance (bonne réponse)</label>
-          <input type="text" value="${src.fb.tg||''}" onchange="updateSourceFb(${src.id},'tg',this.value)" placeholder="Bravo ! Cette source est fiable car...">
+          <input type="text" value="${escH(src.fb.tg||'')}" onchange="updateSourceFb(${src.id},'tg',this.value)" placeholder="Bravo ! Cette source est fiable car...">
         </div>
         <div class="form-group">
           <label>❌ Si le joueur l'ignore (mauvaise réponse)</label>
-          <input type="text" value="${src.fb.dg||''}" onchange="updateSourceFb(${src.id},'dg',this.value)" placeholder="Dommage ! Cette source était fiable car...">
+          <input type="text" value="${escH(src.fb.dg||'')}" onchange="updateSourceFb(${src.id},'dg',this.value)" placeholder="Dommage ! Cette source était fiable car...">
         </div>`;
     } else {
       feedbackHTML = `
         <div class="form-group">
           <label>❌ Si le joueur lui fait confiance (mauvaise réponse)</label>
-          <input type="text" value="${src.fb.tb||''}" onchange="updateSourceFb(${src.id},'tb',this.value)" placeholder="Attention ! Cette source n'est pas fiable car...">
+          <input type="text" value="${escH(src.fb.tb||'')}" onchange="updateSourceFb(${src.id},'tb',this.value)" placeholder="Attention ! Cette source n'est pas fiable car...">
         </div>
         <div class="form-group">
           <label>✅ Si le joueur l'ignore (bonne réponse)</label>
-          <input type="text" value="${src.fb.db||''}" onchange="updateSourceFb(${src.id},'db',this.value)" placeholder="Bien joué ! Tu as bien fait de te méfier car...">
+          <input type="text" value="${escH(src.fb.db||'')}" onchange="updateSourceFb(${src.id},'db',this.value)" placeholder="Bien joué ! Tu as bien fait de te méfier car...">
         </div>`;
     }
 
@@ -2078,20 +2078,20 @@ function renderSources(){
       <div class="form-row three">
         <div class="form-group">
           <label>Emoji</label>
-          <input type="text" value="${src.em}" onchange="updateSource(${src.id},'em',this.value)" placeholder="📄" maxlength="4">
+          <input type="text" value="${escH(src.em||'')}" onchange="updateSource(${src.id},'em',this.value)" placeholder="📄" maxlength="4">
         </div>
         <div class="form-group">
           <label>Nom de la source</label>
-          <input type="text" value="${src.n}" onchange="updateSource(${src.id},'n',this.value)" placeholder="Ex: Site Hoaxbuster">
+          <input type="text" value="${escH(src.n||'')}" onchange="updateSource(${src.id},'n',this.value)" placeholder="Ex: Site Hoaxbuster">
         </div>
         <div class="form-group">
           <label>Description courte</label>
-          <input type="text" value="${src.d}" onchange="updateSource(${src.id},'d',this.value)" placeholder="Ex: Site de fact-checking">
+          <input type="text" value="${escH(src.d||'')}" onchange="updateSource(${src.id},'d',this.value)" placeholder="Ex: Site de fact-checking">
         </div>
       </div>
       <div class="form-group">
         <label>Ce que dit la source (citation)</label>
-        <textarea onchange="updateSource(${src.id},'say',this.value)" placeholder="Ex: « Nos recherches montrent que... »">${src.say}</textarea>
+        <textarea onchange="updateSource(${src.id},'say',this.value)" placeholder="Ex: « Nos recherches montrent que... »">${escH(src.say||'')}</textarea>
       </div>
       <div class="form-group" style="margin-bottom:8px;">
         <label>🔍 Lien ou fichier de la source (optionnel, mode Fact-Checker)</label>
@@ -2239,7 +2239,7 @@ function renderQuestionsList(){
   }
   container.innerHTML = customQuestions.map((q, i) => `
     <div class="question-card" onclick="editQuestion(${i})">
-      <div class="q-statement">${q.s}</div>
+      <div class="q-statement">${escH(q.s)}</div>
       <div class="q-meta">
         <span class="q-badge ${q.t ? 'true' : 'false'}">${q.t ? t('csvTrueWord') : t('csvFalseWord')}</span>
         ${q.nuance ? '<span class="q-badge" style="background:rgba(247,201,72,.2);color:#f7c948;">⚖️ NUANCÉ</span>' : ''}
@@ -3202,7 +3202,7 @@ function renderHelpSections(){
       step4b:`• Tes questions sont sauvegardées dans ton navigateur — si tu changes d'appareil, exporte-les en JSON d'abord.<br>• Une fois publié, un set ne peut pas être modifié (exporte d'abord, modifie, puis republie).<br>• Les contenus ne respectant pas la charte peuvent être supprimés sans préavis.`,
       howtoIntro:`<strong style="font-family:'Fredoka One',cursive;font-size:1.1rem;color:var(--acc);">Tu veux créer ton propre set de questions ?</strong><br><span style="font-size:.88rem;color:var(--mu);font-weight:600;">C'est simple ! Voici comment faire en 3 étapes :</span>`,
       howto1t:'1️⃣ Va dans le Mode Créateur',
-      howto1b:`Depuis le menu principal, clique sur la carte <strong style="color:#a855f7;">✏️ Créateur</strong>. Tu pourras y rédiger tes questions, ajouter des sources (fiables ou non), et tester ton set avant de le publier.`,
+      howto1b:`Depuis le menu principal, clique sur la carte <strong style="color:#a855f7;">✏️ Créateur</strong>. Tu pourras y rédiger tes questions, ajouter des sources (fiables ou non), et tester ton set avant de le publier.<br><br><button onclick="closeCommunity();openCreator();" style="background:linear-gradient(135deg,#a855f7,#7c3aed);color:#fff;border:none;border-radius:50px;padding:10px 22px;font-family:'Nunito',sans-serif;font-size:.88rem;font-weight:800;cursor:pointer;">✏️ Aller dans le Mode Créateur →</button>`,
       howto2t:'2️⃣ Crée tes questions',
       howto2b:`Chaque question contient une affirmation (vraie ou fausse), une explication et 2 à 4 sources. Tu peux même joindre des images ou des PDF comme preuves ! Consulte l'onglet <strong style="color:var(--tx);">❓ Comment ça marche</strong> dans le Créateur pour un guide détaillé.`,
       howto3t:'3️⃣ Publie ici !',
@@ -3220,7 +3220,7 @@ function renderHelpSections(){
       step4b:`• Your questions are saved in your browser — if you change devices, export them as JSON first.<br>• Once published, a set cannot be modified (export it first, edit it, then republish it).<br>• Content that does not comply with the guidelines may be removed without notice.`,
       howtoIntro:`<strong style="font-family:'Fredoka One',cursive;font-size:1.1rem;color:var(--acc);">Do you want to create your own question set?</strong><br><span style="font-size:.88rem;color:var(--mu);font-weight:600;">It's simple! Here's how to do it in 3 steps:</span>`,
       howto1t:'1️⃣ Go to Creator Mode',
-      howto1b:`From the main menu, click the card <strong style="color:#a855f7;">✏️ Creator</strong>. You can write your questions there, add sources (reliable or not), and test your pack before publishing it.`,
+      howto1b:`From the main menu, click the card <strong style="color:#a855f7;">✏️ Creator</strong>. You can write your questions there, add sources (reliable or not), and test your pack before publishing it.<br><br><button onclick="closeCommunity();openCreator();" style="background:linear-gradient(135deg,#a855f7,#7c3aed);color:#fff;border:none;border-radius:50px;padding:10px 22px;font-family:'Nunito',sans-serif;font-size:.88rem;font-weight:800;cursor:pointer;">✏️ Go to Creator Mode →</button>`,
       howto2t:'2️⃣ Create your questions',
       howto2b:`Each question contains a statement (true or false), an explanation, and 2 to 4 sources. You can even attach images or PDFs as evidence! Check the tab <strong style="color:var(--tx);">❓ How it works</strong> in Creator for a detailed guide.`,
       howto3t:'3️⃣ Publish here!',
