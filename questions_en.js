@@ -1,7 +1,7 @@
 // ═══════════════════════════════════════════════
 // NIVEAU JUNIOR — Apprentice Detective (CM1 → 5e)
 // ═══════════════════════════════════════════════
-const QUESTIONS_JUNIOR=[
+const QUESTIONS_JUNIOR_EN=[
   {s:"Spiders crawl into your mouth while you sleep! On average, you swallow 8 per year. 🕷️",t:false,
    e:"FALSE! Spiders avoid vibrations like snoring. No serious study has ever confirmed this urban legend from the 90s.",
    src:[
@@ -333,7 +333,7 @@ const QUESTIONS_JUNIOR=[
 // ═══════════════════════════════════════════════
 // INTERMEDIATE LEVEL — Junior Investigator (5e)
 // ═══════════════════════════════════════════════
-const QUESTIONS_INTER=[
+const QUESTIONS_INTER_EN=[
   {s:"Albert Einstein was a very poor student. He even failed mathematics! 🧮",t:false,
    e:"FALSE! Einstein was always excellent in math and science. This myth comes from confusion with the Swiss grading system (where 6 is the highest grade). He got 6s in math!",
    src:[
@@ -670,7 +670,7 @@ const QUESTIONS_INTER=[
 // ═══════════════════════════════════════════════
 // NIVEAU PRO — Advanced Fact-Checker (4e → 3e)
 // ═══════════════════════════════════════════════
-const QUESTIONS_PRO=[
+const QUESTIONS_PRO_EN=[
   {s:"A British doctor scientifically proved that vaccines cause autism. Studies have confirmed it. 💉",t:false,
    e:"FALSE. Andrew Wakefield’s study (1998) was retracted after it was discovered that his data had been falsified. Wakefield lost his license to practice medicine. Dozens of studies involving millions of children have found no link.",
    src:[
