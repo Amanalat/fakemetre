@@ -1,4 +1,4 @@
-// ═══════════════════════════════════════════════
+﻿// ═══════════════════════════════════════════════
 // NIVEAU JUNIOR — Apprentice Detective (CM1 → 5e)
 // ═══════════════════════════════════════════════
 const QUESTIONS_JUNIOR_EN=[
@@ -89,6 +89,7 @@ const QUESTIONS_JUNIOR_EN=[
      say:"Our experiments show that fish remember routes and signals learned several weeks after training.",
      g:true,fb:{tg:"Excellent! A specialized scientific journal is exactly the source to consult. It clearly contradicts this popular myth.",dg:"Too bad! Researchers who tested fish memory in a lab are a very solid source."}},
     {em:"📱",n:"Viral Instagram meme",d:"Humorous image shared millions of times",
+     img:"images/fish-meme.png",imgUser:"lol_animals_daily",imgLikes:"23 847",imgAgo:"3 days ago",
      say:"Haha, fish have 3-second memory, that’s why they’re happy!",
      g:false,fb:{tb:"Ouch! A meme, even widely shared, is not a scientific source. People often repeat false ideas because they’re funny.",db:"Well done! A meme, no matter how funny, is never a reliable source of information."}},
     {em:"🌐",n:"Futura Sciences website",d:"French online science magazine",
@@ -175,6 +176,7 @@ const QUESTIONS_JUNIOR_EN=[
      say:"As everyone knows, the ostrich hides its head in the sand when it is afraid!",
      g:false,fb:{tb:"Tricked! Even a children’s encyclopedia can contain errors, especially in old editions. The publication date matters!",db:"Well done! The encyclopedia format inspires trust, but an old edition can repeat myths presented as facts."}},
     {em:"📱",n:"Post Instagram viral",d:"Humorous image shared millions of times",
+     img:"images/ostrich.webp",imgUser:"nature_facts_viral",imgLoc:"Sahara Desert",imgLikes:"47 382",imgAgo:"2 days ago",
      say:"Proof that 'burying your head in the sand' is real! Nature is incredible 🤯",
      g:false,fb:{tb:"Careful! A viral image is not proof. Here, the ostrich is lowering its head to eat, not to hide. Context changes everything!",db:"Well done! An image can be real but misinterpreted. Checking the context before sharing is what a good fact-checker does."}},
   ]},
@@ -223,6 +225,7 @@ const QUESTIONS_JUNIOR_EN=[
      say:"[Illustration of a baby flamingo already pink at birth]",
      g:false,fb:{tb:"Tricked! Illustrators often draw animals as people imagine them, not as they really are. A children’s book is not a documentary.",db:"Well done! Images in children's books favor appearance over reality. A grey baby flamingo is less appealing than a pink one!"}},
     {em:"📱",n:"'Did you know?' quiz on Instagram",d:"Very popular general-knowledge account",
+     img:"images/flamingo-pink.png",imgUser:"naturelover_pics",imgLoc:"Camargue France",imgLikes:"61 204",imgAgo:"1 day ago",
      say:"Flamingos are pink because it’s their natural color! Nature is beautiful 🌸",
      g:false,fb:{tb:"Careful! An Instagram quiz without a source is not a reference. Here the information is false — the color is not 'natural'; it comes from diet.",db:"Well done! General-knowledge accounts on social media often spread unverified information. Always look for the source!"}},
   ]},
@@ -357,6 +360,7 @@ const QUESTIONS_INTER_EN=[
      say:"Our research shows that sunflower heliotropism stops at maturity. Adult flowers remain oriented toward the east to attract pollinators in the morning.",
      g:true,fb:{tg:"Perfect! Science is one of the most prestigious journals in the world. A study explaining the exact mechanism is an ideal source.",dg:"Too bad! A scientific study that tested the phenomenon in a lab is far more reliable than a quick observation."}},
     {em:"📸",n:"Time-lapse video on Instagram",d:"Time-lapse of sunflowers with no context about their age",
+     img:"images/sunflowers-sun.png",imgUser:"nature_timelapse",imgLoc:"Provence France",imgLikes:"89 341",imgAgo:"5 hours ago",
      say:"Look at this amazing time-lapse! Sunflowers follow the sun all day long! 🌻",
      g:false,fb:{tb:"Gotcha! The video likely shows young sunflowers. Without information about the plants’ age, it is misleading.",db:"Well done! A video without context may be true in some cases but not all. You should be cautious of generalizations."}},
     {em:"🌿",n:"Paris Botanical Garden",d:"Scientific institution specialized in botany",
@@ -379,6 +383,7 @@ const QUESTIONS_INTER_EN=[
      say:"Joseph Swan publicly demonstrated a working incandescent light bulb in 1878, one year before Edison’s patent. The two later collaborated.",
      g:true,fb:{tg:"Excellent! A science museum that preserves original historical evidence is a top-quality source.",dg:"Too bad! Science museums preserve patents and documents from the period. Their version is based on concrete evidence."}},
     {em:"📱",n:"Viral post \"Did you know?\"",d:"Image shared on social media with no source",
+     img:"images/edison-lightbulb.png",imgUser:"history_did_you_know",imgLikes:"34 512",imgAgo:"1 week ago",
      say:"Edison invented the light bulb at 22, all by himself in his garage! A true self-taught genius!",
      g:false,fb:{tb:"Careful! Viral posts like \"Did you know\" often mix true and false. Without a cited source, that's suspicious.",db:"Well done! Viral posts simplify history to make it more impressive. Always check!"}},
   ]},
@@ -590,7 +595,7 @@ const QUESTIONS_INTER_EN=[
      say:"“Golden rule: if you don’t understand an ingredient on the label, it’s a chemical product. Above 30% chemical ingredients, run away!”",
      g:false,fb:{tb:"Tricked! This blog confuses 'chemical' with 'dangerous'. Water and salt are chemical molecules everyone recognizes. The 30% threshold is invented.",db:"Well done! 'If you don't understand it = chemical product' is a marketing rule, not science. And every food is 100% chemical."}},
     {em:"📲",n:"Nutrition influencer on Instagram",d:"Wellness account followed by hundreds of thousands of subscribers",
-     noSearch:true,
+     noSearch:true,img:"images/nutrition-chemicals.png",imgUser:"clean_eating_life",imgLikes:"52 913",imgAgo:"6 hours ago",
      say:"“I apply a simple rule: more than 3 ingredients I don’t recognize = dangerous industrial chemical product. My body thanks me every day.”",
      g:false,fb:{tb:"Careful! The number of followers does not validate information. This '3 ingredients' rule is a marketing simplification with no scientific basis.",db:"Well done! An influencer sells a lifestyle, not science. 'My body thanks me' is a personal anecdote, not proof."}},
   ]},
@@ -749,7 +754,7 @@ const QUESTIONS_PRO_EN=[
      say:"“Transport accounts for around 16% of global emissions according to our calculations, slightly above livestock. The two sectors are very close depending on the calculation method used.”",
      g:true,fb:{tg:"Excellent, and well done for the nuance! The IEA gives a slightly different figure depending on the method. Both official sources are reliable — they show that the figures are very close.",dg:"Too bad! The IEA is a reliable source that slightly nuances the figure. In science, different sources can arrive at similar results without contradicting each other."}},
     {em:"🌿",n:"Vegan activist on Instagram",d:"Awareness account, with no cited sources",
-     noSearch:true,
+     noSearch:true,img:"images/vegan-activist.png",imgUser:"plant_based_future",imgLikes:"41 786",imgAgo:"4 days ago",
      say:"“Livestock = 51% of emissions! If you eat meat, you’re killing the planet!”",
      g:false,fb:{tb:"The 51% figure is exaggerated and disputed. The true claim, 14.5%, does not need to be inflated — be wary even of sources defending a worthy cause.",db:"Well done! Even worthy causes can spread false figures. An activist without cited sources is not a reference, even if the underlying message may contain some truth."}},
   ]},

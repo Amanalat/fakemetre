@@ -1,0 +1,59 @@
+# Nouveautés FakeMètre
+
+## Mise à jour — Mai 2026
+
+### 📸 Illustrations dans les sources
+Les sources peuvent désormais afficher une image pour rendre l'évaluation plus réaliste et immersive.
+
+- Les **posts Instagram, TikTok et contenus viraux** s'affichent comme de vrais posts sur les réseaux sociaux : photo, nom du compte, nombre de likes, date de publication.
+- Les **emballages de produits** s'affichent directement en photo, comme si vous les teniez en main.
+- Les sources sans image continuent de fonctionner exactement comme avant.
+
+**Sources déjà illustrées (version française) :**
+- Post Instagram viral — autruche dans le sable
+- Mème Instagram viral — mémoire des poissons
+- Quiz Instagram — couleur des flamants roses
+- Vidéo Instagram — tournesols et soleil
+- Post viral "Le saviez-vous ?" — Edison et l'ampoule
+- Influenceur nutrition — produits chimiques toxiques
+- Militant vegan — émissions de l'élevage
+- Emballage d'un jus de carotte bio
+
+---
+
+### ✏️ Mode Créateur : ajoutez vos propres illustrations
+Lorsque vous créez vos propres séries de questions, vous pouvez maintenant **ajouter une image à chaque source** pour la rendre plus visuelle.
+
+**Comment ça marche :**
+1. Dans le Mode Créateur, ajoutez ou modifiez une source.
+2. Dans la section **"📸 Illustration (faux post Instagram)"**, cliquez sur **"Ajouter une image"**.
+3. Choisissez une image depuis votre appareil (JPEG, PNG ou WebP, max 2 Mo).
+4. L'image s'affiche immédiatement en aperçu avec le cadre Instagram.
+5. Personnalisez le **nom du compte**, le **lieu**, le **nombre de likes** et la **date** pour rendre le post plus crédible.
+
+> L'image est sauvegardée avec votre série de questions et incluse dans les exports — pas besoin d'héberger un fichier séparément.
+
+---
+
+### 🗂️ Autres améliorations
+
+- **Fermer une source sans l'évaluer** : cliquez en dehors du panneau source pour le fermer à tout moment, sans être obligé de donner une note.
+- **Corrections typographiques** dans les textes de feedback (guillemets, apostrophes).
+
+---
+
+## Historique des versions précédentes
+
+### Avril – Mai 2026
+- Ajout de 15 nouvelles questions (5 par niveau)
+- Fusion des versions française et anglaise en un seul fichier avec changement de langue instantané
+- Mode Créateur : import/export JSON et CSV, historique des parties, rapport de validation
+- Sécurité : échappement HTML sur tous les rendus dynamiques
+- Correction du re-clic sur une source pour modifier sa note
+
+### Mars – Avril 2026
+- Lancement public de FakeMètre
+- 3 niveaux de jeu : Apprenti, Enquêteur, Fact-Checker
+- Mode Créateur : créez et partagez vos propres questions
+- Mode Communauté : jouez les questions créées par d'autres
+- Version bilingue français / anglais

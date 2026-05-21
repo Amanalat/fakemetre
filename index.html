@@ -119,6 +119,20 @@ h1{font-family:'Fredoka One',cursive;font-size:clamp(2rem,6vw,2.8rem);color:var(
 .tbtn:hover{transform:scale(1.05);}
 .tbtn.y{background:var(--gr);color:#0a2a1a;}
 .tbtn.n{background:var(--rd);color:#2a0a0a;}
+/* ── Fake Instagram post ── */
+.fake-insta{background:#000;border-radius:12px;overflow:hidden;font-family:-apple-system,'Helvetica Neue',Arial,sans-serif;font-style:normal;border:1px solid #262626;color:#fff;font-size:.82rem;}
+.fake-insta-hd{display:flex;align-items:center;gap:10px;padding:10px 12px;}
+.fake-insta-av{width:32px;height:32px;border-radius:50%;background:linear-gradient(45deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888);display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0;}
+.fake-insta-info{flex:1;min-width:0;}
+.fake-insta-uname{font-weight:700;font-size:.82rem;line-height:1.2;}
+.fake-insta-loc{font-size:.72rem;color:#a8a8a8;}
+.fake-insta-dots{color:#a8a8a8;font-weight:900;letter-spacing:1px;font-size:.9rem;}
+.fake-insta-img{width:100%;display:block;aspect-ratio:4/3;object-fit:cover;}
+.fake-insta-acts{padding:8px 12px 2px;font-size:1.1rem;letter-spacing:3px;}
+.fake-insta-likes{padding:2px 12px 4px;font-weight:700;font-size:.82rem;}
+.fake-insta-cap{padding:2px 12px 4px;line-height:1.45;}
+.fake-insta-cap b{font-weight:700;}
+.fake-insta-date{padding:2px 12px 10px;font-size:.72rem;color:#a8a8a8;text-transform:uppercase;letter-spacing:.3px;}
 /* ── Likert scale ── */
 .lbtn{width:36px;height:36px;border-radius:50%;border:2px solid var(--bord);background:var(--card);cursor:pointer;transition:all .18s;flex-shrink:0;font-size:.8rem;font-weight:800;color:var(--mu);display:flex;align-items:center;justify-content:center;}
 .lbtn:hover{border-color:var(--acc);color:var(--acc);transform:scale(1.15);}
@@ -692,7 +706,7 @@ body.css-fs{position:fixed;top:0;left:0;right:0;bottom:0;overflow-y:auto;height:
 </div>
 
 <div id="final"></div>
-<div class="overlay" id="ov"></div>
+<div class="overlay" id="ov" onclick="hide('msrc')"></div>
 
 <div class="modal" id="msrc">
   <div class="msname" id="msname"></div>
@@ -959,7 +973,7 @@ const I18N = {
     alertPackNotFound: 'Pack introuvable.',
     alertPackLoadError: 'Impossible de charger ce pack.',
     btnFullscreen: '⛶ Plein écran',
-    btnExitFullscreen: '✕ Quitter',
+    btnExitFullscreen: '✕ Quitter plein écran',
     levelLabels: {junior:'Apprenti', inter:'Enquêteur', pro:'Fact-Checker', mixed:'Mixte'},
     csvTrueWord: 'VRAI',
     csvFalseWord: 'FAUX',
@@ -1015,6 +1029,7 @@ const I18N = {
     likertMax: 'Totalement',
     likertConfirmBtn: 'Valider mon évaluation →',
     researchBtn: '🔍 Je veux aller plus loin pour évaluer cette source',
+    btnRevealSay: '👁️ Voir ce que dit cette source',
     cursorPromptQ: '🎚️ Souhaites-tu modifier le curseur après avoir lu cette source ?',
     cursorPromptNo: 'Non, continuer →',
     cursorPromptYes: 'Oui, ajuster !',
@@ -1224,7 +1239,7 @@ const I18N = {
     alertPackNotFound: 'Pack not found.',
     alertPackLoadError: 'Unable to load this pack.',
     btnFullscreen: '⛶ Fullscreen',
-    btnExitFullscreen: '✕ Exit',
+    btnExitFullscreen: '✕ Exit fullscreen',
     levelLabels: {junior:'Apprentice', inter:'Investigator', pro:'Fact-Checker', mixed:'Mixed'},
     csvTrueWord: 'TRUE',
     csvFalseWord: 'FALSE',
@@ -1280,6 +1295,7 @@ const I18N = {
     likertMax: 'Totally',
     likertConfirmBtn: 'Submit my evaluation →',
     researchBtn: '🔍 I want to dig deeper to evaluate this source',
+    btnRevealSay: '👁️ See what this source says',
     cursorPromptQ: '🎚️ Do you want to change the slider after reading this source?',
     cursorPromptNo: 'No, continue →',
     cursorPromptYes: 'Yes, adjust!',
@@ -1562,12 +1578,54 @@ function closeCursorHint(){
   } catch(e) {}
 }
 
+function buildInstaPost(src){
+  const cap=escH(src.say);
+  const img=escH(src.img);
+  const user=escH(src.imgUser||'nature_facts_viral');
+  const loc=escH(src.imgLoc||'');
+  const likes=escH(src.imgLikes||'47 382');
+  const ago=escH(src.imgAgo||'2 days ago');
+  return `<div class="fake-insta">
+    <div class="fake-insta-hd">
+      <div class="fake-insta-av">📱</div>
+      <div class="fake-insta-info">
+        <div class="fake-insta-uname">${user}</div>
+        ${loc?`<div class="fake-insta-loc">${loc}</div>`:''}
+      </div>
+      <div class="fake-insta-dots">···</div>
+    </div>
+    <img class="fake-insta-img" src="${img}" alt="">
+    <div class="fake-insta-acts">❤️ 💬 ✈️ &nbsp;&nbsp;&nbsp; 🔖</div>
+    <div class="fake-insta-likes">❤️ ${likes} likes</div>
+    <div class="fake-insta-cap"><b>${user}</b> ${cap}</div>
+    <div class="fake-insta-date">${ago}</div>
+  </div>`;
+}
+
+function revealSay(){
+  $('mssays').style.display='block';
+  $('reveal-say-btn').style.display='none';
+}
+
 function openSrc(src,idx,btn){
   const isEdit=um[idx]!==undefined;
   pend={src,idx,btn,isEdit};
   $('msname').textContent=src.em+'  '+src.n;
   $('msdesc').textContent=src.d;
-  $('mssays').textContent=src.say;
+  const sayEl=$('mssays');
+  if(src.img && src.imgUser){
+    sayEl.className='';
+    sayEl.style.cssText='margin-bottom:16px;';
+    sayEl.innerHTML=buildInstaPost(src);
+  } else if(src.img){
+    sayEl.className='';
+    sayEl.style.cssText='margin-bottom:16px;border-radius:12px;overflow:hidden;';
+    sayEl.innerHTML=`<img src="${escH(src.img)}" style="width:100%;display:block;" alt="">`;
+  } else {
+    sayEl.className='mssays';
+    sayEl.style.cssText='';
+    sayEl.textContent=src.say;
+  }
 
   if(currentLevel==='pro'||currentLevel==='inter'||src.g==='free'){
     $('msrc-junior').style.display='none';
@@ -2096,6 +2154,40 @@ function renderSources(){
       <div class="form-group">
         <label>Ce que dit la source (citation)</label>
         <textarea onchange="updateSource(${src.id},'say',this.value)" placeholder="Ex: « Nos recherches montrent que... »">${escH(src.say||'')}</textarea>
+      </div>
+      <div class="form-group" style="border:1px solid var(--bord);border-radius:10px;padding:12px;background:rgba(168,85,247,.05);">
+        <label style="color:#a855f7;">📸 Illustration (faux post Instagram) — optionnel</label>
+        ${src.img ? `
+        <div style="margin-bottom:10px;max-width:280px;">${buildInstaPost(src)}</div>
+        <div class="form-row" style="margin-bottom:8px;">
+          <div class="form-group" style="margin-bottom:0;">
+            <label style="font-size:.75rem;">Nom du compte</label>
+            <input type="text" value="${escH(src.imgUser||'')}" onchange="updateSource(${src.id},'imgUser',this.value)" placeholder="mon_compte_viral">
+          </div>
+          <div class="form-group" style="margin-bottom:0;">
+            <label style="font-size:.75rem;">Lieu (optionnel)</label>
+            <input type="text" value="${escH(src.imgLoc||'')}" onchange="updateSource(${src.id},'imgLoc',this.value)" placeholder="Paris, France">
+          </div>
+        </div>
+        <div class="form-row" style="margin-bottom:10px;">
+          <div class="form-group" style="margin-bottom:0;">
+            <label style="font-size:.75rem;">Nombre de likes</label>
+            <input type="text" value="${escH(src.imgLikes||'')}" onchange="updateSource(${src.id},'imgLikes',this.value)" placeholder="12 450">
+          </div>
+          <div class="form-group" style="margin-bottom:0;">
+            <label style="font-size:.75rem;">Date affichée</label>
+            <input type="text" value="${escH(src.imgAgo||'')}" onchange="updateSource(${src.id},'imgAgo',this.value)" placeholder="il y a 2 jours">
+          </div>
+        </div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;">
+          <button type="button" onclick="triggerImgUpload(${src.id})" class="creator-btn secondary" style="padding:7px 14px;font-size:.78rem;">🔄 Changer l'image</button>
+          <button type="button" onclick="removeSourceImg(${src.id})" class="creator-btn danger" style="padding:7px 14px;font-size:.78rem;">🗑️ Supprimer</button>
+        </div>` : `
+        <div style="margin-top:4px;">
+          <button type="button" onclick="triggerImgUpload(${src.id})" class="creator-btn secondary" style="padding:8px 16px;font-size:.82rem;">📸 Ajouter une image</button>
+          <p style="color:var(--mu);font-size:.73rem;font-weight:600;margin-top:6px;margin-bottom:0;">JPEG, PNG ou WebP · max 2 Mo</p>
+        </div>`}
+        <input type="file" id="img-input-${src.id}" accept="image/jpeg,image/png,image/webp,image/gif" style="display:none;" onchange="uploadSourceImg(${src.id},this)">
       </div>
       <div class="form-group" style="margin-bottom:8px;">
         <label>🔍 Lien ou fichier de la source (optionnel, mode Fact-Checker)</label>
@@ -2681,6 +2773,30 @@ function triggerFileUpload(srcId){
   document.getElementById('file-input-'+srcId).click();
 }
 
+function triggerImgUpload(srcId){
+  document.getElementById('img-input-'+srcId).click();
+}
+
+function uploadSourceImg(srcId, input){
+  const file = input.files[0];
+  if(!file) return;
+  if(file.size > 2*1024*1024){ alert('Image trop lourde (max 2 Mo). Compresse-la avant de l\'importer.'); input.value=''; return; }
+  const reader = new FileReader();
+  reader.onload = e => {
+    updateSource(srcId, 'img', e.target.result);
+    renderSources();
+  };
+  reader.readAsDataURL(file);
+  input.value='';
+}
+
+function removeSourceImg(srcId){
+  const src = currentSources.find(s => s.id === srcId);
+  if(src){ delete src.img; delete src.imgUser; delete src.imgLoc; delete src.imgLikes; delete src.imgAgo; }
+  renderSources();
+}
+
+
 async function uploadSourceFile(srcId, input){
   const file = input.files[0];
   if(!file) return;
@@ -3197,6 +3313,7 @@ function _updFsBtn(){
   if(!btn) return;
   const isFs=document.fullscreenElement||document.webkitFullscreenElement||document.body.classList.contains('css-fs');
   btn.innerHTML=isFs?t('btnExitFullscreen'):t('btnFullscreen');
+  btn.style.display=isFs?'flex':'';
 }
 document.addEventListener('fullscreenchange',_updFsBtn);
 document.addEventListener('webkitfullscreenchange',_updFsBtn);
