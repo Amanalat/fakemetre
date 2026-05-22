@@ -59,12 +59,12 @@ Realistic fake French Facebook post screenshot. A shared post with a pig emoji a
 
 **FR**
 ```
-Capture d'écran d'un petit blog personnel d'un apiculteur artisanal français. Design rustique et chaleureux dans des tons jaune miel et marron. En-tête du blog : "La Ruche de Marcel 🐝" avec un logo d'abeille dessiné à la main. Titre de l'article en grand : "Mon miel dure FOREVER !". Photo de nombreux pots de miel dorés empilés sur une table en bois. Extrait de l'article visible : "Achetez-en beaucoup, ça se conserve à l'infini !". Design web amateur des années 2010, police de caractères fantaisie. Section commentaires visible avec 3 commentaires enthousiastes. Format paysage.
+Capture d'écran d'un petit blog personnel d'un apiculteur artisanal français. Design rustique et chaleureux dans des tons jaune miel et marron. En-tête du blog : "La Ruche de Marcel 🐝" avec un logo d'abeille dessiné à la main. Titre de l'article en grand : "Mon miel est impérissable !". Photo de nombreux pots de miel dorés empilés sur une table en bois. Extrait de l'article visible : "Achetez-en beaucoup, ça se conserve à l'infini !". Design web amateur des années 2010, police de caractères fantaisie. Section commentaires visible avec 3 commentaires enthousiastes. Format paysage.
 ```
 
 **EN**
 ```
-Screenshot of a small artisanal French honey producer's personal blog. Rustic warm design in honey-yellow and brown tones. Blog header: "La Ruche de Marcel 🐝" with a hand-drawn bee logo. Featured article title in large text: "Mon miel dure FOREVER!" A photo of many golden honey jars stacked on a wooden table. Article excerpt visible: "Achetez-en beaucoup, ça se conserve à l'infini!" Low-quality early 2010s web design, amateur font. Visible comment section with 3 enthusiastic comments. Landscape format.
+Screenshot of a small artisanal honey producer's personal blog. Rustic warm design in honey-yellow and brown tones. Blog header: "Marcel's Hive 🐝" with a hand-drawn bee logo. Featured article title in large text: "My honey lasts FOREVER!" A photo of many golden honey jars stacked on a wooden table. Article excerpt visible: "Stock up — it keeps indefinitely!" Low-quality early 2010s web design, amateur font. Visible comment section with 3 enthusiastic comments. Landscape format.
 ```
 
 ---
@@ -75,7 +75,7 @@ Screenshot of a small artisanal French honey producer's personal blog. Rustic wa
 
 **FR**
 ```
-Affiche de film hollywoodien dramatique, format portrait. Fond sombre avec des teintes bleu nuit et bleu électrique. Un cerveau humain lumineux flotte au centre, entouré d'éclairs d'énergie. Accroche en haut en italique blanc : "Et si tu pouvais libérer les 90% restants ?". Grand titre en gras : "LIMITLESS MIND". Silhouette d'un humain puissant debout sous le cerveau, bras écartés. Effets de lumière cinématographiques dramatiques. Composition typique d'une affiche blockbuster. Barre de crédits en bas. Aucune marque réelle.
+Affiche de film hollywoodien dramatique, format portrait. Fond sombre avec des teintes bleu nuit et bleu électrique. Un cerveau humain lumineux flotte au centre, entouré d'éclairs d'énergie. Accroche en haut en italique blanc : "Et si tu pouvais libérer les 90% restants ?". Grand titre en gras : "L'ESPRIT SANS LIMITES". Silhouette d'un humain puissant debout sous le cerveau, bras écartés. Effets de lumière cinématographiques dramatiques. Composition typique d'une affiche blockbuster. Barre de crédits en bas. Aucune marque réelle.
 ```
 
 **EN**
@@ -144,5 +144,5 @@ Double page ou couverture réaliste d'un magazine bien-être français. Esthéti
 
 **EN**
 ```
-Realistic French wellness magazine double-page spread or cover. Glossy professional magazine aesthetic. Hero image: beautiful close-up photo of fresh carrots with green tops on a white background. Main headline in large bold orange font: "Les carottes : le SUPER-ALIMENT qui booste votre vue!" Subheadline: "Nos grands-mères avaient raison : une carotte par jour et vous verrez comme un chat dans le noir!" Magazine title at top: "SANTÉ & BIEN-ÊTRE". Pull quote box, article columns, page numbers visible. Professional editorial layout. Portrait format.
+Realistic wellness magazine double-page spread or cover. Glossy professional magazine aesthetic. Hero image: beautiful close-up photo of fresh carrots with green tops on a white background. Main headline in large bold orange font: "Carrots: the SUPERFOOD that boosts your eyesight!" Subheadline: "Grandma was right: one carrot a day and you'll see like a cat in the dark!" Magazine title at top: "HEALTH & WELLNESS". Pull quote box, article columns, page numbers visible. Professional editorial layout. Portrait format.
 ```

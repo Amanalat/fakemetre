@@ -31,7 +31,60 @@ Ces images n'existent pas encore. Générer les deux versions FR et EN. Les prom
 
 ---
 
-## 3. État des images déjà intégrées
+## 3. Supabase Storage — images des séries communauté
+
+### Pourquoi c'est nécessaire
+
+Quand un créateur ajoute une image à une source dans le Mode Créateur, elle est stockée en **base64** (une longue chaîne de texte encodée) dans localStorage, puis envoyée telle quelle dans le champ `questions` de la table Supabase lors de la publication.
+
+**Problème :** une image de 500 Ko devient ~670 Ko en base64. Une série avec 3 images = ~2 Mo dans une seule row Supabase. Sur plusieurs séries, les performances se dégradent et on peut atteindre les limites de taille de row Supabase.
+
+**Solution :** utiliser Supabase Storage (un bucket de fichiers) pour héberger les images séparément, et ne stocker que leur URL dans le JSON de la série.
+
+### Ce qu'il faut faire
+
+**Étape 1 — Côté Supabase (5 min, dans le dashboard)**
+1. Aller dans ton projet Supabase → Storage → "New bucket"
+2. Nommer le bucket `series-images`
+3. Le mettre en **Public** (pour que les URLs soient accessibles sans auth)
+4. Dans "Policies", autoriser l'upload anonyme (INSERT pour `anon`)
+
+**Étape 2 — Côté code (dans `index.html`, fonction `submitPublish()`)**
+
+Avant d'envoyer les données à Supabase, parcourir toutes les sources de `customQuestions` et, pour chaque `src.img` qui commence par `data:` (= base64) :
+1. Convertir la base64 en blob binaire
+2. Uploader le blob dans le bucket `series-images` via l'API Storage Supabase
+3. Remplacer la base64 par l'URL publique retournée
+4. Envoyer le JSON allégé dans la table `packs`
+
+```js
+// Pseudo-code de la logique à ajouter dans submitPublish()
+async function uploadImagesAndClean(questions) {
+  const clean = JSON.parse(JSON.stringify(questions)); // copie profonde
+  for(const q of clean) {
+    for(const src of q.sources||[]) {
+      if(src.img && src.img.startsWith('data:')) {
+        const blob = dataURLtoBlob(src.img);
+        const filename = crypto.randomUUID() + '.webp';
+        const url = await uploadToSupabaseStorage(blob, filename);
+        src.img = url; // remplace la base64 par l'URL
+      }
+    }
+  }
+  return clean;
+}
+```
+
+**Fonctions utilitaires à écrire :**
+- `dataURLtoBlob(dataURL)` — convertit une data URL en Blob
+- `uploadToSupabaseStorage(blob, filename)` — appelle `SB_URL + '/storage/v1/object/series-images/' + filename` avec `method: 'POST'` et la clé API
+
+**Étape 3 — Affichage côté joueur**
+Rien à changer : `src.img` contiendra une URL https:// au lieu d'une base64, le `<img src="...">` fonctionne pareil.
+
+---
+
+## 4. État des images déjà intégrées
 
 ### Version FR ✅ complète
 | Image | Source dans le jeu |
