@@ -1,5 +1,19 @@
 # Nouveautés FakeMètre
 
+## Mise à jour — 23 mai 2026
+
+### 🔍 Sources masquées jusqu'au premier clic
+
+**Avant :** Les boutons de sources affichaient directement le nom et la description de chaque source (ex : "Revue Nature", "Post Instagram viral"), ce qui donnait des indices dès le départ.
+
+**Maintenant :** Les sources s'affichent simplement comme **Source 1**, **Source 2**, **Source 3**, **Source 4** — sans aucun indice sur leur nature ou leur fiabilité. Le joueur doit cliquer pour découvrir de quoi il s'agit.
+
+**Une fois cliquée**, la source révèle son titre, sa description et son emoji directement sur le bouton de la page principale. Le joueur sait ainsi quelles sources il a déjà consultées, sans que les non-consultées ne dévoilent leurs informations à l'avance.
+
+**Impact pédagogique :** Le joueur est incité à consulter toutes les sources plutôt que de présélectionner celles qui semblent fiables d'après leur nom, ce qui renforce l'exercice d'esprit critique.
+
+---
+
 ## Mise à jour — Mai 2026
 
 ### 📸 Illustrations dans les sources

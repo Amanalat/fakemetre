@@ -1563,7 +1563,7 @@ function renderQ(){
   sh.forEach((src,i)=>{
     const b=document.createElement('button');
     b.className='sbtn';b.id='sb'+i;
-    b.innerHTML=`<span class="semoji">${escH(src.em||'')}</span><div><div class="sname">${escH(src.n)}</div><div class="sdesc">${escH(src.d||'')}</div></div>`;
+    b.innerHTML=`<span class="semoji">🔍</span><div><div class="sname">Source ${i+1}</div></div>`;
     b.onclick=()=>openSrc(src,i,b);
     g.appendChild(b);
   });
@@ -1610,6 +1610,21 @@ function revealSay(){
 function openSrc(src,idx,btn){
   const isEdit=um[idx]!==undefined;
   pend={src,idx,btn,isEdit};
+  // Révèle le titre de la source sur le bouton dès la première consultation
+  if(!btn.dataset.revealed){
+    btn.dataset.revealed='1';
+    const emojiEl=btn.querySelector('.semoji');
+    const nameEl=btn.querySelector('.sname');
+    if(emojiEl) emojiEl.textContent=src.em||'📄';
+    if(nameEl){
+      nameEl.textContent=src.n;
+      if(src.d){
+        let descEl=btn.querySelector('.sdesc');
+        if(!descEl){descEl=document.createElement('div');descEl.className='sdesc';nameEl.parentNode.appendChild(descEl);}
+        descEl.textContent=src.d;
+      }
+    }
+  }
   $('msname').textContent=src.em+'  '+src.n;
   $('msdesc').textContent=src.d;
   const sayEl=$('mssays');
