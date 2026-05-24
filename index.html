@@ -207,8 +207,8 @@ h1{font-family:'Fredoka One',cursive;font-size:clamp(2rem,6vw,2.8rem);color:var(
 .fake-gov{background:#f4f7fb;border-radius:12px;overflow:hidden;font-style:normal;color:#1a2733;border:1px solid #cdd9e8;}
 .fake-gov-bar{display:flex;align-items:center;gap:7px;flex-wrap:wrap;background:#1c3a6e;padding:9px 14px;color:#fff;}
 .fake-gov-site{font-weight:800;font-size:.85rem;}
-.fake-gov-domain{font-size:.64rem;color:#a9d6ff;font-weight:700;}
-.fake-gov-official{margin-left:auto;font-size:.6rem;background:rgba(255,255,255,.18);padding:2px 7px;border-radius:4px;font-weight:800;letter-spacing:.3px;}
+.fake-gov-domain{font-size:.64rem;color:#a9d6ff;font-weight:700;text-decoration:underline;text-underline-offset:2px;cursor:pointer;transition:color .15s;}
+.fake-gov-domain:hover{color:#fff;}
 .fake-gov-body{padding:12px 14px;font-size:.85rem;line-height:1.55;color:#2a3a4a;margin:0;}
 /* ── Medium badge ── */
 .medium-badge{display:inline-block;font-size:.62rem;font-weight:900;letter-spacing:.4px;padding:2px 8px;border-radius:20px;text-transform:uppercase;margin-right:6px;vertical-align:middle;}
@@ -2005,8 +2005,7 @@ function buildGov(src){
     <div class="fake-gov-bar">
       <span>🏛️</span>
       <span class="fake-gov-site">${site}</span>
-      ${domain?`<span class="fake-gov-domain">🔒 ${domain}</span>`:''}
-      <span class="fake-gov-official">${isEn?'Official':'Site officiel'}</span>
+      ${domain?`<a href="https://${escH(src.govDomain)}" target="_blank" rel="noopener" class="fake-gov-domain">🔒 ${domain}</a>`:''}
     </div>
     <p class="fake-gov-body">${body}</p>
   </div>`;
