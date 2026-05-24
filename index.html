@@ -185,6 +185,44 @@ h1{font-family:'Fredoka One',cursive;font-size:clamp(2rem,6vw,2.8rem);color:var(
 .fake-blog-meta{font-size:.7rem;color:#999;display:flex;gap:8px;flex-wrap:wrap;align-items:center;}
 .fake-blog-body{background:#f7f7f7;padding:10px 16px 14px;font-size:.83rem;color:#444;line-height:1.55;border-top:1px solid #eee;}
 .fake-blog-more{color:#1a73e8;font-weight:700;}
+/* ── Fake Press article ── */
+.fake-press{background:#fcfbf7;border-radius:12px;overflow:hidden;font-style:normal;color:#1a1a1a;border:1px solid #e3ddcf;}
+.fake-press-masthead{display:flex;justify-content:space-between;align-items:center;padding:9px 14px;border-bottom:2px solid #1a1a1a;}
+.fake-press-outlet{font-family:Georgia,'Times New Roman',serif;font-weight:800;font-size:.95rem;color:#1a1a1a;}
+.fake-press-domain{font-size:.66rem;color:#3a7a3a;font-weight:700;}
+.fake-press-kicker{padding:8px 14px 0;font-size:.62rem;font-weight:900;letter-spacing:1px;color:#c0392b;text-transform:uppercase;}
+.fake-press-headline{font-family:Georgia,serif;font-size:.98rem;font-weight:800;line-height:1.3;color:#1a1a1a;padding:2px 14px 4px;margin:0;}
+.fake-press-byline{padding:0 14px 8px;font-size:.68rem;color:#777;font-style:italic;}
+.fake-press-body{padding:0 14px 14px;font-size:.85rem;line-height:1.55;color:#333;margin:0;}
+/* ── Fake Scientific Study ── */
+.fake-study{background:#fff;border-radius:12px;overflow:hidden;font-style:normal;color:#1a2733;border:1px solid #d6e2ec;}
+.fake-study-hd{padding:10px 14px 0;}
+.fake-study-badge{display:inline-block;background:#e8f4ff;color:#1565c0;font-size:.6rem;font-weight:900;letter-spacing:.5px;padding:3px 8px;border-radius:5px;}
+.fake-study-journal{padding:8px 14px 0;font-weight:800;font-size:.9rem;color:#0d2a4a;font-style:italic;}
+.fake-study-authors{padding:1px 14px 6px;font-size:.72rem;color:#5a7088;}
+.fake-study-abstract{padding:0 14px 10px;font-size:.84rem;line-height:1.55;color:#33414d;margin:0;}
+.fake-study-abstract-tag{font-weight:800;font-size:.66rem;text-transform:uppercase;color:#1565c0;letter-spacing:.5px;}
+.fake-study-foot{border-top:1px solid #eef3f7;padding:8px 14px;font-size:.7rem;color:#7088a0;font-weight:700;}
+/* ── Fake Gov / institutional site ── */
+.fake-gov{background:#f4f7fb;border-radius:12px;overflow:hidden;font-style:normal;color:#1a2733;border:1px solid #cdd9e8;}
+.fake-gov-bar{display:flex;align-items:center;gap:7px;flex-wrap:wrap;background:#1c3a6e;padding:9px 14px;color:#fff;}
+.fake-gov-site{font-weight:800;font-size:.85rem;}
+.fake-gov-domain{font-size:.64rem;color:#a9d6ff;font-weight:700;}
+.fake-gov-official{margin-left:auto;font-size:.6rem;background:rgba(255,255,255,.18);padding:2px 7px;border-radius:4px;font-weight:800;letter-spacing:.3px;}
+.fake-gov-body{padding:12px 14px;font-size:.85rem;line-height:1.55;color:#2a3a4a;margin:0;}
+/* ── Medium badge ── */
+.medium-badge{display:inline-block;font-size:.62rem;font-weight:900;letter-spacing:.4px;padding:2px 8px;border-radius:20px;text-transform:uppercase;margin-right:6px;vertical-align:middle;}
+.medium-badge.sci,.medium-badge.gov{background:rgba(79,163,247,.18);color:#7cc0ff;}
+.medium-badge.press{background:rgba(247,201,72,.18);color:var(--acc);}
+.medium-badge.social,.medium-badge.blog,.medium-badge.testi{background:rgba(255,255,255,.1);color:var(--mu);}
+/* ── URL bar in modal ── */
+.msurl{display:none;align-items:center;gap:8px;background:#0a131f;border:1px solid var(--bord);border-radius:8px;padding:7px 11px;font-size:.74rem;color:var(--mu);font-family:'Courier New',monospace;margin-bottom:14px;}
+.msurl-domain{color:#7cc0ff;font-weight:700;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.msurl-go{margin-left:auto;color:var(--acc);font-weight:800;text-decoration:none;font-family:'Nunito',sans-serif;}
+/* ── Raw image frame ── */
+.fake-shot{margin:0;border:1px solid var(--bord);border-radius:12px;overflow:hidden;background:#0a131f;}
+.fake-shot img{width:100%;display:block;}
+.fake-shot figcaption{padding:7px 12px;font-size:.72rem;color:var(--mu);font-style:italic;font-weight:600;}
 /* ── Likert scale ── */
 .lbtn{width:36px;height:36px;border-radius:50%;border:2px solid var(--bord);background:var(--card);cursor:pointer;transition:all .18s;flex-shrink:0;font-size:.8rem;font-weight:800;color:var(--mu);display:flex;align-items:center;justify-content:center;}
 .lbtn:hover{border-color:var(--acc);color:var(--acc);transform:scale(1.15);}
@@ -773,6 +811,7 @@ button:focus-visible,a:focus-visible,[tabindex]:focus-visible,
   <div class="msname" id="msname"></div>
   <div class="msdesc" id="msdesc"></div>
   <div class="mssays" id="mssays"></div>
+  <div class="msurl" id="msurl"></div>
 
   <!-- Mode JUNIOR : boutons oui/non -->
   <div id="msrc-junior">
@@ -1922,6 +1961,69 @@ function buildBlog(src){
   </div>`;
 }
 
+function buildPress(src){
+  const isEn=lang==='en';
+  const outlet=escH(src.pressOutlet||src.n);
+  const headline=escH(src.pressTitle||src.d||src.n);
+  const author=escH(src.pressAuthor||(isEn?'Editorial staff':'Rédaction'));
+  const date=escH(src.pressDate||'');
+  const domain=escH(src.pressDomain||'');
+  const body=escH(src.say);
+  return `<div class="fake-press">
+    <div class="fake-press-masthead">
+      <span class="fake-press-outlet">📰 ${outlet}</span>
+      ${domain?`<span class="fake-press-domain">🔒 ${domain}</span>`:''}
+    </div>
+    <div class="fake-press-kicker">${isEn?'FACT-CHECK':'VÉRIFICATION'}</div>
+    <div class="fake-press-headline">${headline}</div>
+    <div class="fake-press-byline">${isEn?'By':'Par'} ${author}${date?` · ${date}`:''}</div>
+    <p class="fake-press-body">${body}</p>
+  </div>`;
+}
+function buildStudy(src){
+  const isEn=lang==='en';
+  const journal=escH(src.studyJournal||src.n);
+  const year=escH(src.studyYear||'');
+  const authors=escH(src.studyAuthors||'et al.');
+  const body=escH(src.say);
+  return `<div class="fake-study">
+    <div class="fake-study-hd">
+      <span class="fake-study-badge">🔬 ${isEn?'PEER-REVIEWED':'REVUE À COMITÉ DE LECTURE'}</span>
+    </div>
+    <div class="fake-study-journal">${journal}${year?` (${year})`:''}</div>
+    <div class="fake-study-authors">${authors}</div>
+    <p class="fake-study-abstract"><span class="fake-study-abstract-tag">${isEn?'Abstract':'Résumé'}</span> ${body}</p>
+    <div class="fake-study-foot">📄 ${isEn?'Peer-reviewed article':'Article évalué par des pairs'}</div>
+  </div>`;
+}
+function buildGov(src){
+  const isEn=lang==='en';
+  const site=escH(src.govSite||src.n);
+  const domain=escH(src.govDomain||'');
+  const body=escH(src.say);
+  return `<div class="fake-gov">
+    <div class="fake-gov-bar">
+      <span>🏛️</span>
+      <span class="fake-gov-site">${site}</span>
+      ${domain?`<span class="fake-gov-domain">🔒 ${domain}</span>`:''}
+      <span class="fake-gov-official">${isEn?'Official':'Site officiel'}</span>
+    </div>
+    <p class="fake-gov-body">${body}</p>
+  </div>`;
+}
+function srcMedium(src){
+  const isEn=lang==='en';
+  if(src.studyJournal)            return {ic:'🔬',lab:isEn?'Scientific study':'Étude scientifique',cls:'sci'};
+  if(src.govSite)                 return {ic:'🏛️',lab:isEn?'Official site':'Site officiel',cls:'gov'};
+  if(src.pressOutlet)             return {ic:'📰',lab:isEn?'Press · Fact-check':'Presse · Fact-check',cls:'press'};
+  if(src.imgUser||src.tweetUser)  return {ic:'📱',lab:isEn?'Social media':'Réseau social',cls:'social'};
+  if(src.forumUser)               return {ic:'💬',lab:isEn?'Forum':'Forum',cls:'social'};
+  if(src.waForwarded)             return {ic:'💬',lab:isEn?'Private message':'Message privé',cls:'social'};
+  if(src.gmapsUser)               return {ic:'⭐',lab:isEn?'Online review':'Avis en ligne',cls:'social'};
+  if(src.blogTitle)               return {ic:'✏️',lab:isEn?'Blog':'Blog',cls:'blog'};
+  return {ic:'🗣️',lab:isEn?'Testimony':'Témoignage',cls:'testi'};
+}
+
 function revealSay(){
   $('mssays').style.display='block';
   $('reveal-say-btn').style.display='none';
@@ -1940,6 +2042,15 @@ function openSrc(src,idx,btn){
     if(emojiEl) emojiEl.textContent=src.em||'📄';
     if(nameEl){
       nameEl.textContent=src.n;
+      // Pastille de médium sur le bouton révélé
+      let badgeEl=btn.querySelector('.sbtn-badge');
+      if(!badgeEl){
+        const med=srcMedium(src);
+        badgeEl=document.createElement('span');
+        badgeEl.className=`sbtn-badge medium-badge ${med.cls}`;
+        badgeEl.textContent=`${med.ic} ${med.lab}`;
+        nameEl.insertAdjacentElement('afterend',badgeEl);
+      }
       if(src.d){
         let descEl=btn.querySelector('.sdesc');
         if(!descEl){descEl=document.createElement('div');descEl.className='sdesc';nameEl.parentNode.appendChild(descEl);}
@@ -1948,7 +2059,8 @@ function openSrc(src,idx,btn){
     }
   }
   $('msname').textContent=src.em+'  '+src.n;
-  $('msdesc').textContent=src.d;
+  const med=srcMedium(src);
+  $('msdesc').innerHTML=`<span class="medium-badge ${med.cls}">${med.ic} ${med.lab}</span>${escH(src.d||'')}`;
   const sayEl=$('mssays');
   if(src.img && src.imgUser){
     sayEl.className='';
@@ -1956,8 +2068,8 @@ function openSrc(src,idx,btn){
     sayEl.innerHTML=buildInstaPost(src);
   } else if(src.img){
     sayEl.className='';
-    sayEl.style.cssText='margin-bottom:16px;border-radius:12px;overflow:hidden;';
-    sayEl.innerHTML=`<img src="${escH(src.img)}" style="width:100%;display:block;" alt="">`;
+    sayEl.style.cssText='margin-bottom:16px;';
+    sayEl.innerHTML=`<figure class="fake-shot"><img src="${escH(src.img)}" alt=""><figcaption>${escH(src.imgCaption||(lang==='en'?'Image circulating online':'Image qui circule en ligne'))}</figcaption></figure>`;
   } else if(src.forumUser){
     sayEl.className='';
     sayEl.style.cssText='margin-bottom:16px;';
@@ -1978,10 +2090,33 @@ function openSrc(src,idx,btn){
     sayEl.className='';
     sayEl.style.cssText='margin-bottom:16px;';
     sayEl.innerHTML=buildBlog(src);
+  } else if(src.pressOutlet){
+    sayEl.className='';sayEl.style.cssText='margin-bottom:16px;';
+    sayEl.innerHTML=buildPress(src);
+  } else if(src.studyJournal){
+    sayEl.className='';sayEl.style.cssText='margin-bottom:16px;';
+    sayEl.innerHTML=buildStudy(src);
+  } else if(src.govSite){
+    sayEl.className='';sayEl.style.cssText='margin-bottom:16px;';
+    sayEl.innerHTML=buildGov(src);
   } else {
     sayEl.className='mssays';
     sayEl.style.cssText='';
     sayEl.textContent=src.say;
+  }
+  // Barre URL / domaine
+  const urlBar=$('msurl');
+  if(urlBar){
+    if(src.url){
+      let hostname='';try{hostname=new URL(src.url).hostname;}catch(e){hostname=src.url;}
+      urlBar.style.display='flex';
+      urlBar.innerHTML=`🔒 <span class="msurl-domain">${escH(hostname)}</span><a href="${escH(src.url)}" target="_blank" rel="noopener" class="msurl-go">${lang==='en'?'Open ↗':'Ouvrir ↗'}</a>`;
+    } else if(src.pressDomain||src.govDomain){
+      urlBar.style.display='flex';
+      urlBar.innerHTML=`🔒 <span class="msurl-domain">${escH(src.pressDomain||src.govDomain)}</span>`;
+    } else {
+      urlBar.style.display='none';
+    }
   }
 
   if(currentLevel==='pro'||currentLevel==='inter'||src.g==='free'){
