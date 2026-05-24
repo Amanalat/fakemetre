@@ -1,0 +1,499 @@
+TOUS LES TEXTES DE FAKEMÈTRE — INDEX.HTML
+
+══════════════════════════════════════
+INTERFACE
+══════════════════════════════════════
+
+FakeMètre 🔍
+🔍 FakeMètre
+Vraie info ou fake news ? Trouve les bonnes sources !
+par Antonin Atger | [email&#160;protected] | antoninatger.com
+Choisis ton mode
+Trois parcours de jeu + un mode création !
+🔎
+Apprenti Détective
+Des affirmations du quotidien pour apprendre à douter !
+🕵️
+Enquêteur Junior
+Mythes tenaces et sources trompeuses à démasquer !
+⚡
+Fact-Checker Confirmé
+Sujets complexes, biais cognitifs et vraies controverses !
+✏️
+Créateur
+Crée tes propres questions et partage-les !
+← Changer de niveau
+Choisis ton mode d'enquête
+Combien de questions veux-tu explorer ?
+⚡
+5 Questions
+Mode rapide 5 questions tirées au sort
+🔎
+10 Questions
+Mode complet Toutes les énigmes
+← Retour au menu
+✏️ Mode Créateur
+Crée tes propres questions de fact-checking !
+📝 Créer/Modifier
+📋 Mes questions ( 0 )
+🎮 Jouer
+📤 Exporter
+➕ Nouvelle question
+💾 Tes questions sont sauvegardées dans ce navigateur. Pense à les exporter pour les conserver en sécurité !
+Affirmation à vérifier
+Cette affirmation est...
+✅ VRAIE
+❌ FAUSSE
+Sujet nuancé (optionnel) :
+⚖️ Activer "Pas de consensus clair"
+Active cette option pour permettre aux joueurs en mode Fact-Checker de répondre "Pas de consensus clair".
+⚖️ Explication "Pas de consensus clair"
+Explication (révélée à la fin)
+📚 Sources (min. 2)
+Ajoute des sources fiables ET non fiables pour que le joueur apprenne à les distinguer.
++ Ajouter une source
+🗑️ Réinitialiser
+💾 Enregistrer la question
+📋 Mes questions créées
+📭
+Aucune question créée pour l'instant. Commence par en créer une !
+🎮 Jouer mes questions
+🎮
+Crée au moins 1 question pour pouvoir jouer !
+Tu as 0 question(s) prêtes à jouer !
+Mode de jeu
+🔎 Mode Apprenti (avec feedback immédiat)
+🕵️ Mode Enquêteur (évaluation libre, Likert)
+⚡ Mode Fact-Checker (Likert + recherche + 3e option)
+▶️ Lancer la partie !
+📤 Exporter & Partager
+📤
+Crée au moins 1 question pour pouvoir exporter !
+💡 Pour plus de sécurité, exporte régulièrement tes questions ! Tu pourras les réimporter dans le jeu plus tard, ou les partager avec d'autres.
+Choisis ton format d'export :
+📄 Télécharger en JSON (complet, réimportable)
+📊 Télécharger en CSV (éditable dans Excel)
+🌐 Télécharger en HTML (jeu autonome à partager)
+📥 Importer des questions :
+⚠️ Format requis : les fichiers importés doivent avoir exactement le même format que les exports de FakeMètre (JSON ou CSV). N'importe pas de fichiers créés manuellement sans te baser sur un export existant — les colonnes et la structure doivent correspondre exactement.
+📄 Importer un fichier JSON
+📊 Importer un fichier CSV
+✅ Sauvegardé !
+🏠 Menu
+⭐ Score : 0 pts | 🧪 Enquête 1 / 5
+Affirmation mystère
+❌ Faux 🤔 Incertain... Vrai ✅
+👆 Glisse le curseur pour indiquer ce que tu penses !
+📂 Consulte des sources pour te faire une idée
+🧑‍⚖️ Après ton enquête, qu'est-ce que tu en penses ?
+Tu peux encore consulter d'autres sources, ou voter maintenant !
+❌ C'est FAUX
+⚖️ Pas de consensus clair
+✅ C'est VRAI
+Est-ce que tu fais confiance à cette source ?
+👍 Oui, je la crois
+🙅 Je me méfie
+🎚️ À quel point fais-tu confiance à cette source ?
+Absolument pas
+Neutre
+Totalement
+Valider mon évaluation →
+🔍 Je veux aller plus loin pour évaluer cette source
+🎚️ Souhaites-tu modifier le curseur après avoir lu cette source ?
+Non, continuer →
+Oui, ajuster !
+🎚️ Ajuste ton curseur
+❌ Faux 🤔 Incertain... Vrai ✅
+👆 Glisse pour ajuster !
+✅ Valider ma position
+Continuer →
+🎚️
+Avant de consulter les sources…
+Positionne le curseur à ton niveau de croyance actuelle sur cette affirmation. Tu pourras le modifier au fil de ton enquête !
+🎚️ Ok, je positionne le curseur !
+© 2025 Antonin Atger | CC BY-NC 4.0
+
+══════════════════════════════════════
+NIVEAU : Enquêteur Junior (Inter)
+══════════════════════════════════════
+
+AFFIRMATION : Les produits bio sont sans produits chimiques. 🌿
+RÉPONSE : FAUX
+
+  SOURCE 1 [✅ FIABLE]
+  Nom : Règlement européen CE 834/2007 sur l'agriculture biologique
+  Desc : Texte officiel définissant le label bio en Europe
+  Citation : « Le label bio interdit les pesticides de synthèse, pas les composés chimiques. Le cuivre et le soufre — des substances chimiques — sont autorisés en agriculture biologique. »
+
+  SOURCE 2 [✅ FIABLE]
+  Nom : ANSES — Agence nationale de sécurité sanitaire
+  Desc : Autorité française sur la sécurité alimentaire et sanitaire
+  Citation : « Toute substance est composée de molécules chimiques. Une carotte bio contient du carotène (C₄₀H₅₆), de l'eau (H₂O), de la cellulose — tous des produits chimiques. L'expression 'sans produits chimiques' n'a pas de sens scientifique. »
+
+  SOURCE 3 [❌ NON FIABLE]
+  Nom : Étiquette d'un produit alimentaire bio en supermarché
+  Desc : Argument marketing sur l'emballage d'une marque bio
+  Citation : « 100% naturel. Sans produits chimiques. Juste la nature dans votre assiette. »
+
+  SOURCE 4 [❌ NON FIABLE]
+  Nom : Blog bien-être 'Vivre Naturellement'
+  Desc : Site de conseils santé sans auteur identifié ni sources citées
+  Citation : « Passez au bio et dites adieu aux produits chimiques pour toujours ! Votre corps n'est pas fait pour ingérer de la chimie. »
+
+══════════════════════════════════════
+NIVEAU : Fact-Checker Confirmé (Pro)
+══════════════════════════════════════
+
+AFFIRMATION : Un médecin britannique a prouvé scientifiquement que les vaccins provoquent l'autisme. Des études l'ont confirmé. 💉
+RÉPONSE : FAUX
+
+  SOURCE 1 [✅ FIABLE]
+  Nom : Revue Cochrane (2021, 138 études, 23 millions d'enfants)
+  Desc : Synthèse mondiale des études sur vaccins et autisme
+  Citation : « Notre analyse de 23 études portant sur 1,2 million d'enfants ne trouve aucune association entre vaccination et autisme. Les données sont sans équivoque. »
+
+  SOURCE 2 [❌ NON FIABLE]
+  Nom : Andrew Wakefield, ex-gastro-entérologue du Royal Free Hospital
+  Desc : Médecin radié ayant exercé dans un hôpital prestigieux de Londres
+  Citation : « J'ai observé dans ma clinique des cas de régression autistique survenant après la vaccination. Ces observations cliniques ne peuvent pas être ignorées. »
+
+  SOURCE 3 [✅ FIABLE]
+  Nom : The Lancet — Notice de rétractation (2010)
+  Desc : Revue médicale de référence mondiale
+  Citation : « Nous retirons formellement l'article de 1998 : les données étaient falsifiées et l'auteur a enfreint l'éthique médicale. Cette étude n'aurait jamais dû être publiée. »
+
+  SOURCE 4 [❌ NON FIABLE]
+  Nom : Documentaire 'Vaxxed' (2016) réalisé par Andrew Wakefield
+  Desc : Film présentant des témoignages de parents
+  Citation : « Des dizaines de parents témoignent : leur enfant a changé du jour au lendemain après l'injection. Ces histoires ne peuvent pas toutes être des coïncidences. »
+
+AFFIRMATION : Le réchauffement climatique est un phénomène naturel. Le CO₂ produit par les humains ne peut pas vraiment changer le climat. 🌍
+RÉPONSE : FAUX
+
+  SOURCE 1 [✅ FIABLE]
+  Nom : Article de Nature Climate Change (2023)
+  Desc : Revue scientifique de référence sur le climat
+  Citation : « Nos modèles, validés par les observations satellitaires, confirment que 100% du réchauffement observé depuis 1950 est attribuable aux activités humaines. »
+
+  SOURCE 2 [❌ NON FIABLE]
+  Nom : William Happer, physicien émérite de Princeton
+  Desc : Scientifique prestigieux, fondateur de la CO2 Coalition
+  Citation : « Le CO₂ est bénéfique pour les plantes. Le réchauffement actuel est dans la variabilité naturelle. Mon expérience à Princeton et au Département de l'Énergie me permet de l'affirmer. »
+
+  SOURCE 3 [✅ FIABLE]
+  Nom : Rapport du réassureur Munich Re
+  Desc : Compagnie d'assurance analysant les risques climatiques
+  Citation : « Nos données montrent une multiplication par 5 des catastrophes climatiques depuis 1980. Cette tendance impacte directement nos modèles de risque et nos primes. »
+
+  SOURCE 4 [❌ NON FIABLE]
+  Nom : Oregon Petition (pétition de '31 000 scientifiques')
+  Desc : Liste de signataires contestant le réchauffement anthropique
+  Citation : « 31 000 scientifiques américains rejettent l'alarmisme climatique. Le consensus n'existe pas ! Signez vous aussi ! »
+
+AFFIRMATION : Les écrans rendent stupides : des études prouvent que les smartphones font baisser le QI des adolescents de manière permanente et irréversible. 📱
+RÉPONSE : FAUX
+NUANCE : ⚖️ PAS DE CONSENSUS CLAIR. L'affirmation telle que formulée (baisse 'permanente et irréversible') est fausse. Mais des effets réels sur l'attention et le sommeil sont documentés. La nuance est essentielle ici.
+
+  SOURCE 1 [✅ FIABLE]
+  Nom : Étude d'Oxford par Andrew Przybylski (2019)
+  Desc : Recherche sur 17 000 ados publiée dans Nature Human Behaviour
+  Citation : « Nous n'avons pas trouvé de lien significatif entre temps d'écran et bien-être psychologique. L'effet, s'il existe, est minuscule comparé à d'autres facteurs. »
+
+  SOURCE 2 [❌ NON FIABLE]
+  Nom : 'La fabrique du crétin digital' de Michel Desmurget (2019)
+  Desc : Best-seller écrit par un neuroscientifique du CNRS
+  Citation : « Les écrans détruisent le cerveau de nos enfants. Toutes les études le montrent. C'est une catastrophe sanitaire sans précédent. »
+
+  SOURCE 3 [✅ FIABLE]
+  Nom : Rapport de l'Académie des Sciences 'L'enfant et les écrans' (2013)
+  Desc : Avis de l'institution scientifique française
+  Citation : « Les effets des écrans dépendent du contenu, du contexte et de l'âge. Aucune conclusion simpliste n'est possible. Des recommandations nuancées s'imposent. »
+
+  SOURCE 4 [❌ NON FIABLE]
+  Nom : Étude corrélant temps d'écran et résultats scolaires
+  Desc : Recherche montrant une corrélation statistique
+  Citation : « Notre étude montre clairement : plus un ado passe de temps sur les écrans, plus ses notes baissent. Les chiffres sont formels. »
+
+AFFIRMATION : L'élevage animal est responsable de plus d'émissions de gaz à effet de serre que tous les transports mondiaux réunis. 🐄
+RÉPONSE : VRAI
+NUANCE : ⚖️ PAS DE CONSENSUS CLAIR. La FAO dit 14,5% pour l'élevage vs 12-13% pour les transports. L'AIE donne ~16% pour les transports. Selon la méthodologie, la comparaison change. Les deux secteurs sont très proches.
+
+  SOURCE 1 [✅ FIABLE]
+  Nom : FAO — Rapport 'Livestock's Long Shadow' (2006)
+  Desc : Organisation des Nations Unies pour l'alimentation et l'agriculture
+  Citation : « Le secteur de l'élevage génère environ 14,5% des émissions mondiales de gaz à effet de serre, ce qui dépasse effectivement l'ensemble du secteur des transports. »
+
+  SOURCE 2 [❌ NON FIABLE]
+  Nom : Fédération nationale bovine
+  Desc : Organisation représentant les éleveurs français
+  Citation : « Ces chiffres sont exagérés et sortis de contexte. L'élevage français est parmi les moins polluants au monde. »
+
+  SOURCE 3 [✅ FIABLE]
+  Nom : Agence Internationale de l'Énergie (AIE)
+  Desc : Organisation intergouvernementale sur l'énergie mondiale
+  Citation : « Les transports représentent environ 16% des émissions mondiales selon nos calculs, légèrement au-dessus de l'élevage. Les deux secteurs sont très proches selon la méthode de calcul retenue. »
+
+  SOURCE 4 [❌ NON FIABLE]
+  Nom : Militant vegan sur Instagram
+  Desc : Compte de sensibilisation, sans sources citées
+  Citation : « L'élevage = 51% des émissions ! Si tu manges de la viande tu tues la planète ! »
+
+AFFIRMATION : Contrairement à une idée reçue, les OGM ne sont pas dangereux pour la santé. 🌽
+RÉPONSE : VRAI
+
+  SOURCE 1 [✅ FIABLE]
+  Nom : Rapport des Académies nationales américaines (2016)
+  Desc : Synthèse de 900 pages analysant 20 ans de données
+  Citation : « Après 20 ans de culture OGM et l'analyse de centaines d'études, aucun effet sanitaire négatif n'a été détecté chez les humains ou les animaux. »
+
+  SOURCE 2 [❌ NON FIABLE]
+  Nom : Étude Séralini, Université de Caen (2012)
+  Desc : Recherche française sur des rats nourris au maïs OGM, rétractée
+  Citation : « Nos rats nourris au maïs OGM ont développé des tumeurs énormes. Les photos sont éloquentes. Cette étude a été publiée dans une revue scientifique. »
+
+  SOURCE 3 [✅ FIABLE]
+  Nom : Position de l'OMS sur les OGM
+  Desc : Agence des Nations Unies pour la santé
+  Citation : « Les OGM actuellement sur le marché international ont passé des évaluations de sécurité et ne présentent pas de risque pour la santé humaine. »
+
+  SOURCE 4 [❌ NON FIABLE]
+  Nom : CRIIGEN (organisme fondé par Gilles-Éric Séralini)
+  Desc : Comité de Recherche et d'Information Indépendantes sur le Génie Génétique
+  Citation : « Les tests réglementaires sont insuffisants. Les OGM représentent un danger potentiel que l'industrie cherche à cacher. »
+
+AFFIRMATION : L'idée que nous avons un 'cerveau gauche' et un 'cerveau droit' est un mythe. 🧠
+RÉPONSE : VRAI
+
+  SOURCE 1 [✅ FIABLE]
+  Nom : Étude IRM de l'Université d'Utah (2013, 1 011 cerveaux)
+  Desc : Publiée dans PLOS ONE, confirmée par des études ultérieures
+  Citation : « Notre analyse de 1 011 cerveaux, confirmée par des études ultérieures, ne montre aucune dominance hémisphérique liée à la personnalité. »
+
+  SOURCE 2 [❌ NON FIABLE]
+  Nom : Manuel de psychologie des années 1970, encore réédité
+  Desc : Ouvrage pédagogique utilisé dans certaines formations
+  Citation : « L'hémisphère gauche est le siège de la logique et du langage. L'hémisphère droit gère la créativité et les émotions. Chacun a une dominante. »
+
+  SOURCE 3 [✅ FIABLE]
+  Nom : Cortex Mag — Neuromythe #5 : cerveau droit, cerveau gauche
+  Desc : Site de vulgarisation du CNRS/INSERM Lyon
+  Citation : « La latéralisation existe pour certaines fonctions précises, comme le langage souvent à gauche. Mais pour la personnalité globale ? Aucune preuve. C'est un mythe. »
+
+  SOURCE 4 [❌ NON FIABLE]
+  Nom : TED Talk de Jill Bolte Taylor (29M vues)
+  Desc : Neuroscientifique racontant son AVC et les 'deux cerveaux'
+  Citation : « Quand mon hémisphère gauche s'est éteint, j'ai découvert la paix de mon cerveau droit. Nous pouvons choisir quel cerveau utiliser ! »
+
+AFFIRMATION : Napoléon était très petit — environ 1m57 — ce qui lui aurait donné un complexe d'infériorité. 📜
+RÉPONSE : FAUX
+
+  SOURCE 1 [✅ FIABLE]
+  Nom : Fondation Napoléon (napoleon.org)
+  Desc : Site de référence historique sur Napoléon
+  Citation : « Taille enregistrée : 5 pieds 2 pouces français, soit environ 1m69 selon le système de mesure de l'époque. »
+
+  SOURCE 2 [❌ NON FIABLE]
+  Nom : Blog amateur sur l'histoire de Napoléon
+  Desc : Site passionné bien documenté en apparence
+  Citation : « Napoléon mesurait 1m57. Son complexe d'infériorité explique sa soif de conquête et son autoritarisme. L'histoire est fascinante ! »
+
+  SOURCE 3 [❌ NON FIABLE]
+  Nom : Caricatures de James Gillray (1803)
+  Desc : Caricaturiste britannique anti-Napoléon
+  Citation : « [Napoléon représenté minuscule face aux dirigeants britanniques — 'Little Boney' devient un personnage récurrent de la propagande.] »
+
+  SOURCE 4 [❌ NON FIABLE]
+  Nom : Biographie populaire de Napoléon (best-seller)
+  Desc : Livre grand public vendu à des millions d'exemplaires
+  Citation : « Petit par la taille, grand par l'ambition : son complexe a forgé son génie. Ce paradoxe fascinant explique toute sa psychologie. »
+
+AFFIRMATION : Il existe un 'continent de plastique' dans le Pacifique : une île solide sur laquelle on pourrait marcher. 🌊
+RÉPONSE : FAUX
+NUANCE : ⚖️ SUJET NUANCÉ. Il y a bien une énorme quantité de plastique dans les océans — c'est un problème écologique majeur et documenté. Mais ce n'est pas un 'continent' solide sur lequel on pourrait marcher : ce sont surtout des micro-plastiques en suspension, souvent invisibles. L'affirmation est fausse sur la forme, mais le problème de fond est bien réel.
+
+  SOURCE 1 [✅ FIABLE]
+  Nom : Expédition scientifique Tara Océan
+  Desc : Fondation française menant des recherches océanographiques
+  Citation : « Notre analyse sur place révèle surtout des microplastiques en suspension, invisibles à l'œil nu. La réalité est moins spectaculaire mais tout aussi grave. »
+
+  SOURCE 2 [❌ NON FIABLE]
+  Nom : Documentaire Netflix sur la pollution plastique
+  Desc : Production primée montrant des images spectaculaires
+  Citation : « Les images aériennes sont choquantes : une étendue de déchets flottants à perte de vue dans le Pacifique. On pourrait marcher dessus. »
+
+  SOURCE 3 [✅ FIABLE]
+  Nom : Étude publiée dans Scientific Reports
+  Desc : Revue du groupe Nature, données quantifiées
+  Citation : « La concentration de plastique est 4 à 16 fois plus élevée que les estimations précédentes, mais sous forme de fragments millimétriques en suspension. »
+
+  SOURCE 4 [❌ NON FIABLE]
+  Nom : Infographie virale d'une ONG environnementale
+  Desc : Image partagée des millions de fois
+  Citation : « Le 7ème continent de plastique fait 6 fois la taille de la France ! Partagez pour sensibiliser ! »
+
+AFFIRMATION : Les jeux vidéo sont globalement bénéfiques pour la santé. 🎮
+RÉPONSE : VRAI
+NUANCE : ⚖️ SUJET NUANCÉ. Des études sérieuses documentent des bénéfices réels (cognition, coordination, bien-être social). Mais la sédentarité, les troubles du sommeil et les risques d'addiction sont aussi réels. Le type de jeu, la durée et le profil du joueur changent tout.
+
+  SOURCE 1 [✅ FIABLE]
+  Nom : Université d'Oxford — étude sur le bien-être des joueurs (2020)
+  Desc : Recherche publiée dans Royal Society Open Science sur 3 274 joueurs
+  Citation : « Nos données montrent que jouer aux jeux vidéo est associé à un meilleur bien-être émotionnel, notamment grâce au sentiment de compétence et au lien social qu'ils procurent. »
+
+  SOURCE 2 [✅ FIABLE]
+  Nom : Organisation Mondiale de la Santé (OMS) — CIM-11 (2019)
+  Desc : Classification internationale des maladies, 11e révision
+  Citation : « Le trouble du jeu vidéo est officiellement reconnu comme trouble de santé mentale. Il se caractérise par une perte de contrôle sur le jeu malgré des conséquences négatives. »
+
+  SOURCE 3 [❌ NON FIABLE]
+  Nom : Chaîne YouTube d'un influenceur gaming
+  Desc : Vidéo 'Les jeux vidéo c'est que du bon !' — 2,3M de vues
+  Citation : « Les jeux vidéo c'est que du positif, ça entraîne le cerveau, ça rend plus intelligent, c'est prouvé ! Les parents qui interdisent les écrans ont complètement tort. »
+
+  SOURCE 4 [❌ NON FIABLE]
+  Nom : Titre de presse généraliste
+  Desc : Article après une étude sur les jeunes joueurs
+  Citation : « Les jeux vidéo ravagent la santé de nos enfants — les experts tirent la sonnette d'alarme. »
+
+AFFIRMATION : La pleine lune perturbe le sommeil, rend les gens plus agressifs et fait augmenter les admissions aux urgences. Même les médecins le confirment. 🌙
+RÉPONSE : FAUX
+
+  SOURCE 1 [✅ FIABLE]
+  Nom : Méta-analyse de 37 études (Psychological Bulletin)
+  Desc : Synthèse de plusieurs décennies de recherche
+  Citation : « L'analyse cumulative de 37 études indépendantes ne révèle aucun effet significatif de la pleine lune sur les comportements humains, les accidents ou les hospitalisations. »
+
+  SOURCE 2 [❌ NON FIABLE]
+  Nom : Médecin urgentiste publiant dans un journal local
+  Desc : Praticien avec 30 ans d'expérience
+  Citation : « En 30 ans de carrière aux urgences, j'ai TOUJOURS observé plus d'agitation les nuits de pleine lune. Mes collègues confirment. L'expérience ne ment pas. »
+
+  SOURCE 3 [✅ FIABLE]
+  Nom : Étude analysant 150 000 admissions aux urgences
+  Desc : Données hospitalières sur 5 ans
+  Citation : « Aucune corrélation entre phase lunaire et nombre d'admissions, une fois les week-ends et jours fériés contrôlés. Les nuits de pleine lune tombant le week-end créaient une confusion. »
+
+  SOURCE 4 [❌ NON FIABLE]
+  Nom : Policier retraité interviewé dans un documentaire
+  Desc : 30 ans de patrouilles de nuit
+  Citation : « On se préparait toujours aux nuits de pleine lune. Entre collègues, on savait que ça allait être chaud. C'est du vécu, pas de la théorie. »
+
+AFFIRMATION : Le bio est meilleur pour la santé que l'alimentation conventionnelle. 🥕
+RÉPONSE : FAUX
+NUANCE : ⚖️ SUJET NUANCÉ. Moins de pesticides = avantage environnemental et potentiellement sanitaire réel. Mais 'meilleur pour la santé' au sens nutritionnel n'est pas démontré de façon concluante. Les consommateurs de bio ont souvent un mode de vie globalement plus sain, ce qui fausse les comparaisons.
+
+  SOURCE 1 [✅ FIABLE]
+  Nom : INSERM — Étude NutriNet (2018, 70 000 participants)
+  Desc : Grande étude épidémiologique française sur l'alimentation
+  Citation : « Les consommateurs réguliers de bio présentent un risque réduit de certains cancers. Mais ces personnes ont aussi un mode de vie globalement plus sain, ce qui complique l'interprétation causale. »
+
+  SOURCE 2 [✅ FIABLE]
+  Nom : ANSES — Rapport sur l'alimentation biologique
+  Desc : Agence nationale de sécurité sanitaire française
+  Citation : « Les produits bio contiennent effectivement moins de résidus de pesticides. Mais les preuves d'un bénéfice nutritionnel direct sur la santé humaine restent à ce jour insuffisantes. »
+
+  SOURCE 3 [❌ NON FIABLE]
+  Nom : Site d'une grande enseigne bio
+  Desc : Communication commerciale d'une chaîne de magasins bio
+  Citation : « Manger bio c'est manger sain. Les études le prouvent : bio = moins de maladies. Votre santé, ça commence dans votre assiette ! »
+
+  SOURCE 4 [❌ NON FIABLE]
+  Nom : Article 'Le bio c'est du marketing'
+  Desc : Tribune d'opinion dans un journal économique
+  Citation : « Le bio ne sert à rien : des scientifiques ont prouvé qu'il n'y a aucune différence avec le conventionnel. Du greenwashing pour CSP+. »
+
+AFFIRMATION : Les antidépresseurs ne font pas vraiment mieux que les placebos. 💊
+RÉPONSE : FAUX
+NUANCE : ⚖️ DÉBAT SCIENTIFIQUE EN COURS. L'effet des antidépresseurs est réel et documenté, surtout pour les dépressions sévères. Pour les dépressions légères à modérées, la différence avec le placebo existe mais est plus faible. La question du seuil clinique significatif est un vrai débat entre experts.
+
+  SOURCE 1 [✅ FIABLE]
+  Nom : Méta-analyse Cipriani — The Lancet (2018, 522 essais)
+  Desc : La plus grande méta-analyse jamais réalisée sur les antidépresseurs
+  Citation : « Les antidépresseurs sont plus efficaces que les placebos pour tous les niveaux de dépression testés. L'effet est statistiquement solide et cliniquement significatif pour les formes sévères. »
+
+  SOURCE 2 [✅ FIABLE]
+  Nom : Méta-analyse Kirsch — PLOS Medicine (2008)
+  Desc : Étude très médiatisée sur l'efficacité des antidépresseurs
+  Citation : « Pour les dépressions légères à modérées, la différence avec le placebo est statistiquement significative mais cliniquement faible. Seules les dépressions sévères justifient clairement leur usage. »
+
+  SOURCE 3 [❌ NON FIABLE]
+  Nom : Titre de presse grand public
+  Desc : Article repris dans de nombreux médias après la publication de Kirsch
+  Citation : « SCANDALE : les antidépresseurs ne font pas mieux que les bonbons sucrés selon des scientifiques. »
+
+  SOURCE 4 [❌ NON FIABLE]
+  Nom : Témoignage sur un forum santé
+  Desc : Message d'un internaute ayant arrêté son traitement
+  Citation : « J'ai arrêté mes antidépresseurs, c'est prouvé que c'est du placebo. Les labos nous empoisonnent pour faire du profit. »
+
+AFFIRMATION : Les abeilles disparaissent principalement à cause des pesticides. 🐝
+RÉPONSE : FAUX
+NUANCE : ⚖️ SUJET NUANCÉ. Les pesticides sont une cause réelle et documentée du déclin des abeilles. Mais dire 'principalement' est une simplification : la perte d'habitats, le parasite Varroa, les maladies et le changement climatique agissent en synergie. Aucun facteur unique n'explique tout.
+
+  SOURCE 1 [✅ FIABLE]
+  Nom : EFSA — Rapport sur les pollinisateurs (2023)
+  Desc : Autorité européenne de sécurité des aliments
+  Citation : « Les néonicotinoïdes représentent un risque avéré pour les abeilles. Mais la destruction des habitats fleuris et le parasite Varroa destructor sont des facteurs tout aussi déterminants dans le déclin observé. »
+
+  SOURCE 2 [✅ FIABLE]
+  Nom : IPBES — Rapport mondial sur la biodiversité (2019)
+  Desc : Plateforme intergouvernementale scientifique et politique sur la biodiversité
+  Citation : « Le déclin des pollinisateurs est multifactoriel : pesticides, perte d'habitat, espèces invasives, maladies et changement climatique agissent en synergie. Aucun facteur unique n'explique tout. »
+
+  SOURCE 3 [❌ NON FIABLE]
+  Nom : Pétition en ligne d'une ONG environnementale
+  Desc : Campagne de sensibilisation signée par des millions de personnes
+  Citation : « Les pesticides tuent les abeilles. Interdisez-les tous maintenant ! Sans abeilles, plus de nourriture dans 4 ans. »
+
+  SOURCE 4 [❌ NON FIABLE]
+  Nom : Article d'un syndicat agricole
+  Desc : Tribune défendant l'usage des pesticides modernes
+  Citation : « Les pesticides modernes sont parfaitement dosés et inoffensifs pour les abeilles. Le vrai problème c'est uniquement le parasite Varroa — arrêtons de tout mettre sur le dos des agriculteurs. »
+
+AFFIRMATION : La sensibilité au gluten n'existe pas vraiment : c'est surtout une mode alimentaire sans base scientifique. 🍞
+RÉPONSE : FAUX
+NUANCE : ⚖️ SUJET NUANCÉ. Faux que ça n'existe pas du tout : une condition médicale réelle est reconnue depuis 2012. Faux que c'est aussi répandu qu'on le croit : en test aveugle, la grande majorité des 'sensibles' ne réagit pas au gluten. C'est réel pour quelques-uns, mode pour beaucoup d'autres.
+
+  SOURCE 1 [✅ FIABLE]
+  Nom : Étude en double aveugle — Université Monash (2013)
+  Desc : Référence mondiale en recherche sur le gluten, publiée dans Gastroenterology
+  Citation : « Quand les participants ne savent pas ce qu'ils mangent, la 'sensibilité au gluten non cœliaque' disparaît dans 85% des cas. D'autres composants alimentaires (FODMAPs) expliquent mieux les symptômes. »
+
+  SOURCE 2 [✅ FIABLE]
+  Nom : Société Nationale Française de Gastro-Entérologie
+  Desc : Société savante regroupant les gastro-entérologues français
+  Citation : « La sensibilité au gluten non cœliaque est une entité reconnue depuis 2012, mais très difficile à diagnostiquer. Chez les non-cœliaques, un régime sans gluten non justifié peut entraîner des carences nutritionnelles. »
+
+  SOURCE 3 [❌ NON FIABLE]
+  Nom : Best-seller 'Wheat Belly' — Dr William Davis
+  Desc : Livre grand public vendu à des millions d'exemplaires dans le monde
+  Citation : « Le gluten moderne empoisonne votre cerveau et provoque obésité, diabète et dépression chez tout le monde, pas seulement les cœliaques. Supprimez le blé de votre vie ! »
+
+  SOURCE 4 [❌ NON FIABLE]
+  Nom : Rayon 'Sans gluten' d'un supermarché
+  Desc : Argument marketing sur les emballages
+  Citation : « Choisissez nos produits sans gluten pour une vie plus saine et légère ! Parce que vous le valez bien. »
+
+AFFIRMATION : Des études montrent que les gens heureux vivent plus longtemps. 😊
+RÉPONSE : FAUX
+NUANCE : ⚖️ SUJET NUANCÉ. Des associations statistiques existent. Mais 'les gens heureux vivent plus longtemps' confond corrélation et causalité. La bonne santé rend heureux, le lien social rend heureux ET allonge la vie — difficile d'isoler l'effet du bonheur lui-même.
+
+  SOURCE 1 [✅ FIABLE]
+  Nom : Étude de cohorte — Université d'Oxford (2016, 700 000 femmes)
+  Desc : L'une des plus grandes études sur bonheur et mortalité
+  Citation : « Après contrôle rigoureux des facteurs confondants (tabac, alcool, santé préexistante, mobilité), le bonheur seul ne prédit pas significativement la mortalité. La corrélation initiale disparaît. »
+
+  SOURCE 2 [✅ FIABLE]
+  Nom : Revue Psychological Science — Méta-analyse (2011)
+  Desc : Synthèse de plusieurs dizaines d'études longitudinales
+  Citation : « Des associations existent entre affect positif et longévité, via de meilleures habitudes de santé et un système immunitaire plus robuste. Mais établir la causalité reste méthodologiquement très difficile. »
+
+  SOURCE 3 [❌ NON FIABLE]
+  Nom : Magazine bien-être
+  Desc : Article de développement personnel très partagé
+  Citation : « C'est prouvé : les gens heureux vivent 10 ans de plus ! Voici 7 habitudes pour allonger votre vie. »
+
+  SOURCE 4 [❌ NON FIABLE]
+  Nom : Citation attribuée à Voltaire
+  Desc : Phrase très partagée sur les réseaux, avec photo en noir et blanc
+  Citation : « 'J'ai décidé d'être heureux parce que c'est bon pour la santé.' — La science confirme enfin ce que Voltaire savait déjà ! »
