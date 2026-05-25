@@ -733,10 +733,10 @@ const QUESTIONS_INTER=[
   {s:"Dans le désert, on peut boire le liquide d'un cactus pour survivre. 🌵",t:false,
    e:"C'est FAUX ! Les cactus ne contiennent pas d'eau potable mais un mucilage épais et acide chargé d'alcaloïdes. Boire ce liquide provoque nausées, vomissements et diarrhées — aggravant la déshydratation. Dans un vrai désert, boire le jus d'un cactus peut tuer plus vite que de ne rien boire.",
    src:[
-    {em:"🔬",n:"Dr. Gary Paul Nabhan — botaniste et écologue",d:"Spécialiste mondial des plantes du désert et de l'ethnobotanique",
+    {em:"🔬",n:"Dr. Gary Paul Nabhan — botaniste et écologue",d:"Étude publiée dans le Journal of Arid Environments (1982)",studyJournal:"Journal of Arid Environments",studyYear:"1982",studyAuthors:"Nabhan G.P. et al.",img:"images/etude_desert_cactus.png",
      say:"« La pulpe des cactus contient des alcaloïdes et un mucilage épais et acide. Ingérer ce liquide en état de déshydratation provoque vomissements et diarrhées — aggravant dangereusement la situation. »",
      g:true,fb:{tg:"Parfait ! Un botaniste spécialisé dans les plantes désertiques est exactement la bonne source. Sa connaissance de la composition des cactus est directe et documentée.",dg:"Dommage ! Ce spécialiste mondial des plantes du désert a étudié leur composition précise. Son verdict va à l'opposé de ce que montre le cinéma."}},
-    {em:"🏛️",n:"Wilderness Medical Society",d:"Société médicale spécialisée en médecine de survie et milieu sauvage",govSite:"Wilderness Medical Society",govDomain:"wms.org",
+    {em:"🏛️",n:"Wilderness Medical Society",d:"Société médicale spécialisée en médecine de survie et milieu sauvage",govSite:"Wilderness Medical Society",govDomain:"wms.org",img:"images/guide_wms_survie.png",
      say:"« Ne buvez jamais le jus d'un cactus. Les alcaloïdes contenus dans la pulpe provoquent des troubles digestifs sévères et aggravent la déshydratation — l'inverse de ce dont vous avez besoin. »",
      g:true,fb:{tg:"Excellent ! La médecine de survie est précisément le domaine où cette information est vitale. Leur recommandation est claire et basée sur des cas documentés.",dg:"Dommage ! Des survivants ont aggravé leur situation en suivant le conseil du cinéma. La médecine de survie le déconseille formellement."}},
     {em:"🎬",n:"Scène de film de survie hollywoodien",d:"Cliché visuel répété dans des dizaines de films d'aventure",img:"images/film_survie_cactus.png",
@@ -748,7 +748,7 @@ const QUESTIONS_INTER=[
      noSearch:true,
      say:"« En cas de soif extrême dans le désert, ouvrez un cactus tonneau et buvez son liquide. Les cactus sont les réservoirs naturels du désert. »",
      g:false,fb:{tb:"Attention ! Même les guides de survie populaires peuvent propager des erreurs mortelles. Ce conseil vous tuerait dans un vrai désert.",db:"Bien joué ! Un best-seller sur la survie n'est pas forcément écrit par des experts terrain. Ce conseil est non seulement faux mais potentiellement fatal."},
-     bookType:'guide',bookTitle:'Survivre partout : le guide ultime'},
+     bookType:'guide',bookTitle:'Survivre partout : le guide ultime',bookYear:'2019',img:"images/livre_survie_cactus.png"},
   ]},
 ];
 

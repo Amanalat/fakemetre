@@ -727,10 +727,10 @@ const QUESTIONS_INTER_EN=[
   {s:"In the desert, you can drink the liquid from a cactus to survive. 🌵",t:false,
    e:"FALSE! Cacti do not contain drinkable water, but a thick, acidic mucilage loaded with alkaloids. Drinking this liquid causes nausea, vomiting, and diarrhea — worsening dehydration. In a real desert, drinking cactus juice can kill you faster than drinking nothing at all.",
    src:[
-    {em:"🔬",n:"Dr. Gary Paul Nabhan — botanist and ecologist",d:"World specialist in desert plants and ethnobotany",
+    {em:"🔬",n:"Dr. Gary Paul Nabhan — botanist and ecologist",d:"Study published in the Journal of Arid Environments (1982)",studyJournal:"Journal of Arid Environments",studyYear:"1982",studyAuthors:"Nabhan G.P. et al.",img:"images/etude_desert_cactus.png",
      say:""Cactus pulp contains alkaloids and a thick, acidic mucilage. Ingesting this liquid when dehydrated causes vomiting and diarrhea — dangerously worsening the situation."",
      g:true,fb:{tg:"Perfect! A botanist specializing in desert plants is exactly the right source. His knowledge of cactus composition is direct and documented.",dg:"Too bad! This world specialist in desert plants has studied their exact composition. His verdict is the opposite of what cinema shows."}},
-    {em:"🏛️",n:"Wilderness Medical Society",d:"Medical society specializing in wilderness and survival medicine",govSite:"Wilderness Medical Society",govDomain:"wms.org",
+    {em:"🏛️",n:"Wilderness Medical Society",d:"Medical society specializing in wilderness and survival medicine",govSite:"Wilderness Medical Society",govDomain:"wms.org",img:"images/guide_wms_survie.png",
      say:""Never drink the juice of a cactus. The alkaloids in the pulp cause severe digestive disorders and worsen dehydration — the opposite of what you need."",
      g:true,fb:{tg:"Excellent! Wilderness medicine is precisely the field where this information is vital. Their recommendation is clear and based on documented cases.",dg:"Too bad! Survivors have worsened their situation by following movie advice. Wilderness medicine strongly advises against it."}},
     {em:"🎬",n:"Hollywood survival film scene",d:"Visual cliché repeated in dozens of adventure films",img:"images/film_survie_cactus.png",
@@ -742,7 +742,7 @@ const QUESTIONS_INTER_EN=[
      noSearch:true,
      say:""In case of extreme thirst in the desert, open a barrel cactus and drink its liquid. Cacti are the natural reservoirs of the desert."",
      g:false,fb:{tb:"Careful! Even popular survival guides can spread deadly errors. This advice would kill you in a real desert.",db:"Well done! A bestselling survival book is not necessarily written by field experts. This advice is not only wrong but potentially fatal."},
-     bookType:'guide',bookTitle:'Survive Anywhere: The Ultimate Guide'},
+     bookType:'guide',bookTitle:'Survive Anywhere: The Ultimate Guide',bookYear:'2019',img:"images/livre_survie_cactus.png"},
   ]},
 ];
 

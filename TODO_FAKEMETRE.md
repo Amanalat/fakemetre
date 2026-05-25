@@ -290,6 +290,59 @@ Realistic photo of an unfolded trifold commercial brochure from a fictional recr
 
 ---
 
+## QUESTION CACTUS (sources fiables + non fiables)
+
+### etude_desert_cactus.png
+*Source fiable — question : "On peut boire le liquide d'un cactus pour survivre"*
+*Fichier cible : `images/etude_desert_cactus.png`*
+*JS : déjà référencé dans questions_fr.js et questions_en.js (studyJournal Nabhan)*
+
+**FR**
+```
+Capture d'ecran realiste d'un article scientifique en ligne, format paysage 16:9. Interface de portail de revue academique sobre, fond blanc casse. En haut : barre de navigation fond blanc avec logo fictif "JOURNAL OF ARID ENVIRONMENTS" en lettres noires serif a gauche, onglets bleu marine "Home | Browse | Submit | About". Corps de la page : titre de l'article en grand, police Georgia noire : "Alkaloid Content and Water Availability in Sonoran Desert Cacti: Implications for Survival Use". Auteurs en lien bleu cliquable en dessous : "Gary P. Nabhan, Richard S. Felger, Wendy C. Hodgson". Affiliation en gris italique : "Desert Botanical Laboratory, University of Arizona, Tucson". Encadre gris clair labelise "ABSTRACT" en majuscules grasses : "Sonoran cacti contain high concentrations of alkaloids and a thick mucilaginous gel that triggers severe gastrointestinal distress when ingested. Our field experiments demonstrate that cactus consumption increases dehydration rates in 100% of test subjects within 4 hours. Contrary to popular belief, no common cactus species provides safe hydration." Colonne droite : meta-donnees "Volume 4 | Issue 2 | October 1982 | Pages 45-62 | DOI: 10.1016/jarid.1982.0012". Bouton rouge "Download PDF". Bouton gris "Cite this article". Style interface Elsevier ou Nature, palette bleu marine et rouge brique.
+```
+
+**EN**
+```
+Realistic screenshot of an online academic journal article, landscape 16:9. Clean academic portal interface, off-white background. Top: white navigation bar with fictional logo "JOURNAL OF ARID ENVIRONMENTS" in serif black letters on the left, navy blue tabs "Home | Browse | Submit | About". Page body: article title in large Georgia font, black: "Alkaloid Content and Water Availability in Sonoran Desert Cacti: Implications for Survival Use". Authors as blue clickable links below: "Gary P. Nabhan, Richard S. Felger, Wendy C. Hodgson". Affiliation in grey italic: "Desert Botanical Laboratory, University of Arizona, Tucson". Light grey box labeled "ABSTRACT" in bold capitals: "Sonoran cacti contain high concentrations of alkaloids and a thick mucilaginous gel that triggers severe gastrointestinal distress when ingested. Our field experiments demonstrate that cactus consumption increases dehydration rates in 100% of test subjects within 4 hours. Contrary to popular belief, no common cactus species provides safe hydration." Right column metadata: "Volume 4 | Issue 2 | October 1982 | Pages 45–62 | DOI: 10.1016/jarid.1982.0012". Red "Download PDF" button. Grey "Cite this article" button. Elsevier or Nature portal interface style, navy blue and brick red palette.
+```
+
+---
+
+### guide_wms_survie.png
+*Source fiable — question : "On peut boire le liquide d'un cactus pour survivre"*
+*Fichier cible : `images/guide_wms_survie.png`*
+*JS : déjà référencé dans questions_fr.js et questions_en.js (govSite WMS)*
+
+**FR**
+```
+Couverture d'un guide medical officiel de survie en milieu sauvage, format portrait. Style couverture institutionnelle serieuse. Fond vert foret profond #1A4A1A. En haut : logo fictif compose d'un caducee medical stylise encercle de branches vertes, texte blanc condensed gras en dessous : "WILDERNESS MEDICAL SOCIETY". Separation horizontale or. Grand titre central en lettres blanches condensees tres grasses : "WILDERNESS MEDICINE GUIDELINES". Sous-titre en jaune vif : "Water, Hydration & Field Emergencies". Image centrale : illustration vectorielle medicale sobre sur fond vert fonce — une bouteille d'eau propre avec coche verte a gauche, un cactus tonneau barre d'une croix rouge epaisse a droite, une fleche de comparaison entre les deux. Encadre blanc en bas de page : "6e Edition — Recommandations officielles | Approuve par le Board of Directors WMS 2022". Petit texte bas de page : "wms.org". Style publication medicale professionnelle, sobre et autoritaire.
+```
+
+**EN**
+```
+Cover of an official wilderness medical survival guide, portrait format. Serious, institutional cover style. Deep forest green background #1A4A1A. Top: fictional logo composed of a stylized medical caduceus circled by green branches, bold condensed white text below: "WILDERNESS MEDICAL SOCIETY". Gold horizontal separator. Large central title in very bold condensed white letters: "WILDERNESS MEDICINE GUIDELINES". Subtitle in bright yellow: "Water, Hydration & Field Emergencies". Central image: clean medical vector illustration on dark green background — a clean water bottle with a green check mark on the left, a barrel cactus crossed out with a thick red X on the right, a comparison arrow between the two. White box at the bottom of the page: "6th Edition — Official Recommendations | Approved by the WMS Board of Directors 2022". Small bottom text: "wms.org". Professional, austere, authoritative medical publication style.
+```
+
+---
+
+### livre_survie_cactus.png
+*Source non fiable — question : "On peut boire le liquide d'un cactus pour survivre"*
+*Fichier cible : `images/livre_survie_cactus.png`*
+*JS : déjà référencé dans questions_fr.js et questions_en.js (bookTitle "Survivre partout")*
+
+**FR**
+```
+Couverture de livre de survie grand public best-seller, format portrait. Photographie de couverture : homme musclé en veste tactique kaki déchirée, agenouillé dans un désert ocre sous un soleil rasant, regard déterminé fixé face caméra, mâchoire carrée, sueur visible. Ciel orange-rouge dramatique au coucher du soleil derrière lui. En haut de la couverture, bandeau rouge vif avec texte blanc gras : "N° 1 DES VENTES | 2 MILLIONS D'EXEMPLAIRES VENDUS". Nom d'auteur fictif juste en dessous en blanc : "MAX LEBLANC". Grand titre en très grosses lettres ultra-condensées jaune vif avec fine bordure noire, deux lignes : "SURVIVRE" sur la première ligne, "PARTOUT" sur la deuxième ligne, encore plus grand. Sous-titre en orange vif, police plus petite : "LE GUIDE ULTIME". Bande beige en bas de couverture, texte noir : "Désert, montagne, forêt, mer — toutes les techniques pour rester en vie". Petite photo de l'auteur dans le coin bas droit : portrait fictif en uniforme militaire, lunettes de soleil tactiques. Logo éditeur fictif "TERRA SURVIVALIST EDITIONS" en bas à gauche. Code-barres fictif. Style survival/prépper moderne agressif.
+```
+
+**EN**
+```
+Bestselling popular survival book cover, portrait format. Cover photograph: muscular man in torn khaki tactical jacket, kneeling in an ochre desert under a harsh glaring sun, determined gaze fixed directly at the camera, square jaw, visible sweat. Dramatic orange-red sunset sky behind him. Top of cover, bright red band with bold white text: "#1 BESTSELLER | 2 MILLION COPIES SOLD". Fictional author name just below in white: "MAX LEBLANC". Large title in huge ultra-condensed bright yellow letters with thin black border, two lines: "SURVIVE" on the first line, "ANYWHERE" on the second line, even larger. Subtitle in bright orange, smaller font: "THE ULTIMATE GUIDE". Beige band at the bottom of the cover, black text: "Desert, mountain, forest, sea — every technique to stay alive". Small author photo in the lower right corner: fictional portrait in military uniform, tactical sunglasses. Fictional publisher logo "TERRA SURVIVALIST EDITIONS" at the bottom left. Fictional barcode. Aggressive modern survival/prepper style.
+```
+
+---
+
 ## CHECKLIST D'INTEGRATION
 Apres generation de chaque image :
 1. Sauvegarder dans images/NOM_FICHIER.png
