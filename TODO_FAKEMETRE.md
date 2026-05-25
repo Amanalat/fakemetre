@@ -8,29 +8,29 @@
 
 ## FILMS ET DOCUMENTAIRES
 
-### film_aventure_survie.png
-FR: Capture d'ecran stylisee d'un film hollywoodien de survie. Personnage buvant de l'eau de cactus dans un desert aride. Style cinema annees 2010, grain cinematographique, letterbox noir. Aucun texte visible.
-EN: Cinematic screenshot of a Hollywood survival film. Character drinking water from a cactus in an arid desert. 2010s film style, cinema grain, black letterbox. No visible text.
+### ✅ film_aventure_survie.png
+FR: Capture stylisee d'un film hollywoodien de survie. Personnage buvant de l'alcool dans un blizzard. Grain cinematographique, letterbox noir. Aucun texte.
+EN: Hollywood survival film screenshot. Character drinking alcohol in a blizzard. Cinema grain, black letterbox. No text.
 
-### film_edison_biopic.png
-FR: Affiche de biopic hollywoodien fictif sur un inventeur du XIXe siecle. Couleurs sepia/dorees, silhouette d'homme tenant une ampoule. Titre fictif "LE GENIE". Aucun nom reel.
-EN: Fictional Hollywood biopic poster about a 19th-century inventor. Sepia/golden palette, silhouette of man holding a light bulb. Fictional title "THE GENIUS". No real names.
+### ✅ film_edison_biopic.png
+FR: Affiche de biopic fictif sur un inventeur XIXe. Sepia/dore, silhouette tenant une ampoule. Titre fictif "LE GENIE". Aucun nom reel.
+EN: Fictional biopic poster, 19th-century inventor. Sepia/gold, silhouette holding light bulb. Title "THE GENIUS". No real names.
 
-### film_colomb_historique.png
-FR: Affiche de film historique fictif sur la decouverte de l'Amerique. Style annees 1990, bateaux a voile sur ocean tumultueux au coucher du soleil. Titre fictif "LA GRANDE DECOUVERTE".
-EN: Fictional historical film poster about the Age of Exploration. 1990s style, sailing ships on stormy ocean at sunset. Fictional title "THE GREAT DISCOVERY".
+### ✅ film_colomb_historique.png
+FR: Affiche de film historique fictif annees 1990. Bateaux a voile sur ocean au coucher du soleil. Titre fictif "LA GRANDE DECOUVERTE".
+EN: Fictional 1990s historical film poster. Sailing ships at sunset. Title "THE GREAT DISCOVERY".
 
-### docu_netflix_plastique.png
-FR: Miniature de documentaire Netflix fictif sur la pollution plastique. Tortue de mer entouree de dechets plastiques sous l'eau. Interface Netflix simulee, titre fictif "PLASTIQUE - LA GRANDE VAGUE".
-EN: Fictional Netflix documentary thumbnail. Sea turtle surrounded by plastic waste underwater. Simulated Netflix interface, fictional title "PLASTIC - THE GREAT WAVE".
+### ✅ docu_netflix_plastique.png
+FR: Miniature Netflix fictive. Vue aerienne d'une masse dense de dechets plastiques colorés couvrant l'ocean a perte de vue — comme un vrai continent solide. Tortue de mer au premier plan. Badge fictif "PRIME AUX EMMYS". Titre fictif "PLASTIQUE — LA GRANDE VAGUE". Coucher de soleil dramatique.
+EN: Fictional Netflix thumbnail. Aerial view of dense colorful plastic waste blanketing the ocean as far as the eye can see — like a solid continent. Sea turtle in foreground. Fictional "EMMY WINNER" badge. Title "PLASTIC — THE GREAT WAVE". Dramatic sunset.
 
-### docu_vaxxed.png
-FR: Miniature de documentaire fictif anti-vaccin conspirationniste. Fond sombre, seringue en gros plan, texte alarmiste. Titre fictif "VAXXED - LA VERITE CACHEE". Aucune reference medicale reelle.
-EN: Fictional anti-vaccine conspiracy documentary thumbnail. Dark background, close-up syringe, alarming text. Fictional title "VAXXED - THE HIDDEN TRUTH". No real medical references.
+### ✅ docu_vaxxed.png
+FR: Miniature de documentaire fictif anti-vaccin. Fond sombre, seringue en gros plan, texte alarmiste. Titre fictif "VAXXED - LA VERITE CACHEE".
+EN: Fictional anti-vaccine documentary thumbnail. Dark background, close-up syringe. Title "VAXXED - THE HIDDEN TRUTH".
 
-### docu_sucre_netflix.png
-FR: Miniature Netflix fictif sur les effets du sucre. Tas de sucre blanc et aliments ultra-transformes colores. Titre fictif "CE QUE LE SUCRE VOUS FAIT".
-EN: Fictional Netflix thumbnail about sugar effects. Pile of white sugar and colorful ultra-processed foods. Fictional title "WHAT SUGAR DOES TO YOU".
+### ✅ docu_sucre_netflix.png
+FR: Miniature Netflix fictive sur le sucre. Tas de sucre blanc, aliments ultra-transformes. Titre fictif "CE QUE LE SUCRE VOUS FAIT".
+EN: Fictional Netflix thumbnail. White sugar pile, ultra-processed foods. Title "WHAT SUGAR DOES TO YOU".
 
 ### emission_tv_annees80.png
 FR: Capture simulee d'une emission de vulgarisation TV des annees 1980. Qualite video vintage, distorsion CRT, presentateur en costume beige devant des images d'animaux. Ambiance nostalgique.
