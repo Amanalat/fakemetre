@@ -226,7 +226,7 @@ Realistic photo of a fictional supermarket aisle dedicated to "Gluten-Free" prod
 
 ## BLOGS & BIEN-ETRE
 
-### ✅ blog_survivaliste_mousse.png
+### blog_survivaliste_mousse.png
 *Source non fiable — question : "La mousse pousse toujours du côté nord des arbres"*
 *Fichier cible : `images/blog_survivaliste_mousse.png`*
 

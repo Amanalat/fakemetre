@@ -276,7 +276,7 @@ const QUESTIONS_JUNIOR_EN=[
      say:"Do not rely on moss to orient yourself: in valleys or undergrowth it grows on all sides. Use a compass.",
      g:true,fb:{tg:"Excellent! The Alpine Club warns against this myth precisely because it is dangerous: hikers have gotten lost by trusting moss!",dg:"Too bad! The Alpine Club knows the mistakes that make hikers get lost. Here, they warn against a false and potentially dangerous rule."}},
     {em:”🪓”,n:”Survivalist website “Survival Techniques””,d:”Wilderness survival advice blog”,blogTitle:”Finding north with moss: the foolproof rule of our ancestors”,blogAuthor:”SurvivalExpert31”,blogDate:”September 7, 2021”,blogReadTime:”5”,blogSite:”survival-techniques.net”,
-     img:”images/blog_survivaliste_mousse.png”,noSearch:true,
+     noSearch:true,
      say:”Moss always grows on the north side. It’s an infallible survival rule passed down for generations. In the forest, look at the trees: they are your natural compass.”,
      g:false,fb:{tb:"Tricked! Survivalist websites often repeat inherited rules without checking them. This rule is false and could make you get lost in the forest!",db:"Well done! Survival traditions passed down through generations can contain errors. Always check with a scientific source."}},
     {em:"📖",n:"Reissued vintage scouting manual",d:"Practical guide for young scouts, updated version of a classic",

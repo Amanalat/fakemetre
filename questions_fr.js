@@ -281,7 +281,7 @@ const QUESTIONS_JUNIOR=[
      say:"« Ne vous fiez pas à la mousse pour vous orienter : dans les vallées encaissées ou les sous-bois, elle pousse de tous côtés. Utilisez une boussole. »",
      g:true,fb:{tg:"Excellent ! Le Club Alpin met en garde contre ce mythe précisément parce qu'il est dangereux : des randonneurs se sont perdus en faisant confiance à la mousse !",dg:"Dommage ! Le Club Alpin connaît bien les erreurs qui font perdre les randonneurs. Ici, ils préviennent contre une règle fausse et potentiellement dangereuse."}},
     {em:"🪓",n:"Site survivaliste 'Techniques de survie'",d:"Blog de conseils de survie en pleine nature",blogTitle:"S'orienter avec la mousse : la règle infaillible de nos ancêtres",blogAuthor:"SurvivalExpert31",blogDate:"7 septembre 2021",blogReadTime:"5",blogSite:"techniques-de-survie.fr",
-     img:"images/blog_survivaliste_mousse.png",noSearch:true,
+     noSearch:true,
      say:"« La mousse pousse toujours au nord. C'est une règle de survie infaillible transmise depuis des générations. En forêt, regardez les arbres : ils sont votre boussole naturelle. »",
      g:false,fb:{tb:"Piégé(e) ! Les sites survivalistes répètent souvent des règles héritées sans les vérifier. Cette règle est fausse et pourrait te faire perdre en forêt !",db:"Bien joué ! Les traditions de survie transmises de génération en génération peuvent contenir des erreurs. Toujours vérifier avec une source scientifique."}},
     {em:"📖",n:"Manuel scouting vintage réédité",d:"Guide pratique pour jeunes scouts, version actualisée d'un classique",
