@@ -6,6 +6,42 @@
 
 ---
 
+## RESEAUX SOCIAUX
+
+### facebook_napoleon_cochon.png (FR) + facebook_napoleon_cochon_en.png (EN)
+*Source non fiable — question : "En France, la loi interdit d'appeler son cochon Napoléon."*
+*Fichier cible : `images/facebook_napoleon_cochon.png` / `_en.png`*
+
+**FR**
+```
+Capture d'ecran realiste d'un post Facebook viral, format portrait smartphone. Interface Facebook authentique : fond blanc, police Helvetica, barre bleue en haut avec logo Facebook et icones de navigation. Post public d'un profil fictif "Jean-Michel Lacroix" avec photo de profil floue d'un homme d'age mur souriant, badge "Ami(e)" visible. Date du post : "15 mars a 21:47". Contenu du post : texte en gras noir sur fond blanc, mal orthographie et enthousiaste : "INCROYABLE mais VRAI !! 😱 En France il est ILLEGAL d'appeler son cochon NAPOLEON !! Loi de 1871 toujours en vigueur !! J'arrive pas a y croire MDR 😂 Partagez avant suppression !!" Emoji cochon et drapeau francais dans le texte. Sous le texte, image partagee : une photo d'un cochon rose mignon dans une ferme avec le texte superpose en rouge : "NAPOLEON ? INTERDIT EN FRANCE !" Photo en couleurs vives. Barre de reactions visible : pouce bleu "J'aime" 2 847, coeur rouge 341, rire jaune 1 203. Commentaires visibles (2 ou 3) : "Mais non c'est pas vrai ?? 😂", "Si si je l'ai lu aussi !!", "France bizarre lol". Bouton "Partager" visible. Fond blanc, style mobile Facebook 2023.
+```
+
+**EN**
+```
+Realistic screenshot of a viral Facebook post, portrait smartphone format. Authentic Facebook interface: white background, Helvetica font, blue top bar with Facebook logo and navigation icons. Public post from a fictional profile "Jean-Michel Lacroix" with a blurred profile photo of a smiling middle-aged man, "Friend" badge visible. Post date: "March 15 at 9:47 PM". Post content: bold black text on white background, enthusiastically misspelled: "INCREDIBLE but TRUE!! 😱 In France it is ILLEGAL to name your pig NAPOLEON!! Law from 1871 still in force!! I can't believe it LOL 😂 Share before it gets deleted!!" Pig emoji and French flag in the text. Below the text, a shared image: a photo of a cute pink pig on a farm with text overlaid in red: "NAPOLEON? BANNED IN FRANCE!" Vivid colors. Reactions bar visible: blue thumb "Like" 2,847, red heart 341, laughing yellow emoji 1,203. Comments visible (2 or 3): "No way is that real?? 😂", "Yes yes I read that too!!", "Weird France lol". "Share" button visible. White background, 2023 mobile Facebook style.
+```
+
+---
+
+## PUBLICITES — SANTE
+
+### pub_tv_paracetamol.png (FR) + pub_tv_paracetamol_en.png (EN)
+*Source non fiable — question : "La température normale du corps humain est exactement 37°C."*
+*Fichier cible : `images/pub_tv_paracetamol.png` / `_en.png`*
+
+**FR**
+```
+Capture d'ecran d'une publicite televisee fictive pour un medicament antipyretique, format 16:9. Style pub TV grand public francaise annees 2010-2020, photographie professionnelle, lumiere chaude et rassurante. Scene principale : maman d'une trentaine d'annees en pyjama rose doux, visage inquiet mais bienveillant, assis au bord du lit d'un enfant de 6-7 ans allonge avec un thermometre sous le bras. Chambre d'enfant coloree et douillete, nuit tombee, veilleuse orange douce. La maman tient une boite de medicament fictif "FEBREX" — design de boite : fond blanc avec bande orange vif en haut, nom "FEBREX" en grandes lettres orange sur fond blanc, sous-titre "Paracetamol 250 mg". En surimpression bas d'ecran, texte blanc sur fond orange semi-transparent : "Des 37,5°C, votre enfant a de la fievre. Pensez a FEBREX !" A cote du texte, icone de thermometre stylise orange avec la graduation "37,5" encerclee en rouge. Logo fictif "FEBREX" en haut a droite. Musique de fond evoquee par des notes musicales douces dans le coin. Mention legale illisible en tout petit en bas. Ambiance securisante et maternelle, couleurs pastel.
+```
+
+**EN**
+```
+Screenshot of a fictional television advertisement for a fever-reducing medication, 16:9 format. Professional French TV commercial style from the 2010s-2020s, warm and reassuring lighting. Main scene: a woman in her thirties in soft pink pyjamas, worried but caring expression, sitting on the edge of the bed of a 6-7 year old child lying down with a thermometer under their arm. Colourful and cosy children's bedroom, night-time, soft orange night light. The mother holds a fictional medicine box "FEBREX" — box design: white background with bright orange band at top, "FEBREX" in large orange letters on white, subtitle "Paracetamol 250 mg". Lower-screen text overlay in white on a semi-transparent orange background: "From 37.5°C, your child has a fever. Think FEBREX!" Next to the text, a stylised orange thermometer icon with "37.5" graduation circled in red. Fictional "FEBREX" logo top right. Legal disclaimer in tiny illegible text at the bottom. Reassuring and maternal atmosphere, pastel colours.
+```
+
+---
+
 ## RESEAUX SOCIAUX — MISES A JOUR
 
 ### tiktok_araignees.png (FR) + tiktok_araignees_en.png (EN)
