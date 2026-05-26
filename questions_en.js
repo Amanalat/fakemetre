@@ -2,14 +2,14 @@
 // NIVEAU JUNIOR — Apprentice Detective (CM1 → 5e)
 // ═══════════════════════════════════════════════
 const QUESTIONS_JUNIOR_EN=[
-  {s:"Spiders crawl into your mouth while you sleep! On average, you swallow 11 per year. 🕷️",t:false,
+  {s:"Spiders crawl into your mouth while you sleep! On average, you swallow 11 in your entire lifetime. 🕷️",t:false,
    e:"FALSE! Spiders avoid vibrations like snoring. No serious study has ever confirmed this urban legend from the 90s.",
    src:[
     {em:"🔬",n:"Scientific biology journal",d:"Peer-reviewed journal article",
      say:"Our research found no evidence that spiders approach mouths at night. They avoid vibrations.",
      g:true,fb:{tg:"Perfect! A scientific journal with specialized researchers is exactly the kind of source you should consult. It's one of the most reliable sources out there!",dg:"Too bad! A scientific journal is very reliable. Researchers conducted real experiments to reach this conclusion."}},
     {em:"👍",n:"TikTok post with 2 million likes",d:"Highly shared viral video with no source cited",img:"images/tiktok_araignees_en.png",
-     say:"SHOCKING: we swallow an average of 11 spiders per year! Share before it's deleted!",
+     say:"SHOCKING: we swallow an average of 11 spiders in our entire lifetime! Share before it's deleted!",
      g:false,fb:{tb:"Careful! Likes prove nothing. You believed a viral video with no reliable source — and it's false!",db:"Well done! You were skeptical of a TikTok video with no source. The number of likes never proves something is true."}},
     {em:"🌐",n:"Hoaxbuster website (fact-checking)",d:"Website specialized in debunking rumors",
      say:"FALSE. This claim is an urban legend with no scientific basis, circulating since the 1990s.",

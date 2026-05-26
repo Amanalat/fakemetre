@@ -2,14 +2,14 @@
 // NIVEAU JUNIOR — Apprenti Détective (CM1 → 5e)
 // ═══════════════════════════════════════════════
 const QUESTIONS_JUNIOR=[
-  {s:"Les araignées entrent dans ta bouche pendant que tu dors ! En moyenne, on en avale 11 par an. 🕷️",t:false,
+  {s:"Les araignées entrent dans ta bouche pendant que tu dors ! En moyenne, on en avale 11 dans toute notre vie. 🕷️",t:false,
    e:"C'est FAUX ! Les araignées fuient les vibrations des ronflements. Aucune étude sérieuse n'a jamais confirmé cette légende urbaine des années 90.",
    src:[
     {em:"🔬",n:"Revue de biologie scientifique",d:"Article dans une revue à comité de lecture",studyJournal:"Revue de biologie scientifique",studyYear:"2018",studyAuthors:"et al.",
      say:"« Nos recherches n'ont trouvé aucune preuve que les araignées s'approchent des bouches la nuit. Elles fuient les vibrations. »",
      g:true,fb:{tg:"Parfait ! Une revue scientifique avec des chercheurs spécialisés, c'est exactement ce qu'il faut consulter. C'est une des sources les plus fiables qui existe !",dg:"Dommage ! Une revue scientifique est très fiable. Des chercheurs ont mené de vraies expériences pour arriver à cette conclusion."}},
     {em:"👍",n:"Post TikTok avec 2 millions de likes",d:"Vidéo virale très partagée, sans source citée",img:"images/tiktok_araignees.png",
-     say:"« CHOQUANT : on avale en moyenne 11 araignées par an ! Partagez avant suppression ! »",
+     say:"« CHOQUANT : on avale en moyenne 11 araignées dans toute notre vie ! Partagez avant suppression ! »",
      g:false,fb:{tb:"Attention ! Les likes ne prouvent rien. Tu as cru une vidéo virale sans source sérieuse — et c'est faux !",db:"Bien joué ! Tu t'es méfié d'une vidéo TikTok sans source. Le nombre de likes ne prouve jamais que c'est vrai."}},
     {em:"🌐",n:"Site Hoaxbuster (fact-checking)",d:"Site spécialisé dans la vérification des rumeurs",pressOutlet:"Hoaxbuster",pressDomain:"hoaxbuster.com",
      say:"« FAUX. Cette affirmation est une légende urbaine sans fondement scientifique, qui circule depuis les années 1990. »",
