@@ -362,6 +362,25 @@ Bestselling popular survival book cover, portrait format. Cover photograph: musc
 
 ---
 
+## QUESTION CLIM (source non fiable)
+
+### magazine_clim_pollution.png
+*Source non fiable — question : "À proportion égale, la climatisation pollue plus que le chauffage en France."*
+*Fichier cible : `images/magazine_clim_pollution.png`*
+*JS : déjà référencé dans questions_fr.js et questions_en.js (PRO, source 3)*
+
+**FR**
+```
+Capture d'ecran realiste d'un article en ligne d'un grand magazine de vulgarisation scientifique francais, format paysage 16:9. Interface sobre et credible : fond blanc casse, police serife noire, style "Sciences & Avenir" ou "Le Monde". En haut : bandeau rouge avec le nom fictif du magazine "PLANETE SCIENCES" et un sous-titre gris : "Environnement · Energie · Societe". Titre de l'article en tres grande police noire grasse, sur deux lignes : "Climatisation : la bombe climatique" puis "que personne ne veut voir". Sous-titre en italique gris : "Les climatiseurs consomment autant d'electricite que toute l'Afrique et menacent directement nos objectifs climatiques." Date et auteur sous le titre : "Par Marie Durand | 23 juin 2023 | 8 min de lecture". Tags cliquables bleus : "#Climat" "#Energie" "#Rechauffement". Grande image d'illustration : vue aerienne dramatique d'une ville europeenne dense en plein ete, ciel bleu metallique brumeux de chaleur. En surimpression sur la photo, une grande icone de climatiseur stylisee en rouge avec des flammes qui en sortent vers le ciel. Encadre chiffre-cle visible dans l'article : fond rouge vif, texte blanc gras "x10 : la clim pollue 10 fois plus que le chauffage a usage egal" — chiffre sans source citee, presente comme un fait. Debut de l'article lisible : "Partout en Europe, les climatiseurs tournent a plein regime. Mais ce confort a un cout : a proportion egale d'utilisation, la climatisation rejette bien plus de CO2 que n'importe quel systeme de chauffage. Les chiffres sont sans appel." Publicite discrete en bas de page pour un abonnement. Pied de page avec compteur "12 847 lectures" et boutons partage reseaux sociaux.
+```
+
+**EN**
+```
+Realistic screenshot of an online article from a major French popular science magazine, landscape 16:9 format. Clean, credible interface: off-white background, black serif font, "Sciences & Avenir" or "Le Monde" style. Top: red banner with the fictional magazine name "PLANET SCIENCES" and a grey subtitle: "Environment · Energy · Society". Article title in very large bold black font, on two lines: "Air conditioning: the climate bomb" then "nobody wants to talk about". Italic grey subtitle: "Air conditioners consume as much electricity as all of Africa and directly threaten our climate goals." Date and author below the title: "By Marie Durand | June 23, 2023 | 8 min read". Blue clickable tags: "#Climate" "#Energy" "#GlobalWarming". Large illustration photo: dramatic aerial view of a dense European city in full summer heat, blue metallic hazy sky. Superimposed on the photo, a large stylized red air conditioner icon with flames coming out of it toward the sky. Key figure box visible in the article body: vivid red background, bold white text "x10: AC pollutes 10 times more than heating per equivalent use" — figure with no source cited, presented as fact. Start of article readable: "All across Europe, air conditioners are running at full capacity. But this comfort comes at a cost: per unit of use, air conditioning releases far more CO2 than any heating system. The figures are unequivocal." Subtle subscription ad at the bottom of the page. Footer with counter "12,847 reads" and social media share buttons.
+```
+
+---
+
 ## CHECKLIST D'INTEGRATION
 Apres generation de chaque image :
 1. Sauvegarder dans images/NOM_FICHIER.png
