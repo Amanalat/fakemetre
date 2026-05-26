@@ -6,6 +6,25 @@
 
 ---
 
+## RESEAUX SOCIAUX — MISES A JOUR
+
+### tiktok_araignees.png (FR) + tiktok_araignees_en.png (EN)
+*Source non fiable — question : "Les araignées entrent dans ta bouche pendant que tu dors ! En moyenne, on en avale 11 par an."*
+*Fichier cible : `images/tiktok_araignees.png` et `images/tiktok_araignees_en.png`*
+*⚠️ Mise à jour du chiffre : 8 → 11 par an (les anciennes images indiquaient "8")*
+
+**FR**
+```
+Capture d'ecran realiste d'une video TikTok francaise virale, format 9:16 (portrait smartphone). Interface TikTok authentique : fond noir, barre de menu du bas avec icones "Accueil / Decouvrir / + / Messages / Profil". Video en cours de lecture. Contenu de la video : texte en tres grandes lettres blanches avec ombre noire, tres lisible sur fond sombre : "CHOQUANT : on avale en moyenne 11 ARAIGNEES par an !! 🕷️" et dessous en rouge vif "Partagez avant suppression !". Une araignee hyperrealiste en gros plan occupe la moitie inferieure de l'ecran — plan macro terrifiant, pattes velues, yeux multiples bien visibles. Effets typiques TikTok : sticker "VIRAL" en haut a gauche, filtre rouge/orange dramatique, animation de texte tremblante. Interface droite : avatar profil rond avec araignee dessus "araignee_facts_fr", compteur coeurs "2,1M", commentaires "48K", partages "127K". Musique du bas : note de musique + "Son original — araignee_facts_fr". En haut : "Suivre" en rouge a cote du nom. Style video de peur/choc typique TikTok, ambiance nocturne effrayante.
+```
+
+**EN**
+```
+Realistic screenshot of a viral English-language TikTok video, 9:16 portrait smartphone format. Authentic TikTok interface: black background, bottom menu bar with icons "Home / Discover / + / Messages / Profile". Video playing. Video content: very large white letters with black shadow, highly readable on dark background: "SHOCKING: we swallow an average of 11 SPIDERS per year!! 🕷️" and below in vivid red "Share before it gets deleted!". A hyperrealistic close-up spider fills the lower half of the screen — terrifying macro shot, hairy legs, multiple eyes clearly visible. Typical TikTok effects: "VIRAL" sticker top left, dramatic red/orange filter, shaking text animation. Right-side interface: round profile avatar with spider on it "spider_facts_viral", heart counter "2.1M", comments "48K", shares "127K". Bottom music bar: music note + "Original sound — spider_facts_viral". Top: "Follow" in red next to the name. Typical fear/shock TikTok video style, scary nighttime atmosphere.
+```
+
+---
+
 ## FILMS ET DOCUMENTAIRES
 
 ### ✅ film_aventure_survie.png
