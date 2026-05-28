@@ -766,7 +766,7 @@ const QUESTIONS_PRO_EN=[
      url:"https://www.thelancet.com/journals/lancet/article/PIIS0140-6736(97)11096-0/fulltext",
      say:"We formally retract the Wakefield (1998) paper: its data were falsified and it violated medical ethics. This study should never have been published.",
      g:true,fb:{tg:"Excellent! A journal that publicly acknowledges and corrects its errors is a sign of serious science. The Lancet did its self-correction job.",dg:"Too bad! When the journal that published the study retracts it itself, it is crucial information. Science is self-correcting."}},
-    {em:"🎬",n:"Documentary 'Vaxxed' (2016) directed by Andrew Wakefield",d:"Film presenting parents’ testimonies",
+    {em:"🎬",n:"Documentary ‘Vaxxed’ (2016) directed by Andrew Wakefield",d:"Film presenting parents’ testimonies",img:"images/docu_vaxxed.jpg",
      url:"https://fr.wikipedia.org/wiki/Vaxxed",
      say:"Dozens of parents testify: their child changed overnight after the injection. These stories cannot all be coincidences.",
      g:false,fb:{tb:"Careful! An award-winning documentary is not a scientific study. 'Vaxxed' is directed by Wakefield himself. Emotional testimonies are not evidence.",db:"Well done! The documentary format gives an appearance of credibility, but it is disguised propaganda. Isolated testimonies do not prove causation."},
