@@ -826,11 +826,13 @@ const I18N = {
     feedbackLabelEmail: 'Votre email (optionnel, pour recevoir une réponse)',
     feedbackLabelMsg: 'Votre message *',
     feedbackPlaceholderMsg: 'Question, remarque, suggestion…',
-    feedbackBtnSend: '📨 Envoyer par email',
+    feedbackBtnSend: '📨 Envoyer',
     feedbackBtnCancel: 'Annuler',
     feedbackAlertEmpty: 'Écris un message avant d\'envoyer !',
     feedbackEmailSubject: 'FakeMètre — Retour utilisateur',
-    feedbackNote: '📧 Cliquer sur "Envoyer" ouvrira votre client mail. Le message ne sera pas envoyé automatiquement.'
+    feedbackNote: '',
+    feedbackAlertSent: '✅ Message envoyé ! Merci pour ton retour.',
+    feedbackAlertError: '❌ Une erreur est survenue. Réessaie ou écris directement à contact@antoninatger.com.'
   },
   en: {
     // Meta
@@ -1151,11 +1153,13 @@ const I18N = {
     feedbackLabelEmail: 'Your email (optional, to receive a reply)',
     feedbackLabelMsg: 'Your message *',
     feedbackPlaceholderMsg: 'Question, remark, suggestion…',
-    feedbackBtnSend: '📨 Send by email',
+    feedbackBtnSend: '📨 Send',
     feedbackBtnCancel: 'Cancel',
     feedbackAlertEmpty: 'Write a message before sending!',
     feedbackEmailSubject: 'FakeMeter — User Feedback',
-    feedbackNote: '📧 Clicking "Send" will open your email client. The message will not be sent automatically.'
+    feedbackNote: '',
+    feedbackAlertSent: '✅ Message sent! Thanks for your feedback.',
+    feedbackAlertError: '❌ Something went wrong. Please try again or email contact@antoninatger.com directly.'
   }
 };
 
@@ -3509,27 +3513,44 @@ function openFeedback(){
 function closeFeedback(){
   $('feedback-modal').style.display = 'none';
 }
-function sendFeedback(){
+async function sendFeedback(){
   const name = $('fb-name').value.trim();
   const email = $('fb-email').value.trim();
   const msg = $('fb-message').value.trim();
   if(!msg){ alert(t('feedbackAlertEmpty')); return; }
 
-  let subject = t('feedbackEmailSubject');
-  if(name) subject += ' — ' + name;
+  const btn = document.querySelector('#feedback-modal .creator-btn.primary');
+  btn.disabled = true;
+  btn.textContent = '⏳ Envoi…';
 
-  let body = msg;
-  if(name || email){
-    body += '\n\n---';
-    if(name)  body += '\n' + name;
-    if(email) body += '\n' + email;
+  try {
+    const res = await fetch('https://api.web3forms.com/submit', {
+      method: 'POST',
+      headers: {'Content-Type':'application/json','Accept':'application/json'},
+      body: JSON.stringify({
+        access_key: 'ef1fe549-c616-4a27-a6c2-97f06caa913d',
+        subject: t('feedbackEmailSubject') + (name ? ' — ' + name : ''),
+        name: name || 'Anonyme',
+        email: email || 'non renseigné',
+        message: msg
+      })
+    });
+    const data = await res.json();
+    if(data.success){
+      alert(t('feedbackAlertSent'));
+      $('fb-name').value = '';
+      $('fb-email').value = '';
+      $('fb-message').value = '';
+      closeFeedback();
+    } else {
+      alert(t('feedbackAlertError'));
+    }
+  } catch(e) {
+    alert(t('feedbackAlertError'));
+  } finally {
+    btn.disabled = false;
+    btn.textContent = t('feedbackBtnSend');
   }
-
-  window.location.href = 'mailto:contact@antoninatger.com'
-    + '?subject=' + encodeURIComponent(subject)
-    + '&body='    + encodeURIComponent(body);
-
-  closeFeedback();
 }
 </script>
 <button class="fs-btn" id="fs-btn" onclick="toggleFS()" data-i18n="btnFullscreen">⛶ Plein écran</button>
@@ -3551,7 +3572,6 @@ function sendFeedback(){
       <label data-i18n="feedbackLabelMsg">Votre message *</label>
       <textarea id="fb-message" class="form-input" rows="4" data-i18n-placeholder="feedbackPlaceholderMsg" placeholder="Question, remarque, suggestion…" style="resize:vertical;min-height:90px;"></textarea>
     </div>
-    <p style="color:var(--mu);font-size:.75rem;font-weight:600;margin-bottom:14px;" data-i18n="feedbackNote">📧 Cliquer sur "Envoyer" ouvrira votre client mail — le message ne sera pas envoyé automatiquement.</p>
     <div class="creator-actions">
       <button class="creator-btn secondary" onclick="closeFeedback()" data-i18n="feedbackBtnCancel">Annuler</button>
       <button class="creator-btn primary" onclick="sendFeedback()" data-i18n="feedbackBtnSend">📨 Envoyer par email</button>
