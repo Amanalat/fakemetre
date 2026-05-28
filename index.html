@@ -2165,8 +2165,10 @@ function renderSources(){
         </select>
         ${(()=>{
           const def = FORMAT_DEFS.find(f=>f.key===(src.vformat||'none'));
-          if(!def || def.key==='none') return '';
-          const flds = def.fields.map(f=>{
+          const isNone = !def || def.key==='none';
+
+          // Champs spécifiques au format
+          const flds = isNone ? '' : def.fields.map(f=>{
             const val = escH(src[f.id]||'');
             if(f.select){
               const opts = f.select.map(o=>`<option value="${o}" ${(src[f.id]||f.ph)===o?'selected':''}>${o}</option>`).join('');
@@ -2174,17 +2176,34 @@ function renderSources(){
             }
             return `<div class="form-group" style="margin-bottom:8px;"><label style="font-size:.75rem;">${f.label}</label><input type="text" value="${val}" placeholder="${f.ph}" oninput="liveUpdateSource(${src.id},'${f.id}',this.value)"></div>`;
           }).join('');
-          const imgSection = def.hasImg ? `
-            <div style="margin-top:4px;margin-bottom:10px;">
-              ${src.img ? `<img src="${escH(src.img)}" style="width:100%;max-width:280px;border-radius:8px;display:block;margin-bottom:8px;">
-                <div style="display:flex;gap:8px;"><button type="button" onclick="triggerImgUpload(${src.id})" class="creator-btn secondary" style="padding:6px 12px;font-size:.76rem;">🔄 Changer</button><button type="button" onclick="removeSourceImg(${src.id})" class="creator-btn danger" style="padding:6px 12px;font-size:.76rem;">🗑️ Supprimer</button></div>`
-              : `<button type="button" onclick="triggerImgUpload(${src.id})" class="creator-btn secondary" style="padding:8px 16px;font-size:.82rem;">📸 Ajouter une photo</button><p style="color:var(--mu);font-size:.72rem;font-weight:600;margin-top:4px;margin-bottom:0;">JPEG, PNG ou WebP · max 2 Mo</p>`}
+
+          // Photo pour Instagram (intégrée dans le post)
+          const instaImg = (!isNone && def.hasImg) ? `
+            <div style="margin-top:4px;margin-bottom:4px;">
+              ${src.img
+                ? `<img src="${escH(src.img)}" style="width:100%;max-width:280px;border-radius:8px;display:block;margin-bottom:8px;"><div style="display:flex;gap:8px;"><button type="button" onclick="triggerImgUpload(${src.id})" class="creator-btn secondary" style="padding:6px 12px;font-size:.76rem;">🔄 Changer</button><button type="button" onclick="removeSourceImg(${src.id})" class="creator-btn danger" style="padding:6px 12px;font-size:.76rem;">🗑️ Supprimer</button></div>`
+                : `<button type="button" onclick="triggerImgUpload(${src.id})" class="creator-btn secondary" style="padding:8px 16px;font-size:.82rem;">📸 Ajouter une photo</button><p style="color:var(--mu);font-size:.72rem;font-weight:600;margin-top:4px;margin-bottom:0;">JPEG, PNG ou WebP · max 2 Mo</p>`}
               <input type="file" id="img-input-${src.id}" accept="image/jpeg,image/png,image/webp,image/gif" style="display:none;" onchange="uploadSourceImg(${src.id},this)">
             </div>` : '';
+
+          // Photo générique (tous formats sauf Instagram)
+          const genericImg = (isNone || !def.hasImg) ? `
+            <div style="${isNone?'':'border-top:1px solid var(--bord);margin-top:10px;padding-top:10px;'}">
+              <label style="display:block;font-size:.8rem;font-weight:700;color:var(--mu);margin-bottom:6px;">📷 Photo (optionnel)</label>
+              ${src.img
+                ? `<img src="${escH(src.img)}" style="width:100%;max-width:260px;border-radius:8px;display:block;margin-bottom:8px;">
+                   <div class="form-group" style="margin-bottom:6px;"><label style="font-size:.75rem;">Description de la photo</label><input type="text" value="${escH(src.imgCaption||'')}" placeholder="Image circulant sur internet…" oninput="liveUpdateSource(${src.id},'imgCaption',this.value)"></div>
+                   <div style="display:flex;gap:6px;"><button type="button" onclick="triggerImgUpload(${src.id})" class="creator-btn secondary" style="padding:6px 10px;font-size:.74rem;">🔄 Changer</button><button type="button" onclick="removeSourceImg(${src.id})" class="creator-btn danger" style="padding:6px 10px;font-size:.74rem;">🗑️ Supprimer</button></div>`
+                : `<button type="button" onclick="triggerImgUpload(${src.id})" class="creator-btn secondary" style="padding:7px 14px;font-size:.8rem;">📷 Ajouter une photo</button><p style="color:var(--mu);font-size:.72rem;font-weight:600;margin-top:4px;margin-bottom:0;">JPEG, PNG ou WebP · max 2 Mo</p>`}
+              <input type="file" id="img-input-${src.id}" accept="image/jpeg,image/png,image/webp,image/gif" style="display:none;" onchange="uploadSourceImg(${src.id},this)">
+            </div>` : '';
+
+          if(isNone) return `<div style="margin-top:8px;">${genericImg}</div>`;
+
           const preview = buildPreviewFor(src);
-          return `<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;align-items:start;">
-            <div>${flds}${imgSection}</div>
-            <div id="vfmt-preview-${src.id}" style="pointer-events:none;transform-origin:top left;overflow:hidden;">${preview}</div>
+          return `<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;align-items:start;margin-top:4px;">
+            <div>${flds}${instaImg}${genericImg}</div>
+            <div id="vfmt-preview-${src.id}" style="pointer-events:none;overflow:hidden;">${preview}</div>
           </div>`;
         })()}
       </div>
@@ -2309,7 +2328,13 @@ function saveQuestion(){
           fmtDef.fields.forEach(f => { if(s[f.id] !== undefined && s[f.id] !== '') srcObj[f.id] = s[f.id]; });
           if(fmtDef.initVals) Object.assign(srcObj, fmtDef.initVals);
           if(fmtDef.hasImg && s.img) srcObj.img = s.img;
+          if(!fmtDef.hasImg && s.img){ srcObj.img = s.img; if(s.imgCaption) srcObj.imgCaption = s.imgCaption; }
         }
+      }
+      // Photo sans format sélectionné
+      if((!s.vformat || s.vformat === 'none') && s.img){
+        srcObj.img = s.img;
+        if(s.imgCaption) srcObj.imgCaption = s.imgCaption;
       }
       return srcObj;
     })
