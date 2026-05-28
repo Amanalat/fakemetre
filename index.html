@@ -816,7 +816,20 @@ const I18N = {
     bilanPerfectTitle: 'Excellent travail !',
     bilanPerfectTip: 'Tu as bien évalué les sources et voté correctement. Continue comme ça !',
     // ── Jeu : source introuvable ──
-    noSearchAlert: "🔍 Impossible de trouver cette source sur internet !\n\nC'est une source fictive ou trop générique pour être vérifiée. Dans la vraie vie, c'est un signal d'alerte : une source introuvable est suspecte !"
+    noSearchAlert: "🔍 Impossible de trouver cette source sur internet !\n\nC'est une source fictive ou trop générique pour être vérifiée. Dans la vraie vie, c'est un signal d'alerte : une source introuvable est suspecte !",
+    // ── Feedback ──
+    feedbackBtnLabel: '💬 Une question ? Une remarque ? Une suggestion ?',
+    feedbackTitle: '💬 Votre avis sur FakeMètre',
+    feedbackSub: 'Questions, remarques, suggestions… tout est bienvenu ! Je lis tous les messages.',
+    feedbackLabelName: 'Votre prénom (optionnel)',
+    feedbackLabelEmail: 'Votre email (optionnel — pour recevoir une réponse)',
+    feedbackLabelMsg: 'Votre message *',
+    feedbackPlaceholderMsg: 'Question, remarque, suggestion…',
+    feedbackBtnSend: '📨 Envoyer par email',
+    feedbackBtnCancel: 'Annuler',
+    feedbackAlertEmpty: 'Écris un message avant d\'envoyer !',
+    feedbackEmailSubject: 'FakeMètre — Retour utilisateur',
+    feedbackNote: '📧 Cliquer sur "Envoyer" ouvrira votre client mail — le message ne sera pas envoyé automatiquement.'
   },
   en: {
     // Meta
@@ -1128,7 +1141,20 @@ const I18N = {
     bilanPerfectTitle: 'Excellent work!',
     bilanPerfectTip: 'You evaluated sources well and voted correctly. Keep it up!',
     // ── Game : source not found ──
-    noSearchAlert: "🔍 This source cannot be found online!\n\nIt's a fictional or too generic source to verify. In real life, this is a red flag: a source that can't be found is suspicious!"
+    noSearchAlert: "🔍 This source cannot be found online!\n\nIt's a fictional or too generic source to verify. In real life, this is a red flag: a source that can't be found is suspicious!",
+    // ── Feedback ──
+    feedbackBtnLabel: '💬 A question? A remark? A suggestion?',
+    feedbackTitle: '💬 Your feedback on FakeMeter',
+    feedbackSub: 'Questions, remarks, suggestions… all welcome! I read every message.',
+    feedbackLabelName: 'Your name (optional)',
+    feedbackLabelEmail: 'Your email (optional — to receive a reply)',
+    feedbackLabelMsg: 'Your message *',
+    feedbackPlaceholderMsg: 'Question, remark, suggestion…',
+    feedbackBtnSend: '📨 Send by email',
+    feedbackBtnCancel: 'Cancel',
+    feedbackAlertEmpty: 'Write a message before sending!',
+    feedbackEmailSubject: 'FakeMeter — User Feedback',
+    feedbackNote: '📧 Clicking "Send" will open your email client — the message will not be sent automatically.'
   }
 };
 
@@ -1959,10 +1985,35 @@ function toggleNuance(){
   $('enuan-group').style.display = currentNuance ? 'block' : 'none';
 }
 
+const FORME_DEFS = [
+  {key:'croyance',     em:'💬', label:'Croyance pop.',       n:'Croyance populaire',     d:'Dicton ou mythe répandu',            field:'quoteType',    val:'folk'},
+  {key:'scientifique', em:'🔬', label:'Revue scientifique',  n:'Revue scientifique',     d:'Article à comité de lecture',        field:'studyJournal', val:'Revue scientifique'},
+  {key:'livre',        em:'📖', label:'Livre',                n:'Livre',                  d:'Ouvrage de référence',               field:'bookType',     val:'livre'},
+  {key:'blog',         em:'✏️', label:'Blog',                n:'Article de blog',        d:'Site ou blog spécialisé',            field:'blogTitle',    val:true},
+  {key:'pub',          em:'📢', label:'Publicité',            n:'Publicité',              d:'Message promotionnel ou publicitaire',field:'adType',       val:'pub'},
+  {key:'presse',       em:'📰', label:'Presse',               n:'Article de presse',      d:'Journal ou magazine',                field:'pressOutlet',  val:'Presse'},
+  {key:'expert',       em:'🧑‍⚕️', label:'Expert',             n:'Déclaration d\'expert',  d:'Spécialiste du domaine',             field:'expertTitle',  val:'Expert'},
+  {key:'social',       em:'📱', label:'Réseau social',        n:'Post viral',             d:'Publication sur les réseaux sociaux',field:null,           val:null},
+  {key:'officiel',     em:'🏛️', label:'Site officiel',       n:'Source officielle',      d:'Organisme gouvernemental ou officiel',field:'govSite',     val:true},
+  {key:'media',        em:'🎬', label:'Film / Média',         n:'Reportage ou film',      d:'Contenu audiovisuel',                field:'mediaType',    val:'film'},
+];
+
+function setSourceForme(id, formeKey){
+  const src = currentSources.find(s => s.id === id);
+  if(!src) return;
+  const def = FORME_DEFS.find(f => f.key === formeKey);
+  if(!def) return;
+  src.forme = formeKey;
+  if(!src.em || src.em === '📄') src.em = def.em;
+  if(!src.n) src.n = def.n;
+  if(!src.d) src.d = def.d;
+  renderSources();
+}
+
 function addSource(){
   const id = Date.now();
   currentSources.push({
-    id, em:'📄', n:'', d:'', say:'', g:true, url:'', noSearch:false,
+    id, em:'📄', n:'', d:'', say:'', forme:'', g:true, url:'', noSearch:false,
     fb:{tg:'', dg:'', tb:'', db:'', gen:''}
   });
   renderSources();
@@ -3373,7 +3424,70 @@ function renderTemplateInfoModal() {
 applyI18n();
 renderHelpSections();
 renderTemplateInfoModal();
+
+// ═══════════════════════════════════════════════
+// FEEDBACK UTILISATEUR
+// ═══════════════════════════════════════════════
+function openFeedback(){
+  $('feedback-modal').style.display = 'flex';
+}
+function closeFeedback(){
+  $('feedback-modal').style.display = 'none';
+}
+function sendFeedback(){
+  const name = $('fb-name').value.trim();
+  const email = $('fb-email').value.trim();
+  const msg = $('fb-message').value.trim();
+  if(!msg){ alert(t('feedbackAlertEmpty')); return; }
+
+  let subject = t('feedbackEmailSubject');
+  if(name) subject += ' — ' + name;
+
+  let body = msg;
+  if(name || email){
+    body += '\n\n---';
+    if(name)  body += '\n' + name;
+    if(email) body += '\n' + email;
+  }
+
+  window.location.href = 'mailto:contact@antoninatger.com'
+    + '?subject=' + encodeURIComponent(subject)
+    + '&body='    + encodeURIComponent(body);
+
+  closeFeedback();
+}
 </script>
 <button class="fs-btn" id="fs-btn" onclick="toggleFS()" data-i18n="btnFullscreen">⛶ Plein écran</button>
+
+<!-- FEEDBACK BUTTON -->
+<div id="feedback-bar">
+  <button id="feedback-btn" onclick="openFeedback()" data-i18n="feedbackBtnLabel">💬 Une question ? Une remarque ? Une suggestion ?</button>
+</div>
+
+<!-- FEEDBACK MODAL -->
+<div id="feedback-modal" class="modal-overlay" style="display:none;" onclick="if(event.target===this)closeFeedback()">
+  <div class="modal-box" style="max-width:460px;">
+    <h3 data-i18n="feedbackTitle">💬 Votre avis sur FakeMètre</h3>
+    <p style="color:var(--mu);font-size:.88rem;font-weight:600;margin-bottom:18px;line-height:1.55;" data-i18n="feedbackSub">Questions, remarques, suggestions… tout est bienvenu ! Je lis tous les messages.</p>
+    <div class="form-group">
+      <label data-i18n="feedbackLabelName">Votre prénom (optionnel)</label>
+      <input type="text" id="fb-name" class="form-input" placeholder="Antonin…">
+    </div>
+    <div class="form-group">
+      <label data-i18n="feedbackLabelEmail">Votre email (optionnel — pour recevoir une réponse)</label>
+      <input type="email" id="fb-email" class="form-input" placeholder="votre@email.com">
+    </div>
+    <div class="form-group">
+      <label data-i18n="feedbackLabelMsg">Votre message *</label>
+      <textarea id="fb-message" class="form-input" rows="4" data-i18n-placeholder="feedbackPlaceholderMsg" placeholder="Question, remarque, suggestion…" style="resize:vertical;min-height:90px;"></textarea>
+    </div>
+    <p style="color:var(--mu);font-size:.75rem;font-weight:600;margin-bottom:14px;" data-i18n="feedbackNote">📧 Cliquer sur "Envoyer" ouvrira votre client mail — le message ne sera pas envoyé automatiquement.</p>
+    <div class="creator-actions">
+      <button class="creator-btn secondary" onclick="closeFeedback()" data-i18n="feedbackBtnCancel">Annuler</button>
+      <button class="creator-btn primary" onclick="sendFeedback()" data-i18n="feedbackBtnSend">📨 Envoyer par email</button>
+    </div>
+  </div>
+</div>
+
 </body>
 </html>
