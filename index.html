@@ -16,6 +16,7 @@
   <h1 data-i18n="h1">🔍 FakeMètre</h1>
   <p class="sub" data-i18n="sub">Vraie info ou fake news ? Trouve les bonnes sources !</p>
   <p class="author"><span data-i18n="authorBy">par</span> Antonin Atger &nbsp;|&nbsp; <a href="mailto:contact@antoninatger.com">contact(at)antoninatger.com</a> &nbsp;|&nbsp; <a href="https://antoninatger.com" target="_blank">antoninatger.com</a></p>
+  <p style="margin-top:6px;"><button id="feedback-btn" onclick="openFeedback()" data-i18n="feedbackBtnLabel">💬 Une question ? Une remarque ? Une suggestion ? Cliquez ici !</button></p>
 </header>
 
 <!-- LEVEL SELECTOR -->
@@ -818,7 +819,7 @@ const I18N = {
     // ── Jeu : source introuvable ──
     noSearchAlert: "🔍 Impossible de trouver cette source sur internet !\n\nC'est une source fictive ou trop générique pour être vérifiée. Dans la vraie vie, c'est un signal d'alerte : une source introuvable est suspecte !",
     // ── Feedback ──
-    feedbackBtnLabel: '💬 Une question ? Une remarque ? Une suggestion ?',
+    feedbackBtnLabel: '💬 Une question ? Une remarque ? Une suggestion ? Cliquez ici !',
     feedbackTitle: '💬 Votre avis sur FakeMètre',
     feedbackSub: 'Questions, remarques, suggestions… tout est bienvenu ! Je lis tous les messages.',
     feedbackLabelName: 'Votre prénom (optionnel)',
@@ -1143,7 +1144,7 @@ const I18N = {
     // ── Game : source not found ──
     noSearchAlert: "🔍 This source cannot be found online!\n\nIt's a fictional or too generic source to verify. In real life, this is a red flag: a source that can't be found is suspicious!",
     // ── Feedback ──
-    feedbackBtnLabel: '💬 A question? A remark? A suggestion?',
+    feedbackBtnLabel: '💬 A question? A remark? A suggestion? Click here!',
     feedbackTitle: '💬 Your feedback on FakeMeter',
     feedbackSub: 'Questions, remarks, suggestions… all welcome! I read every message.',
     feedbackLabelName: 'Your name (optional)',
@@ -3458,11 +3459,6 @@ function sendFeedback(){
 }
 </script>
 <button class="fs-btn" id="fs-btn" onclick="toggleFS()" data-i18n="btnFullscreen">⛶ Plein écran</button>
-
-<!-- FEEDBACK BUTTON -->
-<div id="feedback-bar">
-  <button id="feedback-btn" onclick="openFeedback()" data-i18n="feedbackBtnLabel">💬 Une question ? Une remarque ? Une suggestion ?</button>
-</div>
 
 <!-- FEEDBACK MODAL -->
 <div id="feedback-modal" class="modal-overlay" style="display:none;" onclick="if(event.target===this)closeFeedback()">
