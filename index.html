@@ -1986,35 +1986,76 @@ function toggleNuance(){
   $('enuan-group').style.display = currentNuance ? 'block' : 'none';
 }
 
-const FORME_DEFS = [
-  {key:'croyance',     em:'💬', label:'Croyance pop.',       n:'Croyance populaire',     d:'Dicton ou mythe répandu',            field:'quoteType',    val:'folk'},
-  {key:'scientifique', em:'🔬', label:'Revue scientifique',  n:'Revue scientifique',     d:'Article à comité de lecture',        field:'studyJournal', val:'Revue scientifique'},
-  {key:'livre',        em:'📖', label:'Livre',                n:'Livre',                  d:'Ouvrage de référence',               field:'bookType',     val:'livre'},
-  {key:'blog',         em:'✏️', label:'Blog',                n:'Article de blog',        d:'Site ou blog spécialisé',            field:'blogTitle',    val:true},
-  {key:'pub',          em:'📢', label:'Publicité',            n:'Publicité',              d:'Message promotionnel ou publicitaire',field:'adType',       val:'pub'},
-  {key:'presse',       em:'📰', label:'Presse',               n:'Article de presse',      d:'Journal ou magazine',                field:'pressOutlet',  val:'Presse'},
-  {key:'expert',       em:'🧑‍⚕️', label:'Expert',             n:'Déclaration d\'expert',  d:'Spécialiste du domaine',             field:'expertTitle',  val:'Expert'},
-  {key:'social',       em:'📱', label:'Réseau social',        n:'Post viral',             d:'Publication sur les réseaux sociaux',field:null,           val:null},
-  {key:'officiel',     em:'🏛️', label:'Site officiel',       n:'Source officielle',      d:'Organisme gouvernemental ou officiel',field:'govSite',     val:true},
-  {key:'media',        em:'🎬', label:'Film / Média',         n:'Reportage ou film',      d:'Contenu audiovisuel',                field:'mediaType',    val:'film'},
+const FORMAT_DEFS = [
+  {key:'none',      label:'— Aucune présentation',         emoji:'',    fields:[], hasImg:false, initVals:{}},
+  // Sources sérieuses
+  {key:'study',     label:'🔬 Revue scientifique',          emoji:'🔬',  triggerField:'studyJournal', hasImg:false, initVals:{},
+   fields:[{id:'studyJournal',label:'Nom de la revue',ph:'Nature, The Lancet, PNAS…'},{id:'studyAuthors',label:'Auteurs',ph:'Dupont A., Martin B., et al.'},{id:'studyYear',label:'Année',ph:'2023'}]},
+  {key:'press',     label:'📰 Presse / Fact-check',         emoji:'📰',  triggerField:'pressOutlet',  hasImg:false, initVals:{},
+   fields:[{id:'pressOutlet',label:'Journal ou média',ph:'Le Monde, AFP Factuel…'},{id:'pressTitle',label:"Titre de l'article",ph:'VRAI ou FAUX : …'},{id:'pressAuthor',label:'Journaliste',ph:'Jean Dupont'},{id:'pressDate',label:'Date',ph:'15 mars 2023'}]},
+  {key:'gov',       label:'🏛️ Site officiel',               emoji:'🏛️', triggerField:'govSite',      hasImg:false, initVals:{},
+   fields:[{id:'govSite',label:"Nom de l'organisme",ph:'Ministère de la Santé'},{id:'govDomain',label:'Domaine (optionnel)',ph:'sante.gouv.fr'}]},
+  {key:'expert',    label:'🧑‍⚕️ Expert',                    emoji:'🧑‍⚕️',triggerField:'expertTitle',  hasImg:false, initVals:{},
+   fields:[{id:'expertName',label:'Nom',ph:'Pr. Jean Dupont'},{id:'expertTitle',label:'Titre / Spécialité',ph:'Médecin généraliste'},{id:'expertInstitution',label:'Institution (optionnel)',ph:'Hôpital Saint-Louis'}]},
+  // Réseaux sociaux
+  {key:'tweet',     label:'🐦 Tweet / X',                   emoji:'🐦',  triggerField:'tweetUser',    hasImg:false, initVals:{},
+   fields:[{id:'tweetUser',label:'Nom affiché',ph:'Pr. Jean Dupont'},{id:'tweetHandle',label:'@handle',ph:'jdupont_sci'},{id:'tweetLikes',label:'Likes',ph:'12 345'},{id:'tweetReposts',label:'Reposts',ph:'3 210'},{id:'tweetDate',label:'Date',ph:'il y a 2 h'}]},
+  {key:'insta',     label:'📸 Instagram',                   emoji:'📸',  triggerField:'imgUser',      hasImg:true,  initVals:{},
+   fields:[{id:'imgUser',label:'Nom du compte',ph:'nature_facts_viral'},{id:'imgLoc',label:'Lieu (optionnel)',ph:'Paris, France'},{id:'imgLikes',label:'Likes',ph:'47 382'},{id:'imgAgo',label:'Date',ph:'il y a 2 jours'}]},
+  {key:'linkedin',  label:'💼 LinkedIn',                    emoji:'💼',  triggerField:'linkedinUser', hasImg:false, initVals:{},
+   fields:[{id:'linkedinUser',label:'Nom',ph:'Jean Dupont'},{id:'linkedinTitle',label:'Titre professionnel',ph:'Nutritionniste certifié'},{id:'linkedinLikes',label:'Réactions',ph:'8 742'},{id:'linkedinDate',label:'Date',ph:'Il y a 3 jours'}]},
+  {key:'reddit',    label:'🔴 Reddit',                      emoji:'🔴',  triggerField:'redditSub',    hasImg:false, initVals:{},
+   fields:[{id:'redditSub',label:'Subreddit',ph:'r/science'},{id:'redditUser',label:'Utilisateur',ph:'u/anonyme'},{id:'redditTitle',label:'Titre du post',ph:'Discussion sur…'},{id:'redditUpvotes',label:'Upvotes',ph:'1.2k'},{id:'redditComments',label:'Commentaires',ph:'47'}]},
+  {key:'forum',     label:'💬 Forum',                       emoji:'💬',  triggerField:'forumUser',    hasImg:false, initVals:{},
+   fields:[{id:'forumName',label:'Nom du forum',ph:'sante-forum.fr'},{id:'forumUser',label:'Pseudo',ph:'Utilisateur42'},{id:'forumDate',label:'Date',ph:'il y a 1 an'},{id:'forumLikes',label:'Likes',ph:'12'}]},
+  {key:'whatsapp',  label:'💬 WhatsApp',                    emoji:'💬',  triggerField:'waForwarded',  hasImg:false, initVals:{waForwarded:true},
+   fields:[{id:'waSender',label:'Expéditeur',ph:'Maman'},{id:'waTime',label:'Heure',ph:'12:47'}]},
+  {key:'gmaps',     label:'⭐ Avis Google Maps',             emoji:'⭐',  triggerField:'gmapsUser',    hasImg:false, initVals:{},
+   fields:[{id:'gmapsUser',label:'Nom',ph:'Visiteur anonyme'},{id:'gmapsPlace',label:'Lieu (optionnel)',ph:'Pharmacie Dupont'},{id:'gmapsRating',label:'Note (1–5)',ph:'5'},{id:'gmapsDate',label:'Date',ph:'Il y a 3 mois'}]},
+  // Contenus
+  {key:'book',      label:'📖 Livre',                       emoji:'📖',  triggerField:'bookTitle',    hasImg:false, initVals:{},
+   fields:[{id:'bookTitle',label:'Titre',ph:'Le grand guide…'},{id:'bookAuthor',label:'Auteur',ph:'Dr Jean Dupont'},{id:'bookType',label:'Type',ph:'livre',select:['livre','manuel','guide','roman','encyclopédie']},{id:'bookYear',label:'Année',ph:'2022'}]},
+  {key:'blog',      label:'✏️ Blog / Site web',             emoji:'✏️',  triggerField:'blogTitle',    hasImg:false, initVals:{},
+   fields:[{id:'blogSite',label:'Nom du site',ph:'NatureBlog.fr'},{id:'blogTitle',label:"Titre de l'article",ph:'10 vérités sur…'},{id:'blogAuthor',label:'Auteur',ph:'Jean Dupont'},{id:'blogDate',label:'Date',ph:'15 mars 2023'},{id:'blogReadTime',label:'Lecture (min)',ph:'5'}]},
+  {key:'ad',        label:'📢 Publicité',                   emoji:'📢',  triggerField:'adType',       hasImg:false, initVals:{},
+   fields:[{id:'adBrand',label:'Marque',ph:'SuperProduit®'},{id:'adType',label:'Type',ph:'tv',select:['tv','packaging','web','print','store']},{id:'adSlogan',label:'Slogan (optionnel)',ph:'La preuve par la science !'}]},
+  {key:'media',     label:'🎬 Film / Documentaire / Média', emoji:'🎬',  triggerField:'mediaType',    hasImg:false, initVals:{},
+   fields:[{id:'mediaTitle',label:'Titre',ph:'La Vérité sur…'},{id:'mediaType',label:'Type',ph:'film',select:['film','docu','tv','youtube','ted','game']},{id:'mediaYear',label:'Année',ph:'2022'},{id:'mediaDirector',label:'Réalisateur / Auteur',ph:'Jean Dupont'}]},
+  // Sagesse populaire
+  {key:'quote',     label:'💬 Croyance / Proverbe',         emoji:'💬',  triggerField:'quoteType',    hasImg:false, initVals:{},
+   fields:[{id:'quoteType',label:'Type',ph:'croyance',select:['croyance','proverbe','dicton','expression','intuition']},{id:'quoteOrigin',label:'Origine (optionnel)',ph:'Grand-mère, école…'}]},
 ];
 
-function setSourceForme(id, formeKey){
+function setSourceVFormat(id, fmtKey){
   const src = currentSources.find(s => s.id === id);
   if(!src) return;
-  const def = FORME_DEFS.find(f => f.key === formeKey);
-  if(!def) return;
-  src.forme = formeKey;
-  if(!src.em || src.em === '📄') src.em = def.em;
-  if(!src.n) src.n = def.n;
-  if(!src.d) src.d = def.d;
+  src.vformat = fmtKey;
+  const def = FORMAT_DEFS.find(f => f.key === fmtKey);
+  if(def && def.initVals) Object.assign(src, def.initVals);
   renderSources();
+}
+
+function liveUpdateSource(id, field, value){
+  const src = currentSources.find(s => s.id === id);
+  if(!src) return;
+  src[field] = value;
+  const prev = document.getElementById('vfmt-preview-'+id);
+  if(prev) prev.innerHTML = buildPreviewFor(src);
+}
+
+function buildPreviewFor(src){
+  if(!src.vformat || src.vformat==='none') return '';
+  const fn = {study:buildStudy, press:buildPress, gov:buildGov, expert:buildExpert,
+    tweet:buildTweet, insta:buildInstaPost, linkedin:buildLinkedIn,
+    reddit:buildReddit, forum:buildForum, whatsapp:buildWhatsApp, gmaps:buildGMaps,
+    book:buildBook, blog:buildBlog, ad:buildAd, media:buildMedia, quote:buildQuote}[src.vformat];
+  return fn ? fn(src) : '';
 }
 
 function addSource(){
   const id = Date.now();
   currentSources.push({
-    id, em:'📄', n:'', d:'', say:'', forme:'', g:true, url:'', noSearch:false,
+    id, em:'📄', n:'', d:'', say:'', vformat:'none', g:true, url:'', noSearch:false,
     fb:{tg:'', dg:'', tb:'', db:'', gen:''}
   });
   renderSources();
@@ -2118,38 +2159,34 @@ function renderSources(){
         <textarea onchange="updateSource(${src.id},'say',this.value)" placeholder="Ex: « Nos recherches montrent que... »">${escH(src.say||'')}</textarea>
       </div>
       <div class="form-group" style="border:1px solid var(--bord);border-radius:10px;padding:12px;background:rgba(168,85,247,.05);">
-        <label style="color:#a855f7;">📸 Illustration (faux post Instagram) — optionnel</label>
-        ${src.img ? `
-        <div style="margin-bottom:10px;max-width:280px;">${buildInstaPost(src)}</div>
-        <div class="form-row" style="margin-bottom:8px;">
-          <div class="form-group" style="margin-bottom:0;">
-            <label style="font-size:.75rem;">Nom du compte</label>
-            <input type="text" value="${escH(src.imgUser||'')}" onchange="updateSource(${src.id},'imgUser',this.value)" placeholder="mon_compte_viral">
-          </div>
-          <div class="form-group" style="margin-bottom:0;">
-            <label style="font-size:.75rem;">Lieu (optionnel)</label>
-            <input type="text" value="${escH(src.imgLoc||'')}" onchange="updateSource(${src.id},'imgLoc',this.value)" placeholder="Paris, France">
-          </div>
-        </div>
-        <div class="form-row" style="margin-bottom:10px;">
-          <div class="form-group" style="margin-bottom:0;">
-            <label style="font-size:.75rem;">Nombre de likes</label>
-            <input type="text" value="${escH(src.imgLikes||'')}" onchange="updateSource(${src.id},'imgLikes',this.value)" placeholder="12 450">
-          </div>
-          <div class="form-group" style="margin-bottom:0;">
-            <label style="font-size:.75rem;">Date affichée</label>
-            <input type="text" value="${escH(src.imgAgo||'')}" onchange="updateSource(${src.id},'imgAgo',this.value)" placeholder="il y a 2 jours">
-          </div>
-        </div>
-        <div style="display:flex;gap:8px;flex-wrap:wrap;">
-          <button type="button" onclick="triggerImgUpload(${src.id})" class="creator-btn secondary" style="padding:7px 14px;font-size:.78rem;">🔄 Changer l'image</button>
-          <button type="button" onclick="removeSourceImg(${src.id})" class="creator-btn danger" style="padding:7px 14px;font-size:.78rem;">🗑️ Supprimer</button>
-        </div>` : `
-        <div style="margin-top:4px;">
-          <button type="button" onclick="triggerImgUpload(${src.id})" class="creator-btn secondary" style="padding:8px 16px;font-size:.82rem;">📸 Ajouter une image</button>
-          <p style="color:var(--mu);font-size:.73rem;font-weight:600;margin-top:6px;margin-bottom:0;">JPEG, PNG ou WebP · max 2 Mo</p>
-        </div>`}
-        <input type="file" id="img-input-${src.id}" accept="image/jpeg,image/png,image/webp,image/gif" style="display:none;" onchange="uploadSourceImg(${src.id},this)">
+        <label style="color:#a855f7;display:block;margin-bottom:8px;">🖼️ Présentation visuelle (optionnel)</label>
+        <select style="width:100%;background:var(--card);border:2px solid rgba(168,85,247,.4);border-radius:10px;padding:10px;font-family:'Nunito',sans-serif;font-size:.85rem;font-weight:700;color:var(--tx);margin-bottom:${(src.vformat&&src.vformat!=='none')?'12px':'0'};" onchange="setSourceVFormat(${src.id},this.value)">
+          ${FORMAT_DEFS.map(f=>`<option value="${f.key}" ${(src.vformat||'none')===f.key?'selected':''}>${f.label}</option>`).join('')}
+        </select>
+        ${(()=>{
+          const def = FORMAT_DEFS.find(f=>f.key===(src.vformat||'none'));
+          if(!def || def.key==='none') return '';
+          const flds = def.fields.map(f=>{
+            const val = escH(src[f.id]||'');
+            if(f.select){
+              const opts = f.select.map(o=>`<option value="${o}" ${(src[f.id]||f.ph)===o?'selected':''}>${o}</option>`).join('');
+              return `<div class="form-group" style="margin-bottom:8px;"><label style="font-size:.75rem;">${f.label}</label><select style="width:100%;background:var(--card);border:1.5px solid var(--bord);border-radius:8px;padding:8px;font-family:'Nunito',sans-serif;font-size:.82rem;color:var(--tx);" onchange="liveUpdateSource(${src.id},'${f.id}',this.value)"><option value="">${f.ph}</option>${opts}</select></div>`;
+            }
+            return `<div class="form-group" style="margin-bottom:8px;"><label style="font-size:.75rem;">${f.label}</label><input type="text" value="${val}" placeholder="${f.ph}" oninput="liveUpdateSource(${src.id},'${f.id}',this.value)"></div>`;
+          }).join('');
+          const imgSection = def.hasImg ? `
+            <div style="margin-top:4px;margin-bottom:10px;">
+              ${src.img ? `<img src="${escH(src.img)}" style="width:100%;max-width:280px;border-radius:8px;display:block;margin-bottom:8px;">
+                <div style="display:flex;gap:8px;"><button type="button" onclick="triggerImgUpload(${src.id})" class="creator-btn secondary" style="padding:6px 12px;font-size:.76rem;">🔄 Changer</button><button type="button" onclick="removeSourceImg(${src.id})" class="creator-btn danger" style="padding:6px 12px;font-size:.76rem;">🗑️ Supprimer</button></div>`
+              : `<button type="button" onclick="triggerImgUpload(${src.id})" class="creator-btn secondary" style="padding:8px 16px;font-size:.82rem;">📸 Ajouter une photo</button><p style="color:var(--mu);font-size:.72rem;font-weight:600;margin-top:4px;margin-bottom:0;">JPEG, PNG ou WebP · max 2 Mo</p>`}
+              <input type="file" id="img-input-${src.id}" accept="image/jpeg,image/png,image/webp,image/gif" style="display:none;" onchange="uploadSourceImg(${src.id},this)">
+            </div>` : '';
+          const preview = buildPreviewFor(src);
+          return `<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;align-items:start;">
+            <div>${flds}${imgSection}</div>
+            <div id="vfmt-preview-${src.id}" style="pointer-events:none;transform-origin:top left;overflow:hidden;">${preview}</div>
+          </div>`;
+        })()}
       </div>
       <div class="form-group" style="margin-bottom:8px;">
         <label>🔍 Lien ou fichier de la source (optionnel, mode Fact-Checker)</label>
@@ -2264,6 +2301,16 @@ function saveQuestion(){
       };
       if(s.url && s.url.trim()) srcObj.url = s.url.trim();
       if(s.noSearch) srcObj.noSearch = true;
+      // Présentation visuelle — sauvegarder les champs du format choisi
+      if(s.vformat && s.vformat !== 'none'){
+        srcObj.vformat = s.vformat;
+        const fmtDef = FORMAT_DEFS.find(f => f.key === s.vformat);
+        if(fmtDef){
+          fmtDef.fields.forEach(f => { if(s[f.id] !== undefined && s[f.id] !== '') srcObj[f.id] = s[f.id]; });
+          if(fmtDef.initVals) Object.assign(srcObj, fmtDef.initVals);
+          if(fmtDef.hasImg && s.img) srcObj.img = s.img;
+        }
+      }
       return srcObj;
     })
   };
@@ -2330,7 +2377,9 @@ function editQuestion(index){
     ...s,
     id: Date.now() + i,
     url: s.url || '',
-    noSearch: s.noSearch || false
+    noSearch: s.noSearch || false,
+    vformat: s.vformat || 'none',
+    fb: s.fb || {tg:'',dg:'',tb:'',db:'',gen:''}
   }));
   renderSources();
   switchCreatorTab('edit');
@@ -2754,7 +2803,7 @@ function uploadSourceImg(srcId, input){
 
 function removeSourceImg(srcId){
   const src = currentSources.find(s => s.id === srcId);
-  if(src){ delete src.img; delete src.imgUser; delete src.imgLoc; delete src.imgLikes; delete src.imgAgo; }
+  if(src){ delete src.img; }
   renderSources();
 }
 

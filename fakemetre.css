@@ -398,6 +398,10 @@ button:focus-visible,a:focus-visible,[tabindex]:focus-visible,
 #feedback-btn:focus-visible{
   outline:3px solid var(--acc);outline-offset:3px;border-radius:8px;}
 
+/* ── Creator : présentation visuelle ── */
+#vfmt-preview-wrap{overflow:hidden;}
+@media(max-width:600px){.vfmt-grid{grid-template-columns:1fr !important;}}
+
 /* ── Feedback button (header) ── */
 #feedback-btn{background:rgba(168,85,247,.12);border:1px solid rgba(168,85,247,.4);border-radius:50px;padding:6px 18px;font-family:'Nunito',sans-serif;font-weight:700;font-size:.78rem;color:#a855f7;cursor:pointer;transition:all .2s;}
 #feedback-btn:hover{background:rgba(168,85,247,.25);border-color:rgba(168,85,247,.7);}
