@@ -1812,9 +1812,9 @@ function generateBilan(){
     // Analyser les votes VRAI/FAUX
     if(!h.wasCorrect){
       if(h.hasNuance && h.userVote !== 'nuance'){
-        missedNuances.push(h.question.slice(0,50)+'...');
+        missedNuances.push(h.question.length > 50 ? h.question.slice(0,50)+'...' : h.question);
       } else {
-        wrongVotes.push({q: h.question.slice(0,50)+'...', voted: h.userVote, correct: h.correctAnswer});
+        wrongVotes.push({q: h.question.length > 50 ? h.question.slice(0,50)+'...' : h.question, voted: h.userVote, correct: h.correctAnswer});
       }
     }
     
@@ -1831,7 +1831,7 @@ function generateBilan(){
       }
       // Mode junior: userTrusted
       if(se.likertScore === null){
-        if(se.userTrusted && !se.isGoodSource){
+        if(!se.userTrusted && !se.isGoodSource){
           trustedBadSources.push(se.sourceName);
         }
         if(!se.userTrusted && se.isGoodSource){
