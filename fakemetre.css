@@ -477,6 +477,16 @@ button:focus-visible,a:focus-visible,[tabindex]:focus-visible,
 .fake-linkedin-li-logo{width:20px;height:20px;background:#0a66c2;border-radius:3px;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:900;font-size:.62rem;flex-shrink:0;}
 .fake-linkedin-body{padding:0 14px 10px;font-size:.83rem;line-height:1.55;color:#333;}
 .fake-linkedin-foot{border-top:1px solid #e0e0e0;padding:7px 14px;display:flex;gap:12px;font-size:.7rem;color:#555;align-items:center;}
+/* ── Fake Video ── */
+.fake-video{background:#0f0f0f;border-radius:12px;overflow:hidden;font-style:normal;color:#fff;border:1px solid #2a2a2a;}
+.fake-video-player{background:#000;}
+.fake-video-player video{width:100%;display:block;max-height:210px;object-fit:contain;background:#000;}
+.fake-video-info{padding:10px 12px 12px;}
+.fake-video-title{font-size:.9rem;font-weight:700;line-height:1.35;color:#fff;margin-bottom:6px;}
+.fake-video-channel{display:flex;align-items:center;gap:7px;font-size:.75rem;color:#aaa;margin-bottom:5px;}
+.fake-video-channel-av{width:24px;height:24px;border-radius:50%;background:linear-gradient(135deg,#ff0000,#cc0000);display:flex;align-items:center;justify-content:center;font-size:.58rem;color:#fff;font-weight:900;flex-shrink:0;}
+.fake-video-meta{display:flex;gap:10px;font-size:.7rem;color:#888;margin-bottom:6px;flex-wrap:wrap;}
+.fake-video-desc{font-size:.8rem;color:#aaa;line-height:1.5;border-top:1px solid #222;padding-top:8px;margin-top:2px;}
 /* ── Medium badge extensions ── */
 .medium-badge.media{background:rgba(229,9,20,.18);color:#ff8080;}
 .medium-badge.book{background:rgba(26,58,110,.22);color:#7bb0f0;}

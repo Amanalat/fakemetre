@@ -265,6 +265,18 @@ function buildReddit(src){
   const body=escH(src.say);
   return `<div class="fake-reddit"><div class="fake-reddit-bar"><span class="fake-reddit-logo">Reddit</span><span class="fake-reddit-sub">${sub}</span></div><div class="fake-reddit-inner"><div class="fake-reddit-vote">▲<br>${upvotes}<br>▼</div><div class="fake-reddit-main"><div class="fake-reddit-title">${title}</div><div class="fake-reddit-meta">👤 ${user}</div><div class="fake-reddit-excerpt">${body}</div></div></div><div class="fake-reddit-foot"><span>💬 ${comments} ${isEn?'comments':'commentaires'}</span><span>🔗 ${isEn?'Share':'Partager'}</span></div></div>`;
 }
+function buildVideo(src){
+  const isEn=lang==='en';
+  const title=escH(src.videoTitle||src.n);
+  const channel=escH(src.videoChannel||'');
+  const views=escH(src.videoViews||'');
+  const date=escH(src.videoDate||'');
+  const vsrc=escH(src.videoSrc||'');
+  const body=escH(src.say);
+  const ini=channel.replace(/[^A-Za-z0-9]/g,'').substring(0,2).toUpperCase()||'YT';
+  const meta=[views?`👁 ${views}`:'',date?`📅 ${date}`:''].filter(Boolean).join(' · ');
+  return `<div class="fake-video"><div class="fake-video-player"><video controls preload="metadata" playsinline><source src="${vsrc}" type="video/mp4"></video></div><div class="fake-video-info"><div class="fake-video-title">${title}</div>${channel?`<div class="fake-video-channel"><div class="fake-video-channel-av">${ini}</div>${channel}</div>`:''} ${meta?`<div class="fake-video-meta">${meta}</div>`:''}<div class="fake-video-desc">${body}</div></div></div>`;
+}
 function buildLinkedIn(src){
   const isEn=lang==='en';
   const user=escH(src.linkedinUser||src.n);
@@ -292,5 +304,6 @@ function srcMedium(src){
   if(src.blogTitle)               return {ic:'✏️',lab:isEn?'Blog':'Blog',cls:'blog'};
   if(src.redditSub)               return {ic:'🔴',lab:'Reddit',cls:'social'};
   if(src.linkedinUser)            return {ic:'💼',lab:'LinkedIn',cls:'social'};
+  if(src.videoSrc)                return {ic:'▶️',lab:isEn?'Viral video':'Vidéo virale',cls:'media'};
   return {ic:'🗣️',lab:isEn?'Testimony':'Témoignage',cls:'testi'};
 }

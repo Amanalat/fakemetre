@@ -1549,6 +1549,9 @@ function openSrc(src,idx,btn){
   } else if(src.linkedinUser){
     sayEl.className='';sayEl.style.cssText='margin-bottom:16px;';
     sayEl.innerHTML=buildLinkedIn(src);
+  } else if(src.videoSrc){
+    sayEl.className='';sayEl.style.cssText='margin-bottom:16px;';
+    sayEl.innerHTML=buildVideo(src);
   } else {
     sayEl.className='mssays';
     sayEl.style.cssText='';
@@ -2025,6 +2028,8 @@ const FORMAT_DEFS = [
    fields:[{id:'adBrand',label:'Marque',ph:'SuperProduit®'},{id:'adType',label:'Type',ph:'tv',select:['tv','packaging','web','print','store']},{id:'adSlogan',label:'Slogan (optionnel)',ph:'La preuve par la science !'}]},
   {key:'media',     label:'🎬 Film / Documentaire / Média', emoji:'🎬',  triggerField:'mediaType',    hasImg:false, initVals:{},
    fields:[{id:'mediaTitle',label:'Titre',ph:'La Vérité sur…'},{id:'mediaType',label:'Type',ph:'film',select:['film','docu','tv','youtube','ted','game']},{id:'mediaYear',label:'Année',ph:'2022'},{id:'mediaDirector',label:'Réalisateur / Auteur',ph:'Jean Dupont'}]},
+  {key:'video',     label:'▶️ Vidéo (fichier local)',       emoji:'▶️',  triggerField:'videoSrc',     hasImg:false, initVals:{},
+   fields:[{id:'videoSrc',label:'Chemin du fichier',ph:'Vidéos/ma-video.mp4'},{id:'videoTitle',label:'Titre',ph:'SHOCKING: Cette loi existe vraiment !'},{id:'videoChannel',label:'Chaîne',ph:'WeirdFacts247'},{id:'videoViews',label:'Vues',ph:'1,400,000 views'},{id:'videoDate',label:'Date',ph:'1 year ago'}]},
   // Sagesse populaire
   {key:'quote',     label:'💬 Croyance / Proverbe',         emoji:'💬',  triggerField:'quoteType',    hasImg:false, initVals:{},
    fields:[{id:'quoteType',label:'Type',ph:'croyance',select:['croyance','proverbe','dicton','expression','intuition']},{id:'quoteOrigin',label:'Origine (optionnel)',ph:'Grand-mère, école…'}]},
@@ -2052,7 +2057,8 @@ function buildPreviewFor(src){
   const fn = {study:buildStudy, press:buildPress, gov:buildGov, expert:buildExpert,
     tweet:buildTweet, insta:buildInstaPost, linkedin:buildLinkedIn,
     reddit:buildReddit, forum:buildForum, whatsapp:buildWhatsApp, gmaps:buildGMaps,
-    book:buildBook, blog:buildBlog, ad:buildAd, media:buildMedia, quote:buildQuote}[src.vformat];
+    book:buildBook, blog:buildBlog, ad:buildAd, media:buildMedia, quote:buildQuote,
+    video:buildVideo}[src.vformat];
   return fn ? fn(src) : '';
 }
 
