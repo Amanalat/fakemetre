@@ -1,0 +1,60 @@
+SOURCES DES VIDÉOS — FakeMètre
+================================
+Généré le 2026-06-06
+
+Légende : [FR] = version française · [EN] = version anglaise
+          [bad] = mauvaise source (g:false) · [good] = bonne source (g:true)
+
+
+── MAUVAISES SOURCES ────────────────────────────────────────────────
+
+napoleon_pig_en.mp4
+  Question : "En France, la loi interdit d'appeler son cochon Napoléon" [EN]
+  Rôle     : [bad] Vidéo virale "WeirdLaws247" — affirme la fausse loi
+  Source   : Vidéo originale (enregistrée par l'auteur)
+
+poissons_memoire_3sec_fr.mp4
+  Question : "Les poissons ont une mémoire de 3 secondes" [FR]
+  Rôle     : [bad] Animation humoristique TikTok — propage le mythe sans le corriger
+  URL      : https://www.tiktok.com/@choss_le_vrai/video/7568529844686916886
+
+carottes_vision_en.mp4
+  Question : "Manger des carottes améliore la vision nocturne" [EN]
+  Rôle     : [bad] Animation TikTok ~712K vues — affirme "carrots are good for your eyesight" sans source
+  URL      : https://www.tiktok.com/@asdfcl1ps/video/7431699744025578794
+
+grande_muraille_espace_en.mp4
+  Question : "La Grande Muraille de Chine est visible depuis l'espace" [EN]
+  Rôle     : [bad] Vidéo YouTube — le titre lui-même affirme le mythe comme un fait
+  URL      : https://www.youtube.com/watch?v=enr1DHSVwgE
+
+
+── BONNES SOURCES ───────────────────────────────────────────────────
+
+brut_foudre_fr.mp4
+  Question : "La foudre ne tombe jamais deux fois au même endroit" [FR]
+  Rôle     : [good] TikTok Brut — debunk, ~55M vues
+  URL      : https://www.tiktok.com/@brutofficiel/video/7215593121181191450
+
+lumni_foudre_fr.mp4
+  Question : "La foudre ne tombe jamais deux fois au même endroit" [FR]
+  Rôle     : [good] YouTube Lumni "Data science vs Fake" — série éducative
+  URL      : https://www.youtube.com/watch?v=ja_2OEQv7Y4
+
+arte_grande_muraille_fr.mp4
+  Question : "La Grande Muraille de Chine est visible depuis l'espace" [FR]
+  Rôle     : [good] YouTube ARTE 28 minutes — documentaire debunk
+  URL      : https://www.youtube.com/watch?v=QcH5AXFamcE
+
+
+── NON TÉLÉCHARGÉES (vidéo privée/restreinte) ───────────────────────
+
+chewinggum_estomac_fr.mp4
+  Question : "Le chewing-gum prend 7 ans à se digérer" [FR]
+  Rôle     : [bad] TikTok @educanime — cite le mythe dans le titre
+  URL      : https://www.tiktok.com/@educanime/video/7430530742783905057
+
+autruche_tete_sable_fr.mp4
+  Question : "Les autruches enfouissent leur tête dans le sable" [FR]
+  Rôle     : [bad] TikTok @lesaistu_histoire — titre ambigu, ton à vérifier
+  URL      : https://www.tiktok.com/@lesaistu_histoire/video/7256473944226549019
