@@ -381,6 +381,20 @@ Realistic screenshot of an online article from a major French popular science ma
 
 ---
 
+## 🎯 NOTE DESIGN — NIVEAU EXPERT : casser la règle « fiable = vrai »
+
+> Pour le niveau **Expert** (au-dessus de PRO « Fact-Checker Confirmé »), prévoir des questions où la corrélation source ↔ véracité est **volontairement brisée**, afin de montrer que le réflexe « source fiable = vrai / source pas fiable = faux » est insuffisant. La vraie compétence, c'est d'évaluer la **méthode et les preuves**, pas seulement l'étiquette de la source.
+
+Deux ressorts à exploiter :
+- **Sources NON FIABLES qui disent pourtant la VÉRITÉ** : un témoignage anonyme qui a raison, un vendeur dont l'argument est factuellement exact, une rumeur virale qui se trouve être vraie, un forum qui tombe juste. → Montrer que se méfier (bon réflexe) peut mener à rejeter une info vraie.
+- **(Symétrique) Sources a priori FIABLES qui se trompent** : étude ensuite rétractée, expert qui parle hors de son domaine, institution qui a depuis révisé sa position, donnée datée.
+
+**But pédagogique :** un bon réflexe de méfiance peut produire une mauvaise conclusion — et inversement. C'est la **vérifiabilité** (méthode, preuves, reproductibilité, recoupement) qui tranche, pas le « type » de source.
+
+*Déjà amorcé dans quelques feedbacks (miel/apiculteur, forum cuisine : « l'info est vraie ici, mais te méfier reste le bon réflexe »). À **systématiser** au niveau Expert : prévoir au moins 1 à 2 sources « non fiables mais vraies » par question.*
+
+---
+
 ## CHECKLIST D'INTEGRATION
 Apres generation de chaque image :
 1. Sauvegarder dans images/NOM_FICHIER.png

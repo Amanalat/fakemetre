@@ -146,3 +146,103 @@ Double page ou couverture réaliste d'un magazine bien-être français. Esthéti
 ```
 Realistic wellness magazine double-page spread or cover. Glossy professional magazine aesthetic. Hero image: beautiful close-up photo of fresh carrots with green tops on a white background. Main headline in large bold orange font: "Carrots: the SUPERFOOD that boosts your eyesight!" Subheadline: "Grandma was right: one carrot a day and you'll see like a cat in the dark!" Magazine title at top: "HEALTH & WELLNESS". Pull quote box, article columns, page numbers visible. Professional editorial layout. Portrait format.
 ```
+
+---
+
+## 10. 🧠 Question HPI — « 30 % des surdoués en échec scolaire » (niveau PRO)
+*Affirmation FAUSSE : « Les enfants à haut potentiel (HPI) sont fragiles : un tiers d'entre eux finissent en échec scolaire. »*
+*Deux sources non fiables illustrées par image (une version FR + une version EN chacune).*
+
+### 10a. 📕 Couverture de livre best-seller — « Mon enfant est trop intelligent »
+*Fichiers cibles : `images/livre_hpi_echec.jpg` (FR) · `images/livre_hpi_echec_en.jpg` (EN)*
+
+**FR**
+```
+Couverture de livre de développement parental, format portrait. Photo douce et émouvante d'un enfant pensif regardant par une fenêtre, lumière tamisée. Grand titre : "MON ENFANT EST TROP INTELLIGENT". Sous-titre en bandeau rouge accrocheur : "Pourquoi 1 surdoué sur 3 finit en échec scolaire — et comment l'éviter". Nom d'auteur fictif avec mention "Psychologue". Bandeau "BEST-SELLER — 200 000 exemplaires vendus". Design de livre grand public émotionnel.
+```
+
+**EN**
+```
+Parenting self-help book cover, portrait format. Soft emotional photo of a pensive child looking out a window, dim lighting. Large title: "MY CHILD IS TOO SMART". Catchy red banner subtitle: "Why 1 in 3 gifted kids fails at school — and how to prevent it". Fictional author name with "Psychologist" credential. "BESTSELLER — 200,000 copies sold" badge. Emotional mainstream book design.
+```
+
+### 10b. 💬 Capture de forum de parents — témoignage HPI
+*Fichiers cibles : `images/forum_hpi_echec.jpg` (FR) · `images/forum_hpi_echec_en.jpg` (EN)*
+
+**FR**
+```
+Capture d'écran d'un fil de forum de parents français, format paysage. Pseudo "mamanlou2010", message : "Mon fils est HPI testé à 138 et il est en échec total au collège. C'est bien connu, 30% des surdoués sont en échec, on en parle jamais assez !". Quelques réponses approbatrices visibles, avatars génériques, "il y a 2 ans", 12 likes. Interface forum un peu datée, fond clair.
+```
+
+**EN**
+```
+Screenshot of an English-language parenting forum thread, landscape format. Username "giftedmom", message: "My son is gifted, tested at 138, and he's completely failing middle school. It's well known that 30% of gifted children are failing — we never talk about it enough!". A few approving replies visible, generic avatars, "2 years ago", 12 likes. Slightly dated forum UI, light background.
+```
+
+---
+
+## 📝 Journal des mises à jour
+
+### 2026-06-12 — Ajout de la question HPI (niveau PRO)
+- **Nouvelle question** ajoutée en fin de niveau PRO dans `questions_fr.js` **et** `questions_en.js` :
+  *« Les enfants à haut potentiel (HPI) sont fragiles : un tiers d'entre eux finissent en échec scolaire. »* → **FAUSSE** (biais d'échantillonnage clinique + chiffre sans source).
+- **4 sources** par question, dont **2 illustrées par les images créées par l'utilisateur** :
+  1. 📊 *fiable* — étude de cohorte longitudinale (carte `studyJournal`, sans image)
+  2. 🎓 *fiable* — chercheur en psychologie du développement (carte `expertTitle`, sans image)
+  3. 📕 *non fiable* — couverture de livre best-seller → **image**
+  4. 💬 *non fiable* — témoignage de forum de parents → **image**
+- **Images traitées** (créées par l'utilisateur, à l'origine des PNG ChatGPT ~2 Mo) :
+  - Compressées et converties en JPG (qualité 82, redimensionnées) : **~2 Mo → ~80–125 Ko** chacune.
+  - Renommées et placées dans `images/` :
+    | Ancien (PNG) | Nouveau (JPG) |
+    |---|---|
+    | `ChatGPT Image … 13_47_04.png` | `livre_hpi_echec.jpg` |
+    | `ChatGPT Image … 13_51_09.png` | `livre_hpi_echec_en.jpg` |
+    | `ChatGPT Image … 13_47_55.png` | `forum_hpi_echec.jpg` |
+    | `ChatGPT Image … 13_50_09.png` | `forum_hpi_echec_en.jpg` |
+  - Les PNG d'origine ont été supprimés.
+- Les images sont **propres à chaque langue** (texte FR vs EN) : `questions_fr.js` pointe vers les fichiers sans suffixe, `questions_en.js` vers les fichiers `_en`.
+
+### 2026-06-12 (suite) — Intégration des 3 questions « psy » (langue, Maslow, styles d'apprentissage)
+Les 3 questions proposées ont été **intégrées** (FR + EN), avec **8 images** traitées (compressées en JPG, ~1,5–2,8 Mo → ~70–180 Ko, PNG d'origine supprimés) :
+
+- 👅 **Carte des zones de la langue** (niveau **INTER**, `questions_fr.js` / `questions_en.js`) — **FAUSSE**. **4 sources** : étude (fiable) · chercheuse en physiologie du goût (fiable) · **un PROF qui enseigne le mythe de bonne foi** (non fiable, carte texte) · **schéma de manuel scolaire** (non fiable, image `manuel_zones_langue`).
+  - ⚠️ Choix final des images : on **garde le manuel** (visuel très connu) et on **retire le TikTok**. Les images `tiktok_test_langue.jpg` / `_en.jpg` ont été **supprimées**.
+  - 🆕 Avatar **👨‍🏫 prof** ajouté au moteur (`fakemetre-cards.js`, `buildExpert`) : déclenché par `prof` / `enseign` / `instit` / `teacher`.
+- 🔺 **Pyramide de Maslow** (niveau **PRO**) — **FAUSSE**. 4 sources : étude 123 pays (fiable) · historien de la psychologie (fiable) · slide de séminaire (image `slide_maslow_pyramide`) · post LinkedIn de coach (carte texte).
+- 🎨 **Styles d'apprentissage (VAK)** (niveau **PRO**) — **FAUSSE**. 4 sources : synthèse Pashler (fiable) · neuroscientifique de l'éducation (fiable) · quiz en ligne (image `quiz_styles_apprentissage`) · blog de formation pour enseignants (carte texte).
+
+Images ajoutées (FR + `_en`) : `manuel_zones_langue`, `slide_maslow_pyramide`, `quiz_styles_apprentissage`. (`tiktok_test_langue` généré puis supprimé.)
+Les **prompts correspondants ont été retirés de `TODO_FAKEMETRE.md`** (questions terminées). La note design « niveau Expert » y est conservée.
+
+---
+
+### 2026-06-13 — 2 nouvelles questions « esprit critique » (souvenirs refoulés + règle de Mehrabian)
+
+**Question A — niveau PRO** (`questions_fr.js` / `questions_en.js`) — *« L'être humain est capable de refouler des souvenirs traumatisants… »* → **NUANCÉE**.
+4 sources, **aucune image à générer** :
+1. 📊 *fiable* — Otgaar et al. 2019, *Perspectives on Psychological Science* (carte `studyJournal` + `url` DOI)
+2. 🎓 *fiable* — Brewin 2007, revue *Memory* (carte `studyJournal` + `url` DOI)
+3. 🎬 *non fiable* — documentaire « Mémoires enfouies » (carte `mediaType:'docu'`, **pas d'image**)
+4. 💻 *non fiable* — post d'hypnothérapeute (carte `linkedinUser`, **pas d'image**)
+
+**Question B — niveau INTER** (`questions_fr.js` / `questions_en.js`) — *« Les mots ne comptent que pour 7 % du message : 38 % la voix, 55 % le corps. »* → **FAUSSE** (règle de Mehrabian détournée).
+4 sources, dont **1 image à générer** :
+1. 🎓 *fiable* — Albert Mehrabian lui-même (carte `expertTitle` + `url` Wikipédia)
+2. 📊 *fiable* — revue de sciences de la communication (carte `studyJournal`)
+3. 🎤 *non fiable* — coach en prise de parole / formation (carte texte `expertTitle`)
+4. 📱 *non fiable* — **infographie virale 7-38-55** → **image** `infographie_mehrabian.jpg` / `infographie_mehrabian_en.jpg`
+
+## Infographie virale — règle de Mehrabian 7-38-55
+*Source non fiable — question : « Les mots ne comptent que pour 7 % du message »*
+*Fichiers cibles : `images/infographie_mehrabian.jpg` et `images/infographie_mehrabian_en.jpg`*
+
+**FR**
+```
+Infographie virale de développement personnel, format carré, à partager sur les réseaux sociaux. Un grand camembert (diagramme circulaire) coloré divisé en 3 parts : une grosse part 55 % "Langage du corps" (bleu), une part 38 % "Voix / ton" (orange), une toute petite part 7 % "Mots" (gris). Titre en haut en gros caractères gras : "LA RÈGLE DE LA COMMUNICATION". Sous-titre accrocheur : "93 % de votre impact est NON-VERBAL !". Style moderne, plat, couleurs vives, icônes minimalistes (bouche, oreille, silhouette). Aucune source ni référence scientifique citée. Petit logo de coach générique en bas. Esthétique LinkedIn / Instagram motivationnelle.
+```
+
+**EN**
+```
+Viral self-improvement infographic, square format, made to be shared on social media. A large colorful pie chart split into 3 slices: a big 55% "Body language" slice (blue), a 38% "Voice / tone" slice (orange), and a tiny 7% "Words" slice (grey). Bold headline at the top: "THE RULE OF COMMUNICATION". Catchy subtitle: "93% of your impact is NON-VERBAL!". Modern flat style, bright colors, minimalist icons (mouth, ear, silhouette). No source or scientific reference cited. Small generic coach logo at the bottom. Motivational LinkedIn / Instagram aesthetic.
+```

@@ -1,5 +1,19 @@
 # Nouveautés FakeMètre
 
+## Mise à jour — 13 juin 2026
+
+### 🧠 Deux nouvelles questions sur les idées reçues
+
+Deux questions inédites font leur entrée, sur des mythes très répandus :
+
+- **Niveau Enquêteur** — *« Quand on communique, les mots ne comptent que pour 7 % du message : 38 % vient de la voix et 55 % du corps. »* C'est la fameuse règle « 7-38-55 » de Mehrabian, l'un des mythes les plus tenaces des formations en communication. Le joueur découvre que ces chiffres, bien réels à l'origine, ne valent que pour un cas très précis (un message contradictoire portant sur une émotion) — et que les généraliser est abusif… ce que l'auteur lui-même a rappelé !
+
+- **Niveau Fact-Checker** — *« L'être humain peut refouler un souvenir traumatisant, qui resurgit intact des années plus tard. »* Une **question nuancée** au cœur d'une vraie controverse scientifique (les « memory wars »). Elle apprend à distinguer un débat d'experts légitime d'une fausse certitude vendue par certains thérapeutes — et à se méfier des « souvenirs retrouvés » sous suggestion.
+
+Comme toujours, chaque question propose **4 sources à évaluer** : certaines fiables (avec liens vers les études d'origine), d'autres trompeuses.
+
+---
+
 ## Mise à jour — 23 mai 2026
 
 ### 🔍 Sources masquées jusqu'au premier clic
