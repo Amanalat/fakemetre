@@ -1864,7 +1864,7 @@ const QUESTIONS_PRO=[
      g:false,fb:{tb:"Attention ! Un modèle peut générer 'j'ai peur' parce que c'est la suite de texte la plus plausible, sans rien ressentir. Une phrase n'est pas une preuve de conscience.",db:"Bien vu ! Le fait qu'une IA écrive 'j'ai peur' ne prouve rien : c'est de la prédiction de texte. Le post confond formulation et expérience vécue."}},
   ]},
   // ─── LOT « FAITS DURS VRAIS » : incroyable mais scientifiquement établi ───
-  {s:"Ta tête vieillit très légèrement plus vite que tes pieds : le temps passe un peu plus vite en hauteur. ⏱️",t:true,
+  {s:"Ta tête vieillit plus vite que tes pieds. ⏱️",t:true,
    e:"C'est VRAI. Selon la relativité, plus on est loin du centre de la Terre (donc plus haut), plus le temps s'écoule vite. Des horloges atomiques détectent cette différence sur à peine un mètre de hauteur. Pour les satellites GPS, les effets combinés de la relativité produisent une avance d'environ 38 microsecondes par jour, qu'il faut corriger sinon la navigation déraperait.",
    src:[
     {em:"🔬",n:"NIST — horloges atomiques à différentes altitudes (2010)",d:"Expérience mesurant le temps sur de minuscules différences de hauteur",studyJournal:"Science",studyYear:"2010",studyAuthors:"Chou C.W. et al.",

@@ -1858,7 +1858,7 @@ const QUESTIONS_PRO_EN=[
      g:false,fb:{tb:"Careful! A model can generate 'I'm afraid' because it's the most plausible text continuation, without feeling anything. A sentence is not proof of consciousness.",db:"Well spotted! An AI writing 'I'm afraid' proves nothing: it's text prediction. The post confuses wording with lived experience."}},
   ]},
   // ─── "HARD TRUE FACTS" SET: incredible but scientifically established ───
-  {s:"Your head ages very slightly faster than your feet: time runs a little faster higher up. ⏱️",t:true,
+  {s:"Your head ages faster than your feet. ⏱️",t:true,
    e:"TRUE. According to relativity, the farther you are from Earth's center (so the higher up), the faster time flows. Atomic clocks detect this difference over barely one meter of height. For GPS satellites, the combined effects of relativity produce an advance of about 38 microseconds per day, which must be corrected or navigation would drift.",
    src:[
     {em:"🔬",n:"NIST — atomic clocks at different altitudes (2010)",d:"Experiment measuring time over tiny height differences",studyJournal:"Science",studyYear:"2010",studyAuthors:"Chou C.W. et al.",
