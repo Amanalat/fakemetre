@@ -1,5 +1,60 @@
 # Nouveautés FakeMètre
 
+## Mise à jour — 14 juin 2026 (lots « Découvertes » & « Animaux »)
+
+### 🌍 17 nouvelles questions Enquêteur — géographie, histoire, espace
+
+Le **niveau Enquêteur** s'enrichit de 17 questions « incroyable mais vrai » (sauf la première, un mythe à corriger), pensées pour entraîner le réflexe : **ne pas rejeter un fait surprenant, mais le vérifier**.
+
+- **Idée reçue corrigée** : « les humains descendent des singes actuels » → faux (ancêtre commun).
+- **Vrais faits étonnants** : la Russie plus vaste que Pluton · la projection de Mercator qui rapetisse l'Afrique · le Chimborazo plus loin du centre de la Terre que l'Everest · Cléopâtre plus proche de l'iPhone que des pyramides · sur Vénus, le jour dure plus que l'année · l'origine tchèque du mot « robot » · Oxford plus ancien que l'Empire aztèque · le lac Vostok sous la glace · la faible lumière émise par le corps · les 12 fuseaux horaires de la France · la tyrolienne Espagne→Portugal · l'Alaska à la fois le plus à l'ouest et à l'est · les îles Diomède (~21 h d'écart) · la plus grande cascade, sous-marine · l'Amazonie fertilisée par le Sahara · plus d'étoiles que de grains de sable.
+
+### 🦋 5 nouvelles questions Apprenti — animaux & nature
+
+Cinq questions toutes simples et **vraies** pour les plus jeunes : les **crottes cubiques du wombat**, les **papillons qui goûtent avec leurs pattes**, les **pupilles rectangulaires des chèvres**, le **Canada champion des lacs**, et la **méduse qui peut redevenir « bébé »**.
+
+> **Total ajouté ces deux jours : +43 questions** (21 Fact-Checker + 17 Enquêteur + 5 Apprenti), en français **et** en anglais. Le jeu passe de 68 à **111 questions par langue**.
+
+---
+
+## Mise à jour — 13 juin 2026 (lot « Raisonnement »)
+
+### 🧮 9 nouvelles questions Fact-Checker — pièges de logique et de statistiques
+
+Un gros lot de questions inédites rejoint le **niveau Fact-Checker**, autour des erreurs de raisonnement les plus subtiles (confusion entre statistique et causalité, entre modèle et réalité) :
+
+1. **« Un trait héréditaire à 80 % est dû à 80 % aux gènes chez chaque personne »** → l'héritabilité décrit une *population*, pas un individu.
+2. **« Espérance de vie de 30 ans = la plupart mouraient vers 30 ans »** *(nuancée)* → la mortalité infantile écrase la moyenne.
+3. **« À force d'antibiotiques, c'est notre corps qui devient résistant »** → ce sont les bactéries, pas l'organisme.
+4. **« Aller mieux sous placebo prouve que la pensée guérit »** *(nuancée)* → régression vers la moyenne et évolution naturelle de la maladie.
+5. **« L'évolution perfectionne progressivement les espèces »** → la sélection n'a ni but ni sommet.
+6. **« Une espèce fabrique la mutation dont elle a besoin »** → les mutations sont aléatoires (expérience de Luria-Delbrück).
+7. **« En quantique, la conscience crée la réalité »** *(nuancée)* → un simple détecteur suffit à « mesurer ».
+8. **« La vie contredit la thermodynamique (entropie) »** → la Terre est un système ouvert alimenté par le Soleil.
+9. **« Un trou noir aspire tout autour de lui »** → à distance, même gravité qu'une masse équivalente.
+
+**Nouveauté pédagogique sur les sources :** ce lot introduit, **de temps en temps seulement** (pour ne pas en faire une règle devinable), des sources au **format « peu fiable » (réseau social, vidéo) qui sont en réalité fiables** car tenues par un vulgarisateur compétent qui cite ses preuves — et inversement des formats prestigieux (livre, manuel, documentaire) qui se trompent. Objectif : apprendre à juger **qui parle et avec quelles preuves**, pas l'emballage.
+
+### 🌌 5 questions « controverses » — quand la science n'a PAS (encore) tranché
+
+Toujours au **niveau Fact-Checker**, cinq questions **nuancées** sur de vrais débats scientifiques ouverts en 2026. Le piège : croire que « la science a forcément une réponse définitive ».
+
+1. **La conscience** — neurosciences : énigme toujours ouverte (expérience adverse *Nature* 2025, sans vainqueur).
+2. **La cosmologie** — tension de Hubble et indices de DESI : le modèle est peut-être incomplet.
+3. **L'origine de la vie** — plusieurs scénarios sérieux encore en compétition.
+4. **Les points de bascule du climat** — ⚠️ l'origine **humaine** du réchauffement fait consensus ; seuls les **seuils exacts** sont incertains (la question apprend à ne pas confondre les deux).
+5. **L'IA consciente** — débat ouvert, faute même de test partagé de la conscience.
+
+### 🤯 7 questions « incroyable mais vrai » — ne pas rejeter un fait surprenant
+
+Sept faits **réellement établis** mais difficiles à croire, pour entraîner le réflexe inverse : ne pas écarter une info juste parce qu'elle paraît folle (ni la déformer) :
+
+- Ta tête vieillit un peu plus vite que tes pieds (relativité, GPS) · Réacteurs nucléaires naturels d'Oklo · Les orages produisent de l'antimatière · ~8 % de notre ADN est d'origine virale · Sur Mercure, le Soleil peut « reculer » · Des microbes survivent 100 millions d'années · Une cuillère d'étoile à neutrons ≈ 1 milliard de tonnes.
+
+> **Bilan niveau Fact-Checker : +21 questions** (9 raisonnement + 5 controverses + 7 faits vrais).
+
+---
+
 ## Mise à jour — 13 juin 2026
 
 ### 🧠 Deux nouvelles questions sur les idées reçues

@@ -246,3 +246,139 @@ Infographie virale de développement personnel, format carré, à partager sur l
 ```
 Viral self-improvement infographic, square format, made to be shared on social media. A large colorful pie chart split into 3 slices: a big 55% "Body language" slice (blue), a 38% "Voice / tone" slice (orange), and a tiny 7% "Words" slice (grey). Bold headline at the top: "THE RULE OF COMMUNICATION". Catchy subtitle: "93% of your impact is NON-VERBAL!". Modern flat style, bright colors, minimalist icons (mouth, ear, silhouette). No source or scientific reference cited. Small generic coach logo at the bottom. Motivational LinkedIn / Instagram aesthetic.
 ```
+
+---
+
+# 🆕 Lots « Raisonnement / Découvertes / Animaux » (juin 2026)
+
+## ⚙️ Règles de génération — À LIRE D'ABORD
+
+1. **L'image = le visuel SEUL.** Pour ces sources, le jeu (`buildInstaPost`, voir `index.html` ~l.1494, déclenché quand une source a `img` **et** `imgUser`) dessine lui-même tout l'habillage Instagram : avatar, **nom du compte**, nombre de likes, date **et la légende** (le texte du champ `say`). Il ne faut donc générer **AUCUNE interface, AUCUN texte, AUCUN nom de compte, AUCUN like, AUCUN badge/tampon** dans l'image — uniquement la photo / l'illustration / la carte.
+2. **Vraie image > génération IA, dès que c'est possible.** Cartes, photos d'animaux, paysages, frises iconiques : prendre une **vraie image libre de droits** (Wikimedia Commons, NASA, banques d'images domaine public) — c'est plus crédible, gratuit, et l'IA rend très mal les cartes et tout texte. L'IA n'est gardée que pour les scènes « mises en scène » qui n'existent pas en photo (labo, aura, Cléopâtre devant des pyramides neuves…).
+3. **Noms de comptes : déjà dans le JS**, champ `imgUser` de `questions_fr.js` / `questions_en.js`. Ils ont été choisis **crédibles et trompeurs** (« Passion Histoire », « Un Fait Par Jour », faux comptes « anti-fake » qui se trompent…). Ne PAS les réincruster dans l'image.
+4. **Format** ~1:1 (ou paysage pour cartes/frises). Fichiers cibles : `images/<nom>_fr.jpg` et `images/<nom>_en.jpg`. Comme le visuel ne contient aucun texte, **le même fichier peut servir en FR et en EN** (dupliquer suffit).
+5. Sous chaque entrée : 📷 = privilégier une vraie image · 🖼️ = génération IA · 🎬 = une vraie vidéo courte (TikTok/Reels) serait pertinente. La « légende du jeu » rappelée n'est PAS à mettre dans l'image (elle est affichée automatiquement).
+
+---
+
+## 11. 🧪 post_vie_labo — PRO · 🖼️ IA
+*Compte (JS) : « Science au Quotidien » / « Science Daily ». Légende du jeu : « INCROYABLE : des chercheurs ont fabriqué une cellule vivante à partir de rien ! »*
+```
+Photo macro cinématographique d'une fiole de laboratoire en verre posée sur une paillasse sombre, contenant un liquide bleu-vert lumineux d'où émerge une petite forme cellulaire translucide et brillante. Halo de lumière futuriste, particules en suspension, faible profondeur de champ. Aucun texte, aucun logo, aucune interface. Format ~1:1, couleurs saturées.
+```
+
+## 12. 🌍 post_climat_2027 — PRO · 📷 vraie photo prioritaire
+*Compte : « Planète Demain » / « Tomorrow's Planet ». Légende : « L'Amazonie s'effondrera exactement en 2027… »*
+**📷 Priorité :** vraie photo d'**incendie de forêt tropicale** (Wikimedia Commons / banque libre). Recadrer ~1:1, ne rien incruster.
+**🖼️ Sinon IA :**
+```
+Vue aérienne dramatique et photoréaliste d'une forêt tropicale partiellement ravagée par des flammes orange et une épaisse fumée, ciel rougeoyant. Cadrage large. Aucun texte ni chiffre incrusté, aucune interface. Format ~1:1.
+```
+
+## 13. 🐒 humains_singes — ENQUÊTEUR · 📷 vraie image prioritaire
+*Compte : « La Science Simplement » / « Science Made Simple ». Légende : « …la preuve qu'on descend directement du singe ! »*
+**📷 Priorité :** la frise iconique **« March of Progress »** (version libre de droits / redessinée, Wikimedia Commons). C'est l'image exacte du mythe → très crédible.
+**🖼️ Sinon IA :**
+```
+Illustration façon manuel scolaire : frise linéaire de gauche à droite, un chimpanzé courbé se redressant par étapes successives jusqu'à un humain moderne debout ; silhouettes marron en dégradé sur fond beige clair. Aucun texte, aucune interface. Format paysage.
+```
+
+## 14. 🪐 russie_pluton — ENQUÊTEUR · 📷 composite de vraies images
+*Compte : « Le Vrai du Faux » / « Fact or Fiction » (faux compte anti-fake). Légende : « Une PLANÈTE plus petite qu'un pays ?? »*
+**📷 Priorité :** composite de **vraie photo de Pluton (NASA, domaine public)** + **vraie carte/silhouette de la Russie**, côte à côte sur fond noir.
+**🖼️ Sinon IA :**
+```
+Sur fond spatial étoilé sombre, comparaison côte à côte : à gauche la planète naine Pluton (petite, surface beige-rosée réaliste), à droite la silhouette de la Russie nettement plus grande. Aucun texte, aucun emoji, aucune interface. Format ~1:1.
+```
+
+## 15. 🗺️ mercator_afrique — ENQUÊTEUR · 📷 VRAIE CARTE (✅ FAIT)
+*Compte : « Passion Géographie » / « Geography Lovers ». Légende : « L'Afrique est petite, c'est écrit sur toutes les cartes du monde… »*
+**✅ Déjà en place :** vraie carte du monde en projection de Mercator (`images/mercator_afrique_fr.jpg` et `_en.jpg`, copiées depuis `images/Mercator-projection.jpg`). Aucune génération nécessaire.
+
+## 16. 👑 cleopatre_iphone — ENQUÊTEUR · 🖼️ IA
+*Compte : « Passion Histoire » / « History Passion ». Légende : « …l'Égypte ancienne, c'était une seule grande époque ! »*
+```
+Illustration colorée et léchée : Cléopâtre (reine égyptienne stylisée) posant fièrement au premier plan, devant trois pyramides de Gizeh représentées flambant neuves — pierres dorées impeccables, arêtes parfaites — sous un ciel bleu lumineux. Aucun texte, aucune interface. Format ~1:1.
+```
+
+## 17. ❄️ lac_vostok — ENQUÊTEUR · 📷 vraie photo prioritaire
+*Compte : « Esprit Critique » / « Critical Thinking » (faux compte anti-fake). Légende : « Un lac LIQUIDE sous la glace de l'Antarctique ?! Évidemment faux… »*
+**📷 Priorité :** vraie photo de **paysage glacé / calotte de l'Antarctique** (Wikimedia, domaine public).
+**🖼️ Sinon IA :**
+```
+Vaste paysage glacé d'Antarctique photoréaliste : étendue de glace blanche et bleutée à perte de vue, ciel froid. Aucun texte ni tampon, aucune interface. Format ~1:1.
+```
+
+## 18. ✨ aura_corps — ENQUÊTEUR · 🖼️ IA
+*Compte : « Harmonie & Bien-être » / « Wellness & Harmony ». Légende : « …ton corps brille d'une AURA colorée ! »*
+```
+Silhouette d'une personne assise en méditation, entourée d'une aura arc-en-ciel lumineuse et exagérée (halo coloré rayonnant). Esthétique bien-être / spiritualité, dégradés doux. Aucun texte, aucune interface. Format ~1:1.
+```
+
+## 19. 🛷 tyrolienne — ENQUÊTEUR · 📷 vraie photo prioritaire
+*Compte : « Carnets de Voyage » / « Travel Diaries ». Légende : « Changer de pays ET d'heure en tyrolienne ? Pur marketing… »*
+**📷 Priorité :** vraie photo d'une **tyrolienne au-dessus d'un fleuve** (idéalement la « Limite Zero » Sanlúcar de Guadiana ↔ Alcoutim, sinon toute tyrolienne franchissant un cours d'eau).
+**🖼️ Sinon IA :**
+```
+Photo d'une tyrolienne (câble tendu) au-dessus d'un large fleuve entre deux rives boisées, une personne en train de glisser le long du câble, lumière de fin d'après-midi. Aucun texte, aucune interface. Format ~1:1.
+```
+
+## 20. ⏳ diomede — ENQUÊTEUR · 📷 vraie image prioritaire
+*Compte : « Un Fait Par Jour » / « One Fact a Day ». Légende : « …il y a EXACTEMENT 24 heures de décalage… » (exagéré : la réalité est ~21 h)*
+**📷 Priorité :** vraie **carte ou vue satellite des deux îles Diomède** dans le détroit de Béring (Wikimedia / NASA).
+**🖼️ Sinon IA :**
+```
+Vue cartographique réaliste d'un détroit avec deux petites îles rocheuses séparées par un bras de mer étroit, océan bleu profond autour. Aucun texte, aucune étiquette, aucune interface. Format ~1:1.
+```
+
+## 21. 🏖️ univers_etoiles — ENQUÊTEUR · 📷 vraies photos prioritaires
+*Compte : « Pense Par Toi-Même » / « Think for Yourself » (faux compte « rationaliste »). Légende : « Personne n'a jamais compté les étoiles NI les grains de sable… »*
+**📷 Priorité :** composite de deux **vraies photos** : un ciel étoilé dense (Voie lactée) + un gros plan de sable de plage.
+**🖼️ Sinon IA :**
+```
+Image en diptyque : à gauche un ciel nocturne étoilé extrêmement dense (Voie lactée), à droite un gros plan macro de grains de sable de plage. Aucun texte, aucune interface. Format ~1:1.
+```
+
+## 22. 🟫 wombat_crottes — APPRENTI · 📷 vraie photo prioritaire
+*Compte : « Le Coin des Curieux » / « The Curious Corner ». Légende : « Des crottes carrées ?! Mais bien sûr 🙄 … »*
+**📷 Priorité :** vraie photo d'un **wombat** (et si possible une vraie photo de ses **crottes cubiques**, qui existent en ligne).
+**🖼️ Sinon IA :**
+```
+Photo d'un wombat mignon et réaliste dans l'herbe, en pied. Aucun texte, aucun symbole, aucune interface. Format ~1:1.
+```
+
+## 23. 🐐 chevre_pupille — APPRENTI · 📷 vraie photo prioritaire
+*Compte : « Démêle le Vrai » / « Spot the Truth » (faux compte anti-fake). Légende : « Cette photo de chèvre aux yeux rectangulaires est forcément retouchée… »*
+**📷 Priorité :** vraie **photo en gros plan de l'œil d'une chèvre** montrant nettement la pupille rectangulaire horizontale (Wikimedia / banque libre). Très frappant et 100 % réel.
+**🖼️ Sinon IA :**
+```
+Gros plan photoréaliste de l'œil d'une chèvre, montrant clairement la pupille rectangulaire horizontale, iris doré. Aucun texte, aucun tampon, aucune interface. Format ~1:1.
+```
+
+## 24. 🪼 meduse_immortelle — APPRENTI · 📷 vraie photo prioritaire
+*Compte : « Stop aux Intox » / « Stop the Hoaxes » (faux compte anti-fake). Légende : « Une méduse « immortelle » qui rajeunit ? Évidemment faux… »*
+**📷 Priorité :** vraie **photo d'une petite méduse translucide** (idéalement Turritopsis, sinon une méduse translucide proche), fond sombre.
+**🖼️ Sinon IA :**
+```
+Photo macro d'une petite méduse translucide et délicate flottant dans une eau sombre, légèrement éclairée, tentacules fins visibles. Aucun texte, aucun symbole, aucune interface. Format ~1:1.
+```
+
+---
+
+## 🎬 Pistes vidéos courtes (TikTok / Reels) — sources à récupérer sur les réseaux
+
+Le jeu sait afficher de **vraies vidéos** (champ `videoSrc` → mp4 dans `Vidéos/`, avec `videoTitle`, `videoChannel`…). **Condition :** ne proposer une vidéo que si elle est **facile à trouver en ligne** (sinon rester sur une image). Idées d'ajouts pertinents (récupérer une vraie courte vidéo et l'ajouter comme source) :
+
+**Source FIABLE (vulgarisateur sérieux), à utiliser de temps en temps :**
+- **PRO – antibiotiques / résistance** : clip d'un·e microbiologiste qui explique « ce n'est pas ton corps mais les bactéries » (renforce la leçon « réseau social peut être fiable »).
+- **PRO – évolution** : extrait d'un vidéaste sciences expliquant « pas de sommet de l'évolution ».
+- **ENQUÊTEUR – Mercator** : courte vidéo qui superpose les pays à leur vraie taille (très visuel, fiable).
+- **ENQUÊTEUR – Vénus jour>année** ou **trou noir** : extrait d'astrovulgarisation.
+
+**Source PIÈGE (vidéo virale trompeuse) :**
+- **PRO – placebo / IA consciente** : clip d'un « coach » ou d'une capture de chatbot « avouant » sa conscience.
+- **ENQUÊTEUR – tyrolienne** : vraie vidéo POV de la tyrolienne (spectaculaire, sert d'accroche).
+- **ENQUÊTEUR – Diomède** : vidéo « il est demain sur l'autre île ! » (souvent exagérée à 24 h).
+- **APPRENTI – wombat crottes** : clip animalier viral (le format vidéo colle bien au niveau jeune).
+
+> Convention : déposer le mp4 dans `Vidéos/`, puis source `{videoSrc:"Vidéos/xxx.mp4", videoTitle, videoChannel, videoDate, url, say, g, fb}`. Privilégier des vidéos courtes (<60 s) et, si possible, libres ou intégrées via lien officiel.
