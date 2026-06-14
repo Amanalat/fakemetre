@@ -1153,6 +1153,28 @@ const QUESTIONS_INTER=[
 // NIVEAU PRO, Fact-Checker Confirmé (4e → 3e)
 // ═══════════════════════════════════════════════
 const QUESTIONS_PRO=[
+  {s:"En 1933, Hitler a été élu chancelier démocratiquement au suffrage universel par les Allemands. 🗳️",t:false,
+   e:"C'est FAUX. Hitler n'a pas été élu : il a été nommé chancelier par le président Hindenburg le 30 janvier 1933. Sous la République de Weimar, le chancelier n'était pas élu au suffrage universel. Le parti nazi n'a d'ailleurs jamais obtenu la majorité absolue lors d'une élection libre (37 % au maximum, en juillet 1932), et Hitler s'est aussitôt servi du pouvoir pour détruire la démocratie.",
+   src:[
+    {em:"🎓",n:"Historienne spécialiste de l'Allemagne nazie",d:"Professeure d'histoire contemporaine à l'université",
+     url:"https://fr.wikipedia.org/wiki/Adolf_Hitler",
+     say:"« Hitler n'a jamais été élu chancelier. Il a été nommé par le président Hindenburg en janvier 1933. Sous Weimar, le chancelier était désigné par le président, pas par un vote populaire. »",
+     g:true,fb:{tg:"Parfait ! Une historienne spécialiste qui s'appuie sur des faits et des dates précises, c'est exactement la source à consulter sur une question historique.",dg:"Dommage ! Une historienne spécialiste de la période, c'est la meilleure source possible. Son explication est précise et vérifiable."},
+     expertTitle:'Historienne, professeure d\'histoire contemporaine',expertInstitution:'Université'},
+    {em:"📗",n:"Encyclopædia Universalis",d:"Encyclopédie de référence rédigée par des spécialistes",
+     url:"https://fr.wikipedia.org/wiki/%C3%89lections_l%C3%A9gislatives_allemandes_de_juillet_1932",
+     say:"« Aux dernières élections libres de 1932, le parti nazi plafonne à 37 % des voix, sans jamais atteindre la majorité absolue. Hitler accède au pouvoir par une nomination, pas par une élection. »",
+     g:true,fb:{tg:"Excellent ! Une encyclopédie de référence cite des chiffres vérifiables et des faits établis. C'est une source solide pour l'histoire.",dg:"Dommage ! L'Encyclopædia Universalis est rédigée et vérifiée par des spécialistes. Les chiffres électoraux y sont exacts."},
+     bookType:'encyclopédie',bookTitle:'Encyclopædia Universalis'},
+    {em:"🗣️",n:"Vidéo d'un influenceur politique",d:"Créateur très suivi, sûr de lui, qui ne cite aucune source",
+     say:"« Faut arrêter de se mentir : Hitler a été ÉLU démocratiquement par le peuple. La preuve que les élections peuvent tout détruire ! »",
+     g:false,fb:{tb:"Piégé(e) ! Un ton assuré et beaucoup d'abonnés ne remplacent pas une source. Cet influenceur répète une idée reçue sans vérifier les faits.",db:"Bien joué ! Ce n'est pas parce que quelqu'un est sûr de lui et très suivi qu'il dit vrai. Il ne cite aucune source historique."},
+     quoteType:'croyance',quoteOrigin:'Réseaux sociaux'},
+    {em:"🤔",n:"Mon souvenir de cours d'histoire",d:"Ce qu'on croit se rappeler avoir appris à l'école",
+     say:"« Je suis presque sûr qu'on nous a appris qu'il avait été élu. Ça paraît logique, non ? »",
+     g:false,fb:{tb:"Attention ! Un souvenir flou n'est pas une preuve. La mémoire déforme souvent ce qu'on a appris, et ici elle te trompe.",db:"Bien vu ! Un vague souvenir d'école n'est pas une source. Mieux vaut vérifier que se fier à une impression."},
+     quoteType:'intuition'},
+  ]},
   {s:"Un médecin britannique a prouvé scientifiquement que les vaccins provoquent l'autisme. Des études l'ont confirmé. 💉",t:false,
    e:"C'est FAUX. L'étude d'Andrew Wakefield (1998) a été retirée après qu'on a découvert que ses données avaient été falsifiées. Wakefield a perdu son droit d'exercer la médecine. Des dizaines d'études portant sur des millions d'enfants n'ont trouvé aucun lien.",
    src:[

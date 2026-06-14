@@ -1149,6 +1149,28 @@ const QUESTIONS_INTER_EN=[
 // NIVEAU PRO, Advanced Fact-Checker (4e → 3e)
 // ═══════════════════════════════════════════════
 const QUESTIONS_PRO_EN=[
+  {s:"In 1933, Hitler was democratically elected chancellor by universal suffrage by the German people. 🗳️",t:false,
+   e:"FALSE. Hitler was not elected: he was appointed chancellor by President Hindenburg on 30 January 1933. Under the Weimar Republic, the chancellor was not elected by universal suffrage. The Nazi party never won an absolute majority in a free election (37% at most, in July 1932), and Hitler immediately used his power to destroy democracy.",
+   src:[
+    {em:"🎓",n:"Historian specialising in Nazi Germany",d:"University professor of contemporary history",
+     url:"https://en.wikipedia.org/wiki/Adolf_Hitler",
+     say:"Hitler was never elected chancellor. He was appointed by President Hindenburg in January 1933. Under Weimar, the chancellor was named by the president, not by a popular vote.",
+     g:true,fb:{tg:"Perfect! A specialist historian relying on precise facts and dates is exactly the source to consult on a historical question.",dg:"Too bad! A historian specialising in this period is the best possible source. Her explanation is precise and verifiable."},
+     expertTitle:'Historian, professor of contemporary history',expertInstitution:'University'},
+    {em:"📗",n:"Encyclopædia Britannica",d:"Reference encyclopedia written by specialists",
+     url:"https://en.wikipedia.org/wiki/1932_German_federal_elections",
+     say:"In the last free elections of 1932, the Nazi party peaked at 37% of the vote, never reaching an absolute majority. Hitler came to power through an appointment, not an election.",
+     g:true,fb:{tg:"Excellent! A reference encyclopedia cites verifiable figures and established facts. It is a solid source for history.",dg:"Too bad! Encyclopædia Britannica is written and checked by specialists. Its electoral figures are accurate."},
+     bookType:'encyclopedia',bookTitle:'Encyclopædia Britannica'},
+    {em:"🗣️",n:"A political influencer's video",d:"Highly followed creator, self-assured, citing no source",
+     say:"Let's stop kidding ourselves: Hitler was democratically ELECTED by the people. Proof that elections can destroy everything!",
+     g:false,fb:{tb:"Gotcha! A confident tone and lots of followers do not replace a source. This influencer repeats a misconception without checking the facts.",db:"Well done! Just because someone is self-assured and widely followed does not mean they are right. He cites no historical source."},
+     quoteType:'croyance',quoteOrigin:'Social media'},
+    {em:"🤔",n:"My memory of history class",d:"What we think we remember learning at school",
+     say:"I'm pretty sure we were taught that he was elected. It seems logical, doesn't it?",
+     g:false,fb:{tb:"Careful! A vague memory is not proof. Memory often distorts what we learned, and here it is misleading you.",db:"Well spotted! A vague school memory is not a source. Better to check than to trust an impression."},
+     quoteType:'intuition'},
+  ]},
   {s:"A British doctor scientifically proved that vaccines cause autism. Studies have confirmed it. 💉",t:false,
    e:"FALSE. Andrew Wakefield’s study (1998) was retracted after it was discovered that his data had been falsified. Wakefield lost his license to practice medicine. Dozens of studies involving millions of children have found no link.",
    src:[
