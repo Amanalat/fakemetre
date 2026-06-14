@@ -871,7 +871,7 @@ const QUESTIONS_INTER_EN=[
      g:false,fb:{tb:"Careful! A nice colorful pie chart gives a false impression of scientific rigor. These precise percentages do not measure the overall impact of a message.",db:"Well spotted! A viral infographic chases shares, not accuracy. The 7-38-55 pie chart is one of the most misleading graphics in circulation."}},
   ]},
   // ─── "DISCOVERIES" SET: geography, history, space ───
-  {s:"Humans are descended from present-day apes, like the chimpanzee. 🐒",t:false,
+  {s:"Humans descend from monkeys. 🐒",t:false,
    e:"FALSE! Humans and the other great apes (chimpanzees, gorillas…) descend from common ancestors that are now extinct. The present-day chimpanzee is not our ancestor: it's more of a 'cousin' with whom we share a great-great-…-grandparent.",
    src:[
     {em:"🦴",n:"Paleoanthropologist",d:"Specialist in human evolution",expertTitle:'Paleoanthropologist',expertInstitution:'Museum / prehistory',
@@ -1772,7 +1772,7 @@ const QUESTIONS_PRO_EN=[
      g:false,fb:{tb:"Careful! Spectacular and false. The pull from light-years away would be tiny — like for any equivalent mass.",db:"Well spotted! Lots of shares, zero sources, and wrong physics. Fear spreads the post, not its truth."}},
   ]},
   // ─── "CONTROVERSIES" SET: when science has NOT (yet) settled it ───
-  {s:"Neuroscience has now identified where and how the brain produces consciousness: the question is solved. 🧠",t:false,nuance:true,
+  {s:"Neuroscience has now identified where and how the brain produces consciousness. 🧠",t:false,nuance:true,
    e:"FALSE. Consciousness remains one of the great open puzzles. Several rival theories coexist — notably global neuronal workspace and integrated information theory. A large 'adversarial' experiment published in 2025 directly tested their predictions without crowning a winner: it even weakened aspects of both camps.",
    enuan:"⚖️ A GENUINE ONGOING SCIENTIFIC CONTROVERSY. No one has 'solved' consciousness. What's solid: certain regions and networks are necessary. What isn't: which theory truly explains how subjective experience arises. Claiming 'it's settled' is wrong in both directions (neither total mystery nor solved puzzle).",
    src:[

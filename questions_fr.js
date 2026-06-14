@@ -875,7 +875,7 @@ const QUESTIONS_INTER=[
      g:false,fb:{tb:"Attention ! Un beau camembert coloré donne une fausse impression de rigueur scientifique. Ces pourcentages précis ne mesurent pas l'impact global d'un message.",db:"Bien vu ! Une infographie virale cherche le partage, pas l'exactitude. Le camembert 7-38-55 est l'un des graphiques les plus trompeurs qui circulent."}},
   ]},
   // ─── LOT « DÉCOUVERTES » : géographie, histoire, espace ───
-  {s:"Les humains descendent des singes actuels, comme le chimpanzé. 🐒",t:false,
+  {s:"L'humain descend du singe. 🐒",t:false,
    e:"C'est FAUX ! Les humains et les autres grands singes (chimpanzés, gorilles…) descendent d'ancêtres communs aujourd'hui disparus. Le chimpanzé actuel n'est pas notre ancêtre : c'est plutôt un « cousin » avec qui nous partageons un arrière-arrière-…-grand-parent commun.",
    src:[
     {em:"🦴",n:"Paléoanthropologue",d:"Spécialiste de l'évolution humaine",expertTitle:'Paléoanthropologue',expertInstitution:'Muséum / préhistoire',
@@ -1778,7 +1778,7 @@ const QUESTIONS_PRO=[
      g:false,fb:{tb:"Attention ! Spectaculaire et faux. L'attraction à des années-lumière serait infime — comme pour n'importe quelle masse équivalente.",db:"Bien vu ! Beaucoup de partages, zéro source, et une physique fausse. La peur fait circuler l'info, pas sa véracité."}},
   ]},
   // ─── LOT « CONTROVERSES » : quand la science n'a PAS (encore) tranché ───
-  {s:"Les neurosciences ont aujourd'hui identifié où et comment le cerveau fabrique la conscience : la question est résolue. 🧠",t:false,nuance:true,
+  {s:"Les neurosciences ont aujourd'hui identifié où et comment le cerveau fabrique la conscience. 🧠",t:false,nuance:true,
    e:"C'est FAUX. La conscience reste l'une des grandes énigmes ouvertes. Plusieurs théories rivales coexistent — notamment l'espace de travail neuronal global et la théorie de l'information intégrée. Une grande expérience « adverse » publiée en 2025 a testé directement leurs prédictions sans désigner de gagnant : elle a même fragilisé des aspects des deux camps.",
    enuan:"⚖️ VRAIE CONTROVERSE SCIENTIFIQUE EN COURS. Personne n'a 'résolu' la conscience. Ce qui est solide : certaines zones et certains réseaux sont nécessaires. Ce qui ne l'est pas : quelle théorie explique vraiment comment surgit l'expérience subjective. Affirmer que 'c'est réglé' est faux dans les deux sens (ni mystère total, ni énigme résolue).",
    src:[
