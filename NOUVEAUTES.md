@@ -1,5 +1,37 @@
 # Nouveautés FakeMètre
 
+## Mise à jour, 27 juin 2026 (question « toucher un animal sauvage »)
+
+### 🦌 1 nouvelle question Enquêteur, où le format ne dit RIEN de la fiabilité
+
+Question inédite au **niveau Enquêteur** : « Si on touche un bébé animal sauvage, sa mère l'abandonnera à cause de l'odeur » → **FAUX** (mythe très répandu ; les oiseaux ont un odorat faible, les mammifères reconnaissent leur petit autrement). À retenir quand même : on ne touche pas les animaux sauvages, mais pour d'autres raisons (stress, maladies, et le petit laissé seul n'est presque jamais abandonné).
+
+Particularité : les **4 sources brouillent volontairement le réflexe « réseau social = faux, expert = vrai »**.
+- Un **compte X de vulgarisation** (réseau social) est… **fiable** : il explique le mécanisme.
+- Un **animateur nature** (figure d'autorité) répète le **mythe**.
+- Un **vétérinaire de la faune** donne le vrai mécanisme et un chiffre concret (fiable).
+- Un **beau guide nature** (format rassurant) dramatise et se trompe.
+
+Le joueur ne peut trancher qu'en lisant le **contenu** : mécanisme + nuance + chiffres = fiable ; « jamais / aussitôt / définitivement » + peur + aucune source = mythe.
+
+> **Total ajouté : +1 question** Enquêteur, en français **et** en anglais.
+
+---
+
+## Mise à jour, 14 juin 2026 (lot « Sources d'apparence fiable »)
+
+### 🧐 3 nouvelles questions Fact-Checker, où toutes les sources ont l'air sérieuses
+
+Trois questions inédites au **niveau Fact-Checker**, conçues sur un principe différent : ici, **aucune source « réseau social »**. Les quatre sources de chaque question ont toutes l'apparence du sérieux (étude, expert, livre, conférence, revue), avec des textes longs à lire. Le joueur doit apprendre à départager le vrai du faux malgré l'habillage crédible : repérer un **conflit d'intérêts** (étude financée par l'industrie, consultant qui vend sa solution), une **promesse qui dépasse les preuves**, ou un raisonnement qui glisse de la corrélation au destin.
+
+- **Aliments ultra-transformés** (VRAI) : ils augmentent bien le risque d'obésité, de maladies cardiovasculaires et de mortalité (essai randomisé du NIH + cohortes), face à une revue financée par l'industrie et un nutritionniste télé qui réduit tout aux calories.
+- **Le QI prédicteur de réussite** (VRAI, nuancé) : il prédit réellement une part de la réussite scolaire et professionnelle, sans la déterminer. Cas particulier : les **4 sources sont toutes scientifiques mais contradictoires** ; deux sont fiables (elles débattent de l'ampleur de l'effet), deux sont aux extrêmes (tout-génétique / le QI ne prédit rien).
+- **Lire les micro-expressions** (FAUX) : détecter les mensonges sur un visage ne marche guère mieux que le hasard (~54 %), malgré un « expert en langage corporel » et une conférence inspirante.
+
+> **Total ajouté : +3 questions** Fact-Checker, en français **et** en anglais. Le jeu passe de 111 à **114 questions par langue**.
+
+---
+
 ## Mise à jour — 14 juin 2026 (lots « Découvertes » & « Animaux »)
 
 ### 🌍 17 nouvelles questions Enquêteur — géographie, histoire, espace
