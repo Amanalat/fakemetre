@@ -245,8 +245,45 @@ function buildAd(src){
   const emoji=emojis[atype]||'📢';
   return `<div class="fake-ad"><div class="fake-ad-header"><span class="fake-ad-label">📢 ${isEn?'Advertisement':'Publicité'}</span><span class="fake-ad-brand">${brand}</span></div><div class="fake-ad-visual">${emoji}</div>${slogan?`<div class="fake-ad-slogan">&ldquo;${slogan}&rdquo;</div>`:''}<p class="fake-ad-body">${body}</p><div class="fake-ad-foot">${typeLabel}</div></div>`;
 }
+// ── Experts masqués (niveau difficile / PRO) ──
+// On n'affiche qu'un nom + une loupe ; le joueur doit cliquer pour découvrir
+// la profession et le lieu de travail. Le nom est tiré d'un pool de façon
+// déterministe (stable pour une même source), sans toucher aux données.
+const EXPERT_FAKE_NAMES=[
+  'Camille Laurent','Julien Mercier','Sophie Garnier','Thomas Lefèvre','Élise Rousseau',
+  'Nicolas Faure','Manon Girard','Antoine Dubois','Clara Moreau','Hugo Lambert',
+  'Léa Bonnet','Maxime Henry','Inès Roux','Paul Brunet','Sarah Vincent',
+  'Lucas Renard','Chloé Marchand','Adrien Caron','Emma Lemaire','Romain Fontaine',
+  'Julie Perrot','Mathieu Olivier','Alice Gauthier','Florian Masson','Camille Dupuis',
+  'Pierre Lacroix','Noémie Berger','Vincent Aubert','Laura Schmitt','Damien Roy',
+  'Margaux Picard','Étienne Charpentier','Sylvie Maillard','Benoît Leroy','Hélène Barbier',
+  'Quentin Renaud','Aurélie Colin','Sébastien Noël','Marine Guérin','Olivier Blanchard',
+  'Nadia Benali','Karim Hadj','Yann Le Goff','Fatou Diallo','Raphaël Klein',
+  'Léna Morel','David Sanchez','Amélie Roche','Grégoire Tessier','Sandra Lopez'
+];
+function _expertHash(s){let h=0;s=String(s||'');for(let i=0;i<s.length;i++){h=(h*31+s.charCodeAt(i))|0;}return Math.abs(h);}
+// Un expert est "masqué" au niveau difficile : on cache sa profession.
+function isHiddenExpert(src){
+  return typeof currentLevel!=='undefined' && currentLevel==='pro' && !!(src&&src.expertTitle);
+}
+// Nom affiché à la place de la profession (header de la modale + bouton source).
+function expertDisplayName(src){
+  if(isHiddenExpert(src)) return EXPERT_FAKE_NAMES[_expertHash(src.say||src.n||'')%EXPERT_FAKE_NAMES.length];
+  return src.expertName||src.n;
+}
+// Émoji neutre pour ne pas trahir la profession.
+function expertDisplayEmoji(src){
+  return isHiddenExpert(src)?'👤':(src&&src.em);
+}
 function buildExpert(src){
   const isEn=lang==='en';
+  if(isHiddenExpert(src)){
+    const hname=escH(expertDisplayName(src));
+    const prof=escH(src.expertTitle||'');
+    const inst=escH(src.expertInstitution||'');
+    const body=escH(src.say);
+    return `<div class="fake-expert hidden-expert"><div class="fake-expert-hd"><div class="fake-expert-av">👤</div><div class="fake-expert-info"><div class="fake-expert-name">${hname}</div><button type="button" class="expert-loupe" onclick="showExpertId(this)" data-name="${hname}" data-prof="${prof}" data-inst="${inst}">🔍 ${isEn?'Look into this person':'Enquêter sur cette personne'}</button></div></div><div class="fake-expert-body">${body}</div></div>`;
+  }
   const name=escH(src.expertName||src.n);
   const cred=escH(src.expertTitle||src.d||'');
   const inst=escH(src.expertInstitution||'');
@@ -289,6 +326,9 @@ function buildLinkedIn(src){
 }
 function srcMedium(src){
   const isEn=lang==='en';
+  // Expert masqué (niveau difficile) : on n'affiche pas la pastille « Expert »,
+  // le joueur doit cliquer sur la loupe pour découvrir de qui il s'agit.
+  if(isHiddenExpert(src))         return {ic:'🗣️',lab:isEn?'Testimony':'Témoignage',cls:'testi'};
   if(src.studyJournal)            return {ic:'🔬',lab:isEn?'Scientific study':'Étude scientifique',cls:'sci'};
   if(src.govSite)                 return {ic:'🏛️',lab:isEn?'Official site':'Site officiel',cls:'gov'};
   if(src.pressOutlet)             return {ic:'📰',lab:isEn?'Press · Fact-check':'Presse · Fact-check',cls:'press'};

@@ -490,6 +490,16 @@
   <button class="mclose" onclick="closeCursorHint()" data-i18n="cursorHintBtn">🎚️ Ok, je positionne le curseur !</button>
 </div>
 
+<!-- Fiche identité d'un expert masqué (niveau difficile) -->
+<div class="modal" id="mexpert" style="z-index:120;text-align:center;">
+  <div class="expid-av">🔎</div>
+  <div class="expid-name" id="expid-name"></div>
+  <div class="expid-row"><span class="expid-k" id="expid-prof-k">Profession</span><span class="expid-v" id="expid-prof"></span></div>
+  <div class="expid-row"><span class="expid-k" id="expid-inst-k">Travaille à</span><span class="expid-v" id="expid-inst"></span></div>
+  <div class="expid-note" id="expid-note">À toi de juger si cette source est crédible.</div>
+  <button class="mclose" onclick="hide('mexpert')" id="expid-close">Fermer</button>
+</div>
+
 <footer style="text-align:center;padding:20px 0 10px;opacity:.5;font-size:.75rem;font-weight:600;color:var(--mu);">
   © 2026 Antonin Atger &nbsp;|&nbsp; <a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" style="color:var(--mu);">CC BY-NC 4.0</a>
 </footer>
@@ -1219,7 +1229,7 @@ function show(id){
 
 function hide(id){
   $(id).classList.remove('show');
-  const stillOpen=['msrc','mfb','mvr','mfb-meter','mhint-cursor'].some(m=>$(m).classList.contains('show'));
+  const stillOpen=['msrc','mfb','mvr','mfb-meter','mhint-cursor','mexpert'].some(m=>$(m).classList.contains('show'));
   if(!stillOpen){
     $('ov').classList.remove('show');
     // Rend le focus à l'élément déclencheur une fois toutes les modales fermées
@@ -1232,6 +1242,7 @@ function hide(id){
 document.addEventListener('keydown',function(e){
   if(e.key!=='Escape')return;
   // Modales jeu (.modal)
+  if($('mexpert').classList.contains('show')){hide('mexpert');return;}
   if($('mfb-meter').classList.contains('show')){hide('mfb-meter');show('mfb');return;}
   if($('msrc').classList.contains('show')){hide('msrc');return;}
   if($('mhint-cursor').classList.contains('show')){closeCursorHint();return;}
@@ -1468,9 +1479,9 @@ function openSrc(src,idx,btn){
     if(hintEl) hintEl.remove();
     const emojiEl=btn.querySelector('.semoji');
     const nameEl=btn.querySelector('.sname');
-    if(emojiEl) emojiEl.textContent=src.em||'📄';
+    if(emojiEl) emojiEl.textContent=expertDisplayEmoji(src)||'📄';
     if(nameEl){
-      nameEl.textContent=src.n;
+      nameEl.textContent=expertDisplayName(src);
       // Pastille de médium sur le bouton révélé
       let badgeEl=btn.querySelector('.sbtn-badge');
       if(!badgeEl){
@@ -1487,7 +1498,7 @@ function openSrc(src,idx,btn){
       }
     }
   }
-  $('msname').textContent=src.em+'  '+src.n;
+  $('msname').textContent=expertDisplayEmoji(src)+'  '+expertDisplayName(src);
   const med=srcMedium(src);
   $('msdesc').innerHTML=`<span class="medium-badge ${med.cls}">${med.ic} ${med.lab}</span>${escH(src.d||'')}`;
   const sayEl=$('mssays');
@@ -1639,6 +1650,21 @@ function confirmLikert(){
   setTimeout(()=>{$('vzone').style.display='block';},600);
 }
 
+// Fiche identité d'un expert masqué (niveau difficile) — ouverte via la loupe
+function showExpertId(btn){
+  const isEn=lang==='en';
+  $('expid-name').textContent=btn.dataset.name||'';
+  const prof=btn.dataset.prof||'';
+  const inst=btn.dataset.inst||'';
+  $('expid-prof').textContent=prof||'—';
+  $('expid-inst').textContent=inst||'—';
+  $('expid-prof-k').textContent=isEn?'Occupation':'Profession';
+  $('expid-inst-k').textContent=isEn?'Works at':'Travaille à';
+  $('expid-note').textContent=isEn?'Up to you to judge whether this source is credible.':'À toi de juger si cette source est crédible.';
+  $('expid-close').textContent=isEn?'Close':'Fermer';
+  show('mexpert');
+}
+
 function searchSource(){
   // Ouvrir une recherche Google sur la source actuelle
   if(!pend) return;
@@ -1658,8 +1684,8 @@ function searchSource(){
   
   // Sinon, recherche Google classique
   const sourceName = src.n;
-  const sourceDesc = src.d;
-  const query = encodeURIComponent(sourceName + ' ' + sourceDesc);
+  const sourceDesc = src.d || '';
+  const query = encodeURIComponent((sourceName + ' ' + sourceDesc).trim());
   window.open('https://www.google.com/search?q=' + query, '_blank');
 }
 

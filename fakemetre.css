@@ -454,6 +454,16 @@ button:focus-visible,a:focus-visible,[tabindex]:focus-visible,
 .fake-expert-cred{font-size:.66rem;color:#8bb8d8;margin-top:2px;}
 .fake-expert-inst{font-size:.62rem;color:#6698b8;margin-top:1px;}
 .fake-expert-body{padding:12px 14px;font-size:.84rem;line-height:1.55;color:#2a3a4a;font-style:italic;}
+/* Expert masqué (niveau difficile) : nom + loupe à cliquer */
+.expert-loupe{margin-top:6px;display:inline-flex;align-items:center;gap:5px;background:rgba(255,255,255,.14);color:#cfe6ff;border:1px solid rgba(255,255,255,.28);border-radius:50px;padding:4px 11px;font-family:'Nunito',sans-serif;font-size:.66rem;font-weight:800;cursor:pointer;transition:all .15s;}
+.expert-loupe:hover{background:rgba(255,255,255,.26);color:#fff;}
+/* Fiche identité (pop-up) */
+#mexpert .expid-av{font-size:2.1rem;margin-bottom:8px;}
+#mexpert .expid-name{font-family:'Fredoka One',cursive;font-size:1.25rem;color:var(--acc);margin-bottom:14px;}
+#mexpert .expid-row{display:flex;justify-content:space-between;gap:12px;text-align:left;padding:9px 0;border-top:1px solid rgba(255,255,255,.08);}
+#mexpert .expid-k{font-size:.7rem;font-weight:800;text-transform:uppercase;letter-spacing:.5px;color:var(--mu);flex-shrink:0;}
+#mexpert .expid-v{font-size:.86rem;font-weight:700;color:var(--tx);text-align:right;}
+#mexpert .expid-note{margin:16px 0 14px;font-size:.8rem;font-weight:700;line-height:1.5;color:var(--mu);}
 /* ── Fake Reddit ── */
 .fake-reddit{background:#fff;border-radius:12px;overflow:hidden;font-style:normal;color:#1c1c1c;border:1px solid #ededed;}
 .fake-reddit-bar{background:#ff4500;padding:6px 12px;display:flex;align-items:center;gap:7px;color:#fff;}
