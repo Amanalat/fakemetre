@@ -363,6 +363,11 @@ Gros plan photoréaliste de l'œil d'une chèvre, montrant clairement la pupille
 Photo macro d'une petite méduse translucide et délicate flottant dans une eau sombre, légèrement éclairée, tentacules fins visibles. Aucun texte, aucun symbole, aucune interface. Format ~1:1.
 ```
 
+## 25. ~~encyclopedie_autruche_vintage~~ — ❌ ABANDONNÉ (plus besoin d'image)
+*Question : « Les autruches enfouissent leur tête dans le sable quand elles ont peur » (FAUX).*
+**La source piège « vieille encyclopédie » a été remplacée par une vraie source : Pline l'Ancien, *Histoire naturelle*, Livre X (an 77), cité fidèlement (« cache son cou dans un buisson en se croyant invisible »).** C'est l'origine littéraire connue du mythe. Elle s'affiche en carte « livre » dessinée par le jeu (`bookType:'encyclopédie'`), donc **aucune image à générer**. La correction (`e:`) explique que c'est de là que vient le mythe et que « buisson » est devenu « sable » au fil des siècles.
+*Anciens fichiers `images/livre_larousse_junior*.jpg` désormais inutilisés (supprimables).*
+
 ---
 
 ## 🎬 Pistes vidéos courtes (TikTok / Reels) — sources à récupérer sur les réseaux
