@@ -2,3 +2,5 @@
 Nouveau dossier/
 images/Emails backup.pst
 _*.py
+# Images générées par ChatGPT laissées en local mais hors dépôt
+images/ChatGPT Image*
