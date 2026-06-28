@@ -3,6 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="FakeMètre">
+<meta name="theme-color" content="#0f1b2d">
 <title>FakeMètre 🔍</title>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
@@ -690,6 +695,7 @@ const I18N = {
     alertPackLoadError: 'Impossible de charger ce pack.',
     btnFullscreen: '⛶ Plein écran',
     btnExitFullscreen: '✕ Quitter plein écran',
+    fsIosHint: '📲 Plein écran sur iPhone : appuie sur Partager (en bas), puis « Sur l\'écran d\'accueil »',
     levelLabels: {junior:'Apprenti', inter:'Enquêteur', pro:'Fact-Checker', mixed:'Mixte'},
     csvTrueWord: 'VRAI',
     csvFalseWord: 'FAUX',
@@ -1017,6 +1023,7 @@ const I18N = {
     alertPackLoadError: 'Unable to load this pack.',
     btnFullscreen: '⛶ Fullscreen',
     btnExitFullscreen: '✕ Exit fullscreen',
+    fsIosHint: '📲 Fullscreen on iPhone: tap Share (bottom), then "Add to Home Screen"',
     levelLabels: {junior:'Apprentice', inter:'Investigator', pro:'Fact-Checker', mixed:'Mixed'},
     csvTrueWord: 'TRUE',
     csvFalseWord: 'FALSE',
@@ -3365,27 +3372,40 @@ function adminDeletePack(id){
 })();
 
 // ── Plein écran (mobile) ──
-function toggleFS(){
+// iPhone (Safari) ne supporte pas l'API Fullscreen sur une page web :
+// requestFullscreen/webkitRequestFullscreen y sont absents. Dans ce cas,
+// le bouton affiche l'astuce « Sur l'écran d'accueil » (mode PWA) au lieu
+// d'un bouton qui ne ferait rien.
+function fsSupported(){
   const el=document.documentElement;
-  const isCssFs=document.body.classList.contains('css-fs');
+  return !!(el.requestFullscreen||el.webkitRequestFullscreen);
+}
+function _fsToast(msg){
+  let el=document.getElementById('fs-toast');
+  if(!el){el=document.createElement('div');el.id='fs-toast';el.className='fs-toast';document.body.appendChild(el);}
+  el.textContent=msg;
+  el.classList.add('show');
+  clearTimeout(_fsToast._to);
+  _fsToast._to=setTimeout(()=>el.classList.remove('show'),5000);
+}
+function toggleFS(){
+  if(!fsSupported()){ _fsToast(t('fsIosHint')); return; }
+  const el=document.documentElement;
   const isNativeFs=document.fullscreenElement||document.webkitFullscreenElement;
-  if(!isNativeFs&&!isCssFs){
+  if(!isNativeFs){
     if(el.requestFullscreen) el.requestFullscreen();
     else if(el.webkitRequestFullscreen) el.webkitRequestFullscreen();
-    else{ document.body.classList.add('css-fs'); window.scrollTo(0,1); _updFsBtn(); }
   } else {
-    if(isNativeFs){
-      if(document.exitFullscreen) document.exitFullscreen();
-      else if(document.webkitExitFullscreen) document.webkitExitFullscreen();
-    } else { document.body.classList.remove('css-fs'); _updFsBtn(); }
+    if(document.exitFullscreen) document.exitFullscreen();
+    else if(document.webkitExitFullscreen) document.webkitExitFullscreen();
   }
 }
 function _updFsBtn(){
   const btn=document.getElementById('fs-btn');
   if(!btn) return;
-  const isFs=document.fullscreenElement||document.webkitFullscreenElement||document.body.classList.contains('css-fs');
+  if(!fsSupported()){ btn.innerHTML=t('btnFullscreen'); return; }
+  const isFs=document.fullscreenElement||document.webkitFullscreenElement;
   btn.innerHTML=isFs?t('btnExitFullscreen'):t('btnFullscreen');
-  btn.style.display=isFs?'flex':'';
 }
 document.addEventListener('fullscreenchange',_updFsBtn);
 document.addEventListener('webkitfullscreenchange',_updFsBtn);
