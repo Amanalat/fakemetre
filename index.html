@@ -28,6 +28,7 @@
 <div id="levelscreen">
   <h2 data-i18n="levelTitle">Choisis ton mode</h2>
   <p data-i18n="levelSubtitle">Trois parcours de jeu + un mode création !</p>
+  <p style="margin-bottom:24px;"><button class="howto-btn" id="howto-btn" onclick="startHowto()" data-i18n="howtoBtn">❓ Comment ça marche ?</button></p>
   <div class="levelcards">
     <div class="levelcard junior" onclick="chooseLevel('junior')">
       <span class="lc-icon">🔎</span>
@@ -848,7 +849,42 @@ const I18N = {
     feedbackEmailSubject: 'FakeMètre — Retour utilisateur',
     feedbackNote: '',
     feedbackAlertSent: '✅ Message envoyé ! Merci pour ton retour.',
-    feedbackAlertError: '❌ Une erreur est survenue. Réessaie ou écris directement à contact@antoninatger.com.'
+    feedbackAlertError: '❌ Une erreur est survenue. Réessaie ou écris directement à contact@antoninatger.com.',
+    // ── Walkthrough « Comment ça marche » ──
+    howtoBtn: '❓ Comment ça marche ?',
+    howtoStepLabel: 'Étape {n} / {tot}',
+    howtoSkip: 'Passer',
+    howtoNext: 'Suivant →',
+    howtoFinish: 'C\'est parti ! 🚀',
+    howtoIntroT: 'Bienvenue sur FakeMètre !',
+    howtoIntroB: 'Le jeu où tu apprends à repérer les fausses infos en jugeant la fiabilité des sources. Voici comment ça marche en 30 secondes.',
+    howtoJuniorT: '1. Apprenti Détective',
+    howtoJuniorB: 'Le niveau le plus simple : des affirmations du quotidien pour t\'entraîner à douter et à reconnaître une source fiable.',
+    howtoInterT: '2. Enquêteur Junior',
+    howtoInterB: 'On monte d\'un cran : des mythes tenaces et des sources trompeuses qu\'il faut apprendre à démasquer.',
+    howtoProT: '3. Fact-Checker Confirmé',
+    howtoProB: 'Le niveau expert : sujets complexes, biais cognitifs et vraies controverses. Les sources sont volontairement piégeuses.',
+    howtoCreatorT: '✏️ Crée ta série',
+    howtoCreatorB: 'Invente tes propres affirmations et leurs sources, puis assemble-les en une série que tu pourras partager.',
+    howtoCommT: '🌍 La communauté',
+    howtoCommB: 'Explore et joue les séries créées par les autres joueurs, et publie les tiennes pour qu\'elles soient jouées.',
+    howtoOutroT: 'À toi de jouer !',
+    howtoOutroB: 'Choisis un niveau pour commencer. Tu pourras rouvrir ce guide à tout moment avec le bouton « Comment ça marche ? ».',
+    // ── Fin de partie : message au créateur ──
+    finalMsgTitle: '✍️ Un mot avant de partir ?',
+    finalMsgSub: 'Ton avis arrive directement chez le créateur du jeu. Tout est optionnel !',
+    finalMsgName: 'Ton prénom (optionnel)',
+    finalMsgNamePh: 'Alex…',
+    finalMsgToCreator: 'Un petit message au créateur',
+    finalMsgToCreatorNamed: 'Un petit message pour {name} (créateur du pack)',
+    finalMsgCreatorPh: 'Bravo, super série ! …',
+    finalMsgSugg: 'Une affirmation à proposer ? Une remarque ?',
+    finalMsgSuggPh: 'Idée d\'affirmation vraie ou fausse, suggestion, correction…',
+    finalMsgSend: '📨 Envoyer',
+    finalMsgSending: '⏳ Envoi…',
+    finalMsgEmpty: 'Écris un message ou une suggestion avant d\'envoyer !',
+    finalMsgThanks: '✅ Merci, ton message est bien parti !',
+    finalMsgEmailSubject: 'FakeMètre — Message de fin de partie'
   },
   en: {
     // Meta
@@ -1176,7 +1212,42 @@ const I18N = {
     feedbackEmailSubject: 'FakeMeter — User Feedback',
     feedbackNote: '',
     feedbackAlertSent: '✅ Message sent! Thanks for your feedback.',
-    feedbackAlertError: '❌ Something went wrong. Please try again or email contact@antoninatger.com directly.'
+    feedbackAlertError: '❌ Something went wrong. Please try again or email contact@antoninatger.com directly.',
+    // ── Walkthrough "How does it work" ──
+    howtoBtn: '❓ How does it work?',
+    howtoStepLabel: 'Step {n} / {tot}',
+    howtoSkip: 'Skip',
+    howtoNext: 'Next →',
+    howtoFinish: 'Let\'s go! 🚀',
+    howtoIntroT: 'Welcome to FakeMeter!',
+    howtoIntroB: 'The game where you learn to spot fake news by judging how reliable each source is. Here is how it works in 30 seconds.',
+    howtoJuniorT: '1. Junior Detective',
+    howtoJuniorB: 'The easiest level: everyday claims to train you to doubt and to recognise a reliable source.',
+    howtoInterT: '2. Junior Investigator',
+    howtoInterB: 'A step up: stubborn myths and misleading sources you must learn to unmask.',
+    howtoProT: '3. Confirmed Fact-Checker',
+    howtoProB: 'The expert level: complex topics, cognitive biases and real controversies. The sources are deliberately tricky.',
+    howtoCreatorT: '✏️ Create your set',
+    howtoCreatorB: 'Invent your own claims and their sources, then bundle them into a set you can share.',
+    howtoCommT: '🌍 The community',
+    howtoCommB: 'Explore and play sets made by other players, and publish your own for others to play.',
+    howtoOutroT: 'Your turn!',
+    howtoOutroB: 'Pick a level to start. You can reopen this guide anytime with the "How does it work?" button.',
+    // ── End of game: message to the creator ──
+    finalMsgTitle: '✍️ A word before you go?',
+    finalMsgSub: 'Your feedback goes straight to the game creator. Everything is optional!',
+    finalMsgName: 'Your name (optional)',
+    finalMsgNamePh: 'Alex…',
+    finalMsgToCreator: 'A short message to the creator',
+    finalMsgToCreatorNamed: 'A short message for {name} (pack creator)',
+    finalMsgCreatorPh: 'Great set, well done! …',
+    finalMsgSugg: 'A claim to suggest? A remark?',
+    finalMsgSuggPh: 'A true or false claim idea, suggestion, correction…',
+    finalMsgSend: '📨 Send',
+    finalMsgSending: '⏳ Sending…',
+    finalMsgEmpty: 'Write a message or a suggestion before sending!',
+    finalMsgThanks: '✅ Thanks, your message is on its way!',
+    finalMsgEmailSubject: 'FakeMeter — End-of-game message'
   }
 };
 
@@ -1208,9 +1279,11 @@ function applyI18n() {
 let QS=[], qi=0, score=0, meter=50, uc=0, sh=[], um={}, pend=null, tempMeter=50, gameHistory=[];
 // ── État persistant entre les questions / parties ──
 let gameMode=5, currentLevel='junior', playingCustom=false, playingCommunity=false, cursorTutorialSeen=false;
+let currentPackInfo=null; // {title, author} quand on joue un pack communauté, sinon null
 
 function resetGameState(){
   qi=0; score=0; meter=50; uc=0; sh=[]; um={}; pend=null; tempMeter=50; gameHistory=[];
+  currentPackInfo=null;
 }
 
 // Charger l'état du tutoriel depuis localStorage
@@ -1830,6 +1903,7 @@ function showFinal(){
     <div class="fscore">${score} pts</div>
     ${bilan ? `<div class="bilan-perso">${bilan}</div>` : ''}
     <div class="ftips"><h3>${t('finalTipsTitle')}</h3>${tips.map(tp=>`<div class="tip"><span>${tp[0]}</span><span>${tp[1]}</span></div>`).join('')}</div>
+    ${finalMsgHTML()}
     <button id="rbtn" onclick="restart()">${t('btnReplay')}</button>
     <button id="mbtn" onclick="chooseMode()">${t('btnMenu')}</button>`;
 }
@@ -3115,6 +3189,7 @@ function playCommunityPack(id){
   currentLevel=pack.level==='mixed'?'inter':(pack.level||'inter');
   QS=shuf([...pack.questions]);
   resetGameState();
+  currentPackInfo={title:pack.title||'',author:pack.author||''};
 
   $('communityscreen').style.display='none';
   $('scorebar').style.display='flex';
@@ -3604,8 +3679,170 @@ async function sendFeedback(){
     btn.textContent = t('feedbackBtnSend');
   }
 }
+
+// ═══════════════════════════════════════════════
+// WALKTHROUGH « COMMENT ÇA MARCHE »
+// ═══════════════════════════════════════════════
+const HOWTO_STEPS=[
+  {sel:null,                   t:'howtoIntroT',  b:'howtoIntroB'},
+  {sel:'.levelcard.junior',    t:'howtoJuniorT', b:'howtoJuniorB'},
+  {sel:'.levelcard.inter',     t:'howtoInterT',  b:'howtoInterB'},
+  {sel:'.levelcard.pro',       t:'howtoProT',    b:'howtoProB'},
+  {sel:'.levelcard.creator',   t:'howtoCreatorT',b:'howtoCreatorB'},
+  {sel:'.levelcard.community', t:'howtoCommT',   b:'howtoCommB'},
+  {sel:null,                   t:'howtoOutroT',  b:'howtoOutroB'}
+];
+let howtoIdx=0;
+const _howtoReposition=()=>positionHowto(false);
+const _howtoKey=(e)=>{
+  if(e.key==='Escape'){e.preventDefault();e.stopPropagation();endHowto();}
+  else if(e.key==='ArrowRight'||e.key==='Enter'||e.key===' '||e.key==='Spacebar'){e.preventDefault();howtoNext();}
+  else if(e.key==='ArrowLeft'){e.preventDefault();howtoPrev();}
+};
+
+function startHowto(){
+  // Revenir à l'écran d'accueil pour que les cartes soient visibles
+  ['modescreen','creatorscreen','communityscreen','game','final'].forEach(id=>{const e=$(id);if(e)e.style.display='none';});
+  $('scorebar').style.display='none';$('dots').style.display='none';
+  $('levelscreen').style.display='block';
+  howtoIdx=0;
+  $('howto-dots').innerHTML=HOWTO_STEPS.map(()=>'<span class="howto-dot"></span>').join('');
+  $('howto-overlay').classList.add('show');
+  renderHowtoStep();
+  window.addEventListener('resize',_howtoReposition);
+  window.addEventListener('scroll',_howtoReposition,true);
+  document.addEventListener('keydown',_howtoKey,true);
+}
+function howtoNext(){
+  if(howtoIdx>=HOWTO_STEPS.length-1){endHowto();return;}
+  howtoIdx++;renderHowtoStep();
+}
+function howtoPrev(){
+  if(howtoIdx>0){howtoIdx--;renderHowtoStep();}
+}
+function endHowto(){
+  $('howto-overlay').classList.remove('show');
+  window.removeEventListener('resize',_howtoReposition);
+  window.removeEventListener('scroll',_howtoReposition,true);
+  document.removeEventListener('keydown',_howtoKey,true);
+  try{localStorage.setItem('fakemetre_howto_seen','true');}catch(e){}
+}
+function renderHowtoStep(){
+  const step=HOWTO_STEPS[howtoIdx];
+  $('howto-step').textContent=t('howtoStepLabel').replace('{n}',howtoIdx+1).replace('{tot}',HOWTO_STEPS.length);
+  $('howto-title').textContent=t(step.t);
+  $('howto-body').textContent=t(step.b);
+  $('howto-skip').textContent=t('howtoSkip');
+  $('howto-next').textContent=howtoIdx>=HOWTO_STEPS.length-1?t('howtoFinish'):t('howtoNext');
+  $('howto-dots').querySelectorAll('.howto-dot').forEach((d,i)=>d.classList.toggle('on',i===howtoIdx));
+  positionHowto(true);
+}
+function positionHowto(doScroll){
+  const step=HOWTO_STEPS[howtoIdx];
+  const spot=$('howto-spot'), tip=$('howto-tip');
+  const el=step.sel?document.querySelector(step.sel):null;
+  if(!el){
+    spot.style.display='none';
+    tip.style.left='50%';tip.style.top='50%';tip.style.transform='translate(-50%,-50%)';
+    return;
+  }
+  const apply=()=>{
+    const r=el.getBoundingClientRect(),pad=8;
+    spot.style.display='block';
+    spot.style.left=(r.left-pad)+'px';spot.style.top=(r.top-pad)+'px';
+    spot.style.width=(r.width+pad*2)+'px';spot.style.height=(r.height+pad*2)+'px';
+    tip.style.transform='none';
+    const tipH=tip.offsetHeight||220,tipW=tip.offsetWidth||340,vh=window.innerHeight,vw=window.innerWidth;
+    const below=vh-r.bottom, above=r.top;
+    let top;
+    if(below>=tipH+18)      top=r.bottom+14;                 // place sous la carte (cas normal)
+    else if(above>=tipH+18) top=r.top-tipH-14;              // sinon au-dessus
+    else if(below>=above)   top=Math.max(r.bottom+8, vh-tipH-10); // fenêtre courte : collé en bas, jamais sur la carte
+    else                    top=Math.max(10, r.top-tipH-8);      // fenêtre courte : collé en haut
+    let left=r.left+r.width/2-tipW/2;
+    left=Math.max(10,Math.min(left,vw-tipW-10));
+    tip.style.left=left+'px';tip.style.top=top+'px';
+  };
+  if(doScroll){el.scrollIntoView({block:'start'});setTimeout(apply,90);}
+  else apply();
+}
+
+// ═══════════════════════════════════════════════
+// FIN DE PARTIE : message au créateur + suggestion (email)
+// ═══════════════════════════════════════════════
+function finalMsgHTML(){
+  const creatorLabel=(playingCommunity&&currentPackInfo&&currentPackInfo.author)
+    ? t('finalMsgToCreatorNamed').replace('{name}',escH(currentPackInfo.author))
+    : t('finalMsgToCreator');
+  return `<div class="final-msg" id="final-msg">
+    <h3>${t('finalMsgTitle')}</h3>
+    <p class="fm-sub">${t('finalMsgSub')}</p>
+    <label for="fm-pg-name">${t('finalMsgName')}</label>
+    <input type="text" id="fm-pg-name" placeholder="${t('finalMsgNamePh')}">
+    <label for="fm-pg-creator">${creatorLabel}</label>
+    <textarea id="fm-pg-creator" rows="2" placeholder="${t('finalMsgCreatorPh')}"></textarea>
+    <label for="fm-pg-sugg">${t('finalMsgSugg')}</label>
+    <textarea id="fm-pg-sugg" rows="3" placeholder="${t('finalMsgSuggPh')}"></textarea>
+    <button type="button" class="fm-send" id="fm-pg-send" onclick="sendPostGameMessage()">${t('finalMsgSend')}</button>
+  </div>`;
+}
+async function sendPostGameMessage(){
+  const name=($('fm-pg-name').value||'').trim();
+  const toCreator=($('fm-pg-creator').value||'').trim();
+  const sugg=($('fm-pg-sugg').value||'').trim();
+  if(!toCreator&&!sugg){alert(t('finalMsgEmpty'));return;}
+  const btn=$('fm-pg-send');btn.disabled=true;btn.textContent=t('finalMsgSending');
+  let ctx=`Niveau: ${currentLevel} | Questions: ${QS.length} | Score: ${score} pts`;
+  if(playingCommunity&&currentPackInfo) ctx+=` | Pack communaute: "${currentPackInfo.title}" (createur: ${currentPackInfo.author||'?'})`;
+  else if(playingCustom) ctx+=` | Serie perso du joueur`;
+  const parts=[ctx];
+  if(toCreator) parts.push(`\n>> Message au createur >>\n${toCreator}`);
+  if(sugg) parts.push(`\n>> Suggestion d'affirmation / remarque >>\n${sugg}`);
+  try{
+    const res=await fetch('https://api.web3forms.com/submit',{
+      method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},
+      body:JSON.stringify({
+        access_key:'ef1fe549-c616-4a27-a6c2-97f06caa913d',
+        subject:t('finalMsgEmailSubject')+(name?' — '+name:''),
+        name:name||'Joueur anonyme',
+        email:'non renseigné',
+        message:parts.join('\n')
+      })
+    });
+    const data=await res.json();
+    if(data.success){
+      $('final-msg').innerHTML=`<h3>${t('finalMsgTitle')}</h3><p class="fm-ok">${t('finalMsgThanks')}</p>`;
+    } else {
+      alert(t('feedbackAlertError'));btn.disabled=false;btn.textContent=t('finalMsgSend');
+    }
+  }catch(e){
+    alert(t('feedbackAlertError'));btn.disabled=false;btn.textContent=t('finalMsgSend');
+  }
+}
+
+// Affiche le guide automatiquement à la première visite
+try{
+  if(localStorage.getItem('fakemetre_howto_seen')!=='true' && $('levelscreen') && $('levelscreen').style.display!=='none'){
+    setTimeout(startHowto,650);
+  }
+}catch(e){}
 </script>
 <button class="fs-btn" id="fs-btn" onclick="toggleFS()" data-i18n="btnFullscreen">⛶ Plein écran</button>
+
+<!-- WALKTHROUGH "COMMENT ÇA MARCHE" -->
+<div id="howto-overlay" aria-hidden="true" onclick="if(event.target.id==='howto-overlay'||event.target.id==='howto-spot')endHowto()">
+  <div class="howto-spot" id="howto-spot"></div>
+  <div class="howto-tip" id="howto-tip" role="dialog" aria-modal="true">
+    <div class="howto-tip-step" id="howto-step"></div>
+    <div class="howto-tip-title" id="howto-title"></div>
+    <div class="howto-tip-body" id="howto-body"></div>
+    <div class="howto-tip-actions">
+      <button type="button" class="howto-skip" id="howto-skip" onclick="endHowto()"></button>
+      <div class="howto-dots" id="howto-dots"></div>
+      <button type="button" class="howto-next" id="howto-next" onclick="howtoNext()"></button>
+    </div>
+  </div>
+</div>
 
 <!-- FEEDBACK MODAL -->
 <div id="feedback-modal" class="modal-overlay" style="display:none;" onclick="if(event.target===this)closeFeedback()">

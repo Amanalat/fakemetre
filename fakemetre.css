@@ -498,6 +498,37 @@ button:focus-visible,a:focus-visible,[tabindex]:focus-visible,
 .fake-video-channel-av{width:24px;height:24px;border-radius:50%;background:linear-gradient(135deg,#ff0000,#cc0000);display:flex;align-items:center;justify-content:center;font-size:.58rem;color:#fff;font-weight:900;flex-shrink:0;}
 .fake-video-meta{display:flex;gap:10px;font-size:.7rem;color:#888;margin-bottom:6px;flex-wrap:wrap;}
 .fake-video-desc{font-size:.8rem;color:#aaa;line-height:1.5;border-top:1px solid #222;padding-top:8px;margin-top:2px;}
+/* ── Walkthrough « Comment ça marche » ── */
+.howto-btn{background:linear-gradient(135deg,#4fa3f7,#3ecf8e);color:#fff;border:none;border-radius:50px;padding:11px 26px;font-family:'Nunito',sans-serif;font-size:.92rem;font-weight:800;cursor:pointer;box-shadow:0 4px 16px rgba(79,163,247,.3);transition:transform .18s,box-shadow .18s;}
+.howto-btn:hover{transform:translateY(-2px);box-shadow:0 6px 22px rgba(79,163,247,.45);}
+#howto-overlay{position:fixed;inset:0;z-index:9000;display:none;}
+#howto-overlay.show{display:block;}
+.howto-spot{position:fixed;border-radius:20px;box-shadow:0 0 0 9999px rgba(8,14,26,.82);border:3px solid var(--acc);pointer-events:none;transition:all .35s cubic-bezier(.4,0,.2,1);}
+.howto-tip{position:fixed;max-width:340px;width:calc(100% - 40px);background:var(--panel);border:2px solid var(--bord);border-radius:18px;padding:20px 22px;box-shadow:0 12px 40px rgba(0,0,0,.55);z-index:9001;transition:left .3s ease,top .3s ease;}
+.howto-tip-step{font-size:.72rem;font-weight:800;color:var(--mu);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px;}
+.howto-tip-title{font-family:'Fredoka One',cursive;font-size:1.25rem;color:var(--tx);margin-bottom:8px;line-height:1.2;}
+.howto-tip-body{font-size:.9rem;font-weight:600;color:var(--mu);line-height:1.55;margin-bottom:16px;}
+.howto-tip-actions{display:flex;justify-content:space-between;align-items:center;gap:10px;}
+.howto-skip{background:none;border:none;color:var(--mu);font-family:'Nunito',sans-serif;font-size:.82rem;font-weight:700;cursor:pointer;text-decoration:underline;opacity:.8;}
+.howto-skip:hover{opacity:1;}
+.howto-dots{display:flex;gap:6px;}
+.howto-dot{width:8px;height:8px;border-radius:50%;background:var(--bord);transition:all .25s;}
+.howto-dot.on{background:var(--acc);transform:scale(1.3);}
+.howto-next{background:var(--acc);color:#1a1206;border:none;border-radius:50px;padding:9px 22px;font-family:'Nunito',sans-serif;font-size:.88rem;font-weight:800;cursor:pointer;transition:transform .15s;}
+.howto-next:hover{transform:translateY(-1px);}
+
+/* ── Fin de partie : message au créateur ── */
+.final-msg{background:var(--card);border:1px solid var(--bord);border-radius:16px;padding:18px 20px;margin:22px 0 8px;text-align:left;}
+.final-msg h3{font-family:'Fredoka One',cursive;font-size:1.1rem;color:var(--tx);margin:0 0 4px;}
+.final-msg p.fm-sub{font-size:.82rem;font-weight:600;color:var(--mu);margin:0 0 14px;line-height:1.5;}
+.final-msg label{display:block;font-size:.82rem;font-weight:800;color:var(--mu);margin-bottom:5px;}
+.final-msg input,.final-msg textarea{width:100%;background:var(--panel);border:1px solid var(--bord);border-radius:10px;padding:10px 12px;color:var(--tx);font-family:'Nunito',sans-serif;font-size:.88rem;font-weight:600;margin-bottom:13px;box-sizing:border-box;resize:vertical;}
+.final-msg input:focus,.final-msg textarea:focus{outline:none;border-color:var(--acc);}
+.final-msg .fm-send{background:linear-gradient(135deg,#3ecf8e,#4fa3f7);color:#fff;border:none;border-radius:50px;padding:11px 26px;font-family:'Nunito',sans-serif;font-size:.9rem;font-weight:800;cursor:pointer;width:100%;transition:transform .15s,opacity .2s;}
+.final-msg .fm-send:hover{transform:translateY(-1px);}
+.final-msg .fm-send:disabled{opacity:.5;cursor:default;transform:none;}
+.final-msg .fm-ok{color:#3ecf8e;font-weight:800;text-align:center;margin:6px 0 0;}
+
 /* ── Medium badge extensions ── */
 .medium-badge.media{background:rgba(229,9,20,.18);color:#ff8080;}
 .medium-badge.book{background:rgba(26,58,110,.22);color:#7bb0f0;}
