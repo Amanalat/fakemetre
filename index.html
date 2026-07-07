@@ -18,6 +18,18 @@
 <a class="lang-switch" data-i18n-href="langSwitchHref" data-i18n-title="langSwitchTitle" href="index.html?lang=en" title="English version"><span data-i18n="langSwitchFlag">🇬🇧</span></a>
 
 <header style="text-align:center">
+  <svg class="brand-gauge" viewBox="0 0 60 40" aria-hidden="true">
+    <defs>
+      <linearGradient id="bgGaugeArc" x1="0" y1="0" x2="1" y2="0">
+        <stop offset="0" stop-color="#f75f5f"/>
+        <stop offset="0.5" stop-color="#f7c948"/>
+        <stop offset="1" stop-color="#3ecf8e"/>
+      </linearGradient>
+    </defs>
+    <path d="M8 32 A22 22 0 0 1 52 32" fill="none" stroke="url(#bgGaugeArc)" stroke-width="5" stroke-linecap="round"/>
+    <g class="bg-needle"><line x1="30" y1="32" x2="30" y2="13" stroke="#e8f1ff" stroke-width="2.6" stroke-linecap="round"/></g>
+    <circle cx="30" cy="32" r="3.6" fill="#e8f1ff"/>
+  </svg>
   <h1 data-i18n="h1">🔍 FakeMètre</h1>
   <p class="sub" data-i18n="sub">Vraie info ou fake news ? Trouve les bonnes sources !</p>
   <p class="author"><span data-i18n="authorBy">par</span> Antonin Atger &nbsp;|&nbsp; <a href="mailto:contact@antoninatger.com">contact(at)antoninatger.com</a> &nbsp;|&nbsp; <a href="https://antoninatger.com" target="_blank">antoninatger.com</a></p>
@@ -1866,6 +1878,10 @@ function submitV(v){
   });
   gameHistory.push(currentQHistory);
   
+  const fxEl=$('vremoji');
+  fxEl.classList.remove('fx-good','fx-bad');
+  void fxEl.offsetWidth; // reflow pour rejouer l'animation
+  fxEl.classList.add(ok?'fx-good':'fx-bad');
   show('mvr');
 }
 
@@ -1900,12 +1916,27 @@ function showFinal(){
     <span class="fmedal">${m}</span>
     <h2 class="fh2">${t('finalTitle')}</h2>
     <p style="color:var(--mu);font-weight:700;margin-bottom:8px">${c}</p>
-    <div class="fscore">${score} pts</div>
+    <div class="fscore" id="fscore-num">0&nbsp;pts</div>
     ${bilan ? `<div class="bilan-perso">${bilan}</div>` : ''}
     <div class="ftips"><h3>${t('finalTipsTitle')}</h3>${tips.map(tp=>`<div class="tip"><span>${tp[0]}</span><span>${tp[1]}</span></div>`).join('')}</div>
     ${finalMsgHTML()}
     <button id="rbtn" onclick="restart()">${t('btnReplay')}</button>
     <button id="mbtn" onclick="chooseMode()">${t('btnMenu')}</button>`;
+  animateScore(score);
+}
+
+/* Fait défiler le score de 0 jusqu'au total sur l'écran final */
+function animateScore(target){
+  const el=$('fscore-num'); if(!el) return;
+  if(window.matchMedia&&window.matchMedia('(prefers-reduced-motion:reduce)').matches){el.textContent=target+' pts';return;}
+  const dur=900,t0=performance.now();
+  function step(now){
+    const p=Math.min(1,(now-t0)/dur);
+    const val=Math.round((1-Math.pow(1-p,3))*target); // ease-out cubic
+    el.innerHTML=val+'&nbsp;pts';
+    if(p<1)requestAnimationFrame(step);
+  }
+  requestAnimationFrame(step);
 }
 
 function generateBilan(){

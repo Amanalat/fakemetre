@@ -2,7 +2,11 @@
 :root {
   --bg:#0f1b2d; --panel:#162236; --card:#1e3050;
   --acc:#f7c948; --gr:#3ecf8e; --rd:#f75f5f; --bl:#4fa3f7;
-  --tx:#e8f1ff; --mu:#7a9cc0; --bord:rgba(255,255,255,0.08);
+  --tx:#e8f1ff; --mu:#8fabce; --bord:rgba(255,255,255,0.08);
+  /* Échelle d'ombres cohérente (élévation) */
+  --shadow-1:0 2px 8px rgba(0,0,0,.28);
+  --shadow-2:0 8px 24px rgba(0,0,0,.36);
+  --shadow-3:0 18px 50px rgba(0,0,0,.5);
 }
 *{box-sizing:border-box;margin:0;padding:0;}
 body{font-family:'Nunito',sans-serif;background:var(--bg);background-image:radial-gradient(ellipse at 15% 15%,rgba(79,163,247,.07) 0%,transparent 55%),radial-gradient(ellipse at 85% 85%,rgba(247,201,72,.06) 0%,transparent 55%);color:var(--tx);min-height:100vh;display:flex;flex-direction:column;align-items:center;padding:20px 16px;overscroll-behavior:contain;}
@@ -535,3 +539,76 @@ button:focus-visible,a:focus-visible,[tabindex]:focus-visible,
 .medium-badge.quote{background:rgba(160,128,96,.2);color:#c4a06a;}
 .medium-badge.ad{background:rgba(255,107,53,.18);color:#ff9966;}
 .medium-badge.expert{background:rgba(30,58,95,.22);color:#7bb8e8;}
+
+/* ═══════════════════════════════════════════════════════════
+   REFONTE VISUELLE — améliorations additives (copie de travail)
+   ═══════════════════════════════════════════════════════════ */
+
+/* ── 1. Logo « jauge » animé dans l'en-tête ── */
+.brand-gauge{width:60px;height:38px;display:block;margin:0 auto 4px;overflow:visible;}
+.brand-gauge .bg-needle{transform-origin:30px 32px;transform-box:view-box;
+  animation:gaugeIntro 3.8s cubic-bezier(.5,.05,.3,1) forwards;}
+@keyframes gaugeIntro{
+  0%{transform:rotate(-72deg);}
+  16%{transform:rotate(60deg);}
+  28%{transform:rotate(22deg);}
+  42%{transform:rotate(72deg);}
+  58%{transform:rotate(-42deg);}
+  74%{transform:rotate(38deg);}
+  100%{transform:rotate(0deg);} /* se fige au centre : « incertain » */
+}
+@media(prefers-reduced-motion:reduce){.brand-gauge .bg-needle{animation:none;transform:rotate(0deg);}}
+
+/* ── 2. Barre d'accent colorée AU REPOS sur les cartes de niveau ── */
+.levelcard{position:relative;overflow:hidden;box-shadow:var(--shadow-1);}
+.levelcard::after{content:'';position:absolute;top:0;left:0;right:0;height:4px;
+  background:var(--acc);opacity:.85;transition:opacity .22s,height .22s;}
+.levelcard.junior::after{background:#4fa3f7;}
+.levelcard.inter::after{background:#3ecf8e;}
+.levelcard.pro::after{background:#f75f5f;}
+.levelcard.creator::after{background:#a855f7;}
+.levelcard.community::after{background:#f97316;}
+.levelcard:hover{box-shadow:var(--shadow-2);}
+.levelcard:hover::after{height:6px;opacity:1;}
+.levelcard .lc-icon{transition:transform .22s;}
+.levelcard:hover .lc-icon{transform:scale(1.12) translateY(-2px);}
+
+/* ── 3. Profondeur : ombres cohérentes sur surfaces & modales ── */
+.modecard,.pack-card{box-shadow:var(--shadow-1);}
+.modecard:hover,.pack-card:hover{box-shadow:var(--shadow-2);}
+.scard{box-shadow:var(--shadow-1);}
+.modal{box-shadow:var(--shadow-3);}
+.overlay{backdrop-filter:blur(3px);-webkit-backdrop-filter:blur(3px);}
+
+/* ── 4. Transitions douces à l'apparition des écrans ── */
+@keyframes screenIn{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:translateY(0);}}
+#levelscreen,#modescreen,#creatorscreen,#communityscreen,#game,#final{animation:screenIn .32s ease both;}
+@keyframes cardIn{from{opacity:0;transform:translateY(8px) scale(.99);}to{opacity:1;transform:none;}}
+#game .scard{animation:cardIn .3s ease both;}
+@media(prefers-reduced-motion:reduce){
+  #levelscreen,#modescreen,#creatorscreen,#communityscreen,#game,#final,#game .scard{animation:none;}
+}
+
+/* ── 5. Le « mètre » ressemble à un vrai instrument de mesure ── */
+.mbg{background:linear-gradient(90deg,rgba(247,95,95,.28) 0%,rgba(247,201,72,.24) 50%,rgba(62,207,142,.28) 100%);
+  box-shadow:inset 0 2px 6px rgba(0,0,0,.45);}
+/* graduations */
+.mbg::after{content:'';position:absolute;inset:0;border-radius:50px;pointer-events:none;
+  background-image:repeating-linear-gradient(90deg,rgba(255,255,255,.16) 0 1px,transparent 1px 10%);
+  opacity:.5;}
+.mcursor{width:28px;height:28px;background:radial-gradient(circle at 38% 32%,#fff,#cfe0f5);
+  border:2px solid rgba(255,255,255,.9);box-shadow:0 3px 14px rgba(0,0,0,.6),0 0 0 4px rgba(255,255,255,.12);}
+
+/* ── 6. Écran final : score qui s'anime + médaille qui « rebondit » ── */
+@keyframes medalPop{0%{transform:scale(0) rotate(-25deg);opacity:0;}60%{transform:scale(1.25) rotate(8deg);}100%{transform:scale(1) rotate(0);opacity:1;}}
+.fmedal{animation:medalPop .7s cubic-bezier(.34,1.56,.64,1) both;}
+@keyframes scoreGlow{0%{text-shadow:0 0 0 rgba(247,201,72,0);}50%{text-shadow:0 0 34px rgba(247,201,72,.6);}100%{text-shadow:0 0 18px rgba(247,201,72,.3);}}
+.fscore{animation:scoreGlow 1.1s ease both;}
+@media(prefers-reduced-motion:reduce){.fmedal,.fscore{animation:none;}}
+
+/* ── 7. Feedback verdict : pulse vert / secousse rouge ── */
+@keyframes pulseGood{0%{box-shadow:0 0 0 0 rgba(62,207,142,.5);}100%{box-shadow:0 0 0 18px rgba(62,207,142,0);}}
+@keyframes shakeBad{0%,100%{transform:translateX(0);}20%{transform:translateX(-7px);}40%{transform:translateX(7px);}60%{transform:translateX(-5px);}80%{transform:translateX(5px);}}
+.fx-good{animation:pulseGood .6s ease-out;}
+.fx-bad{animation:shakeBad .45s ease;}
+@media(prefers-reduced-motion:reduce){.fx-good,.fx-bad{animation:none;}}
