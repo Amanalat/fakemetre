@@ -408,7 +408,9 @@
   </div>
   <div class="mwrap">
     <div class="mlabels"><span data-i18n="meterFalse">❌ Faux</span><span id="mstatus">🤔 Incertain...</span><span data-i18n="meterTrue">Vrai ✅</span></div>
-    <div class="mbg" id="mbg">
+    <div class="mbg" id="mbg" role="slider" tabindex="0"
+         aria-valuemin="0" aria-valuemax="100" aria-valuenow="50"
+         data-i18n-aria-label="meterAria">
       <div class="mfill" id="mfill"></div>
       <div class="mcursor" id="mcursor"></div>
     </div>
@@ -483,7 +485,9 @@
   <p style="font-weight:800;font-size:.95rem;text-align:center;margin-bottom:12px;color:var(--acc);" data-i18n="meterAdjustTitle">🎚️ Ajuste ton curseur</p>
   <div class="mwrap" style="margin-bottom:12px;">
     <div class="mlabels"><span data-i18n="meterFalse">❌ Faux</span><span id="mini-mstatus">🤔 Incertain...</span><span data-i18n="meterTrue">Vrai ✅</span></div>
-    <div class="mbg" id="mini-mbg">
+    <div class="mbg" id="mini-mbg" role="slider" tabindex="0"
+         aria-valuemin="0" aria-valuemax="100" aria-valuenow="50"
+         data-i18n-aria-label="meterAriaAdjust">
       <div class="mfill" id="mini-mfill"></div>
       <div class="mcursor" id="mini-mcursor"></div>
     </div>
@@ -748,7 +752,8 @@ const I18N = {
     stag: 'Affirmation mystère',
     meterFalse: '❌ Faux',
     meterTrue: 'Vrai ✅',
-    meterHint: '👆 Glisse le curseur pour indiquer ce que tu penses !',
+    meterHint: '👆 Glisse le curseur — ou utilise les flèches du clavier — pour indiquer ce que tu penses !',
+    meterAria: 'Ton niveau de croyance, de « faux » à « vrai »',
     sectitle: '📂 Consulte des sources pour te faire une idée',
     vzoneQuestion: '🧑‍⚖️ Après ton enquête, qu\'est-ce que tu en penses ?',
     vhint: 'Tu peux encore consulter d\'autres sources, ou voter maintenant !',
@@ -769,7 +774,8 @@ const I18N = {
     cursorPromptNo: 'Non, continuer →',
     cursorPromptYes: 'Oui, ajuster !',
     meterAdjustTitle: '🎚️ Ajuste ton curseur',
-    meterAdjustHint: '👆 Glisse pour ajuster !',
+    meterAdjustHint: '👆 Glisse — ou flèches du clavier — pour ajuster !',
+    meterAriaAdjust: 'Ajuster ton niveau de croyance, de « faux » à « vrai »',
     meterAdjustConfirm: '✅ Valider ma position',
     btnContinue: 'Continuer →',
     // Template info modal
@@ -1111,7 +1117,8 @@ const I18N = {
     stag: 'Mystery statement',
     meterFalse: '❌ False',
     meterTrue: 'True ✅',
-    meterHint: '👆 Drag the slider to show what you think!',
+    meterHint: '👆 Drag the slider — or use the arrow keys — to show what you think!',
+    meterAria: 'Your level of belief, from “false” to “true”',
     sectitle: '📂 Check sources to make up your mind',
     vzoneQuestion: '🧑‍⚖️ After your investigation, what do you think?',
     vhint: 'You can still check other sources, or vote now!',
@@ -1132,7 +1139,8 @@ const I18N = {
     cursorPromptNo: 'No, continue →',
     cursorPromptYes: 'Yes, adjust!',
     meterAdjustTitle: '🎚️ Adjust your slider',
-    meterAdjustHint: '👆 Drag to adjust!',
+    meterAdjustHint: '👆 Drag — or use the arrow keys — to adjust!',
+    meterAriaAdjust: 'Adjust your level of belief, from “false” to “true”',
     meterAdjustConfirm: '✅ Confirm my position',
     btnContinue: 'Continue →',
     // Template info modal
@@ -1278,6 +1286,9 @@ function applyI18n() {
   });
   document.querySelectorAll('[data-i18n-title]').forEach(el => {
     el.title = t(el.dataset.i18nTitle);
+  });
+  document.querySelectorAll('[data-i18n-aria-label]').forEach(el => {
+    el.setAttribute('aria-label', t(el.dataset.i18nAriaLabel));
   });
   document.querySelectorAll('[data-i18n-href]').forEach(el => {
     el.href = t(el.dataset.i18nHref);
@@ -1448,7 +1459,20 @@ function restart(){
 }
 
 // ── Meter drag ──
-function createSliderDrag(bgId,onChange){
+// Le curseur se manoeuvre a la souris, au doigt ET au clavier : les trois gestes
+// passent par ici, pour qu'aucun ne puisse etre oublie lors d'une evolution.
+// `lire` rend la valeur courante — le clavier en a besoin, contrairement au glisser.
+// La position du curseur, dite en mots — les memes que ceux affiches a l'ecran,
+// jamais un pourcentage nu : « 72 % » ne dit pas de quel cote on penche.
+function _majAriaCurseur(bgId,p){
+  const bg=$(bgId);
+  if(!bg)return;
+  const mot = p<33 ? t('ratherFalse') : p>66 ? t('ratherTrue') : t('unsure');
+  bg.setAttribute('aria-valuenow',Math.round(p));
+  bg.setAttribute('aria-valuetext',Math.round(p)+' % — '+mot.replace(/[^\p{L}\p{N} '’.…-]/gu,'').trim());
+}
+
+function createSliderDrag(bgId,onChange,lire){
   const bg=$(bgId);
   let dragging=false;
   function getPos(e){const rect=bg.getBoundingClientRect();const clientX=e.touches?e.touches[0].clientX:e.clientX;return Math.max(3,Math.min(97,(clientX-rect.left)/rect.width*100));}
@@ -1461,8 +1485,26 @@ function createSliderDrag(bgId,onChange){
   bg.addEventListener('touchstart',onDown,{passive:true});
   window.addEventListener('touchmove',onMove,{passive:false});
   window.addEventListener('touchend',onUp);
+
+  // Clavier : pas au pixel comme le glisser, mais au pas — c'est ce qui rend le
+  // curseur reglable sans la vue. Fleches 1 %, Page 10 %, Debut/Fin aux extremes.
+  bg.addEventListener('keydown',function(e){
+    const v=typeof lire==='function'?lire():50;
+    let n=null;
+    switch(e.key){
+      case 'ArrowRight': case 'ArrowUp':   n=v+1;  break;
+      case 'ArrowLeft':  case 'ArrowDown': n=v-1;  break;
+      case 'PageUp':                       n=v+10; break;
+      case 'PageDown':                     n=v-10; break;
+      case 'Home':                         n=3;    break;
+      case 'End':                          n=97;   break;
+      default: return;
+    }
+    e.preventDefault();
+    onChange(Math.max(3,Math.min(97,n)));
+  });
 }
-function initMeterDrag(){createSliderDrag('mbg',pos=>{meter=pos;updMeter();});}
+function initMeterDrag(){createSliderDrag('mbg',pos=>{meter=pos;updMeter();},()=>meter);}
 
 function openMeterAdjust(){
   hide('mfb');
@@ -1483,6 +1525,7 @@ function updMiniMeter(p){
   $('mini-mfill').style.width=p+'%';
   $('mini-mcursor').style.left=p+'%';
   const s=$('mini-mstatus');
+  _majAriaCurseur('mini-mbg',p);
   if(p<33){$('mini-mfill').style.background='linear-gradient(90deg,#f75f5f,#f7a548)';s.textContent=t('ratherFalse');s.style.color='#f75f5f';}
   else if(p>66){$('mini-mfill').style.background='linear-gradient(90deg,#3ecf8e,#4fa3f7)';s.textContent=t('ratherTrue');s.style.color='#3ecf8e';}
   else{$('mini-mfill').style.background='linear-gradient(90deg,#f7c948,#4fa3f7)';s.textContent=t('unsure');s.style.color='#f7c948';}
@@ -1492,7 +1535,7 @@ let miniListenersAdded=false;
 function initMiniMeterDrag(){
   if(miniListenersAdded)return;
   miniListenersAdded=true;
-  createSliderDrag('mini-mbg',pos=>{tempMeter=pos;updMiniMeter(tempMeter);});
+  createSliderDrag('mini-mbg',pos=>{tempMeter=pos;updMiniMeter(tempMeter);},()=>tempMeter);
 }
 
 function updMeter(){
@@ -1500,6 +1543,7 @@ function updMeter(){
   $('mfill').style.width=p+'%';
   $('mcursor').style.left=p+'%';
   const s=$('mstatus');
+  _majAriaCurseur('mbg',p);
   if(p<33){$('mfill').style.background='linear-gradient(90deg,#f75f5f,#f7a548)';s.textContent=t('ratherFalse');s.style.color='#f75f5f';}
   else if(p>66){$('mfill').style.background='linear-gradient(90deg,#3ecf8e,#4fa3f7)';s.textContent=t('ratherTrue');s.style.color='#3ecf8e';}
   else{$('mfill').style.background='linear-gradient(90deg,#f7c948,#4fa3f7)';s.textContent=t('unsure');s.style.color='#f7c948';}

@@ -65,6 +65,11 @@ h1{font-family:'Fredoka One',cursive;font-size:clamp(2rem,6vw,2.8rem);color:var(
 .mlabels{display:flex;justify-content:space-between;font-size:.7rem;font-weight:800;margin-bottom:8px;color:var(--mu);text-transform:uppercase;letter-spacing:.5px;}
 .mbg{height:26px;background:rgba(0,0,0,.3);border-radius:50px;position:relative;cursor:grab;user-select:none;touch-action:none;}
 .mbg:active{cursor:grabbing;}
+/* Le curseur se regle aussi au clavier (bloquant du chantier 02) : il lui faut un
+   anneau de focus visible. fakemetre n'est pas encore sur le socle commun, la
+   regle est donc locale — a retirer le jour de sa migration, collection.css la
+   donnant a tout [tabindex]. */
+.mbg:focus-visible{outline:3px solid #ffd54f;outline-offset:3px;}
 .mfill{height:100%;border-radius:50px;transition:background .4s;pointer-events:none;}
 .mcursor{position:absolute;top:50%;transform:translate(-50%,-50%);width:24px;height:24px;background:#fff;border-radius:50%;box-shadow:0 2px 12px rgba(0,0,0,.6);z-index:2;pointer-events:none;transition:background .3s;}
 #mstatus{text-align:center;margin-top:8px;font-weight:800;font-size:.88rem;transition:color .4s;}
