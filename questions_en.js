@@ -1159,6 +1159,22 @@ const QUESTIONS_INTER_EN=[
      say:"\"Golden rule on a walk: never pet a wild animal. The slightest contact leaves your scent, and the mother, no longer recognizing her young, will abandon it for good.\"",
      g:false,fb:{tb:"Ouch! A handsome book is no guarantee. This one copies the myth without citing a single study. 'For good', 'no longer recognizing her young': it's dramatized and false.",db:"Well done! The book format is reassuring, but this one cites no source and dramatizes. The content matters more than the cover."}},
   ]},
+  {s:"Humans can no longer see any difference beyond 24 frames per second.",t:false,
+   e:"FALSE. The 24 frames per second figure is a cinema convention, set in the late 1920s to save film stock while leaving room for the soundtrack: it is not a limit of the eye. Our vision doesn't work in 'frames per second': most people easily see the difference between 30, 60 and 120 Hz on fast motion, and the eye detects a flash far shorter than a 24th of a second. If a film looks smooth, it's thanks to motion blur and habit, not because our sight is saturated.",
+   src:[
+    {em:"🧠",n:"Vision neuroscience researcher",d:"Studies how the eye and brain process motion",expertTitle:'Visual perception researcher',expertInstitution:'Vision neuroscience laboratory',
+     say:"\"The eye is not a camera: it has no frame rate. Depending on brightness and contrast, we perceive flicker up to 60 Hz and often beyond, and a flash lasting a few milliseconds stays perfectly visible.\"",
+     g:true,fb:{tg:"Excellent! A visual-perception specialist explains the mechanism instead of throwing out a number. That's exactly the right source for a question about the eye.",dg:"Too bad! A researcher who works on vision and spells out the mechanism is far more solid than a figure repeated everywhere."}},
+    {em:"🎬",n:"Film buff's account on X",d:"Lots of followers, no source cited",tweetUser:"Pure Cinema",tweetHandle:"pure_cinema",tweetLikes:"31,400",tweetReposts:"9,870",tweetDate:"2 days ago",
+     say:"\"Shooting faster is POINTLESS: beyond 24 frames per second the human eye can't see the difference. It's proven, cinema has known it for 100 years.\"",
+     g:false,fb:{tb:"Tricked! 'It's proven' with no source at all, and a figure that comes from a technical choice in cinema, not from measuring the eye. A confident tone is not evidence.",db:"Good eye! An account with a huge following claiming 'it's proven' while citing nobody is the classic warning sign."}},
+    {em:"🖥️",n:"Lab test from a specialist tech magazine",d:"Display tests measured in a laboratory",pressOutlet:"Rtings",pressDomain:"rtings.com",pressTitle:"60, 120, 240 Hz: can you really see the difference?",
+     say:"\"In our blind trials, participants easily tell a 60 Hz display from a 120 Hz one on fast motion. The success rate stays well above chance far beyond 24 frames per second.\"",
+     g:true,fb:{tg:"Very good! A blind test, described with its protocol and its results, is a real measurement, not an opinion.",dg:"Too bad! A magazine that explains how it tested and what it measured is a reliable source, even when it's talking about hardware."}},
+    {em:"🎥",n:"An uncle who shot video back in the 90s",d:"Repeats what he was taught in training",quoteType:'croyance',quoteOrigin:'Family dinner',
+     say:"\"We were always told in video training: beyond 24 frames per second the brain can't keep up, it's a waste.\"",
+     g:false,fb:{tb:"Ouch! Professional training passes on shortcuts too. 'We were always told' is not a check, even coming from a pro.",db:"Well done! A sentence learned thirty years ago and never re-checked is still a belief, even from someone in the trade."}},
+  ]},
 ];
 
 // ═══════════════════════════════════════════════
