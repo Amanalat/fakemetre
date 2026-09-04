@@ -501,6 +501,7 @@
   <div class="fbtitle" id="vrtitle"></div>
   <div class="fbexpl"  id="vrexpl"></div>
   <div class="ptswrap"><span class="fbpts" id="vrpts"></span></div>
+  <div id="vrsources"></div>
   <button class="mclose" onclick="closeV()" data-i18n="btnContinue">Continuer →</button>
 </div>
 
@@ -827,6 +828,14 @@ const I18N = {
     submitFalseCorrect: '✅ Oui, c\'est bien FAUX !',
     submitTrueWrong: '❌ Non, c\'était VRAI !',
     submitFalseWrong: '❌ Non, c\'était FAUX !',
+    // ── Jeu : récapitulatif des sources au verdict ──
+    vrSrcTitle: '🔍 Ce que valaient tes sources',
+    vrSrcReliable: 'Source fiable',
+    vrSrcUnreliable: 'Source peu fiable',
+    vrSrcRated: 'tu l\'as notée {n}/7',
+    vrSrcTrusted: 'tu lui as fait confiance',
+    vrSrcDoubted: 'tu t\'en es méfié(e)',
+    vrSrcSkipped: 'tu ne l\'as pas consultée',
     // ── Jeu : écran final ──
     finalTitle: 'Enquête terminée !',
     finalMedal1: "Incroyable ! Tu es un vrai détective de l'info !",
@@ -1192,6 +1201,14 @@ const I18N = {
     submitFalseCorrect: "✅ Yes, it's FALSE!",
     submitTrueWrong: "❌ No, it was TRUE!",
     submitFalseWrong: "❌ No, it was FALSE!",
+    // ── Game : source recap at the verdict ──
+    vrSrcTitle: '🔍 What your sources were worth',
+    vrSrcReliable: 'Reliable source',
+    vrSrcUnreliable: 'Unreliable source',
+    vrSrcRated: 'you rated it {n}/7',
+    vrSrcTrusted: 'you trusted it',
+    vrSrcDoubted: 'you were wary of it',
+    vrSrcSkipped: "you didn't check it",
     // ── Game : final screen ──
     finalTitle: 'Investigation complete!',
     finalMedal1: "Incredible! You're a true fact-checking detective!",
@@ -1721,7 +1738,7 @@ function openSrc(src,idx,btn){
     }
   }
 
-  if(currentLevel==='pro'||currentLevel==='inter'||src.g==='free'){
+  if(evalLikert(src)){
     $('msrc-junior').style.display='none';
     $('msrc-pro').style.display='block';
     initLikert(isEdit ? (src._likertScore||0) : 0);
@@ -1865,6 +1882,76 @@ function trust(trusts){
   setTimeout(()=>{$('vzone').style.display='block';},600);
 }
 
+// Une source se note à l'échelle de Likert en Intermédiaire et en Pro, ainsi que
+// sur les sources « le joueur évalue » du mode Créateur. Ailleurs, c'est le
+// oui/non de trust().
+function evalLikert(src){
+  return currentLevel==='pro'||currentLevel==='inter'||src.g==='free';
+}
+
+// Points d'évaluation d'une source. Mêmes valeurs qu'en Junior (trust()) :
+// reconnaître une source fiable vaut 30, écarter une source douteuse 20 ; se
+// tromper coûte 10 ou 20. Rester au milieu de l'échelle ne rapporte ni ne coûte
+// rien, pas plus qu'une source « le joueur évalue », qui n'a pas de bonne réponse.
+function ptsSource(src,confiance,mefiance){
+  if(src.g==='free') return 0;
+  if(src.g===true) return confiance?30:(mefiance?-10:0);
+  return mefiance?20:(confiance?-20:0);
+}
+
+// Les feedbacks de source s'ouvrent sur une interjection qui suppose une réponse
+// (« Parfait ! », « Piégé(e) ! »). Sur une source non consultée ou laissée au
+// milieu de l'échelle, le joueur n'a rien tranché : on garde la leçon, pas
+// l'interjection.
+function sansInterjection(txt){
+  return String(txt||'').replace(/^[^!.]{1,22}!\s*/,'');
+}
+
+// Ce que le joueur a fait d'une source, au moment du verdict.
+function jugementSource(src,i){
+  const fiable=src.g===true;
+  const vue=um[i]!==undefined;
+  const note=(vue&&evalLikert(src))?(src._likertScore||0):0;
+  if(!vue) return {fiable,vue,note:0,confiance:false,mefiance:false,libelle:t('vrSrcSkipped')};
+  if(note) return {fiable,vue,note,confiance:note>=5,mefiance:note<=3,
+                   libelle:t('vrSrcRated').replace('{n}',note)};
+  // Junior : trust() code dans um[i] la justesse du choix, pas la confiance
+  const confiance=fiable?um[i]==='ug':um[i]==='ub';
+  return {fiable,vue,note:0,confiance,mefiance:!confiance,
+          libelle:confiance?t('vrSrcTrusted'):t('vrSrcDoubted')};
+}
+
+// Récapitulatif des quatre sources, affiché au verdict. En Intermédiaire et en
+// Pro, la source est notée sur 7 et le joueur n'apprend rien sur le moment :
+// c'est ici, une fois le vote posé, que les textes écrits pour chaque source
+// (fb.tg / dg / tb / db) sont enfin lus.
+function recapSources(){
+  if(!sh.length) return '';
+  const lignes=sh.map((src,i)=>{
+    const j=jugementSource(src,i);
+    const libre=src.g==='free';
+    const juste=!libre&&(j.fiable?j.confiance:j.mefiance);
+    const rate =!libre&&(j.fiable?j.mefiance:j.confiance);
+    const cls=juste?'ok':(rate?'ko':(j.vue?'mid':'skip'));
+    const marque=juste?'✓':(rate?'✗':'–');
+    const fb=src.fb||{};
+    let texte;
+    if(libre) texte=fb.gen||'';
+    else if(j.confiance) texte=j.fiable?fb.tg:fb.tb;
+    else if(j.mefiance)  texte=j.fiable?fb.dg:fb.db;
+    else texte=sansInterjection(j.fiable?fb.dg:fb.tb);
+    const p=j.vue?ptsSource(src,j.confiance,j.mefiance):0;
+    const cache=(typeof isHiddenExpert==='function')&&isHiddenExpert(src)&&src.expertTitle;
+    const meta=(libre?'':(j.fiable?t('vrSrcReliable'):t('vrSrcUnreliable'))+' · ')+j.libelle;
+    return `<div class="vrsrc ${cls}">
+      <div class="vrsrc-h"><span class="vrsrc-mark">${marque}</span><span class="vrsrc-name">${escH(expertDisplayName(src))}${cache?` <span class="vrsrc-real">— ${escH(src.expertTitle)}</span>`:''}</span>${p?`<span class="vrsrc-pts ${p>0?'pos':'neg'}">${p>0?'+':''}${p}</span>`:''}</div>
+      <div class="vrsrc-meta">${meta}</div>
+      <div class="vrsrc-fb">${escH(texte)}</div>
+    </div>`;
+  }).join('');
+  return `<div class="vrsrc-title">${t('vrSrcTitle')}</div>${lignes}`;
+}
+
 function submitV(v){
   const q=QS[qi];$('vzone').style.display='none';
   
@@ -1895,12 +1982,25 @@ function submitV(v){
   }
   
   score = Math.max(0, score + pts);
+
+  // Points des sources. En Junior, trust() les donne au fil de l'eau. Aux niveaux
+  // où la source est notée à l'échelle de Likert, l'évaluation est différée
+  // jusqu'ici : les afficher plus tôt révélerait la fiabilité avant le vote.
+  let ptsSrc=0;
+  sh.forEach((src,i)=>{
+    if(um[i]===undefined||!evalLikert(src)) return;
+    const j=jugementSource(src,i);
+    ptsSrc+=ptsSource(src,j.confiance,j.mefiance);
+  });
+  score = Math.max(0, score + ptsSrc);
+
   $('sc').textContent = score;
   $('vremoji').textContent = emoji;
   $('vrtitle').textContent = title;
   $('vrexpl').textContent = expl;
   $('vrpts').textContent = (pts >= 0 ? '+' : '') + pts + ' pts';
   $('vrpts').className = 'fbpts ' + (ok ? 'pos' : 'neg');
+  $('vrsources').innerHTML = recapSources();
   
   // Enregistrer dans l'historique pour le bilan
   const currentQHistory = {
@@ -1918,7 +2018,7 @@ function submitV(v){
         sourceName: src.n,
         isGoodSource: src.g,
         userTrusted: um[i] === 'ug', // ug = user trusted good, ub = user trusted bad
-        likertScore: src._likertScore || null
+        likertScore: evalLikert(src) ? (src._likertScore || null) : null
       });
     }
   });
@@ -1946,15 +2046,15 @@ function nextQ(){
 // Points maximum atteignables sur une question, d'après sa composition réelle :
 // une source fiable reconnue vaut 30, une source non fiable écartée 20, le vote 50
 // (60 quand « pas de consensus » est la bonne réponse, bouton réservé au niveau Pro).
-// Les sources notées à l'échelle de Likert ne rapportent pas de points.
+// Les sources rapportent aux trois niveaux depuis que l'évaluation à l'échelle de
+// Likert est comptée au verdict ; seules les sources « le joueur évalue » du mode
+// Créateur, qui n'ont pas de bonne réponse, ne valent rien.
 function maxPtsQuestion(q){
   let m=(q.nuance&&currentLevel==='pro')?60:50;
-  if(currentLevel==='junior'){
-    (q.src||[]).forEach(src=>{
-      if(src.g===true) m+=30;
-      else if(src.g!=='free') m+=20;
-    });
-  }
+  (q.src||[]).forEach(src=>{
+    if(src.g===true) m+=30;
+    else if(src.g!=='free') m+=20;
+  });
   return m;
 }
 

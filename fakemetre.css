@@ -617,3 +617,43 @@ button:focus-visible,a:focus-visible,[tabindex]:focus-visible,
 .fx-good{animation:pulseGood .6s ease-out;}
 .fx-bad{animation:shakeBad .45s ease;}
 @media(prefers-reduced-motion:reduce){.fx-good,.fx-bad{animation:none;}}
+
+/* ── 8. Verdict : récapitulatif des quatre sources ── */
+/* En Intermédiaire et en Pro, c'est le seul endroit où les textes écrits pour
+   chaque source sont lus : la modale de verdict s'élargit pour les recevoir,
+   afin que les quatre tiennent à l'écran sans défiler en 1440 px. */
+#mvr{max-width:640px;}
+/* En-tête resserré : le verdict porte maintenant quatre feedbacks de plus. */
+#mvr .fbemoji{font-size:2rem;margin-bottom:4px;}
+#mvr .fbtitle{font-size:1.2rem;margin-bottom:8px;}
+#mvr .fbexpl{margin-bottom:10px;}
+#vrsources{margin:14px 0 16px;text-align:left;}
+.vrsrc-title{font-family:'Fredoka One',cursive;font-size:.95rem;color:var(--acc);
+  text-align:center;margin-bottom:9px;}
+.vrsrc{border-left:3px solid var(--bord);border-radius:8px;
+  background:rgba(255,255,255,.04);padding:8px 11px;margin-bottom:7px;}
+.vrsrc.ok{border-left-color:var(--gr);}
+.vrsrc.ko{border-left-color:var(--rd);}
+.vrsrc.mid,.vrsrc.skip{border-left-color:var(--acc);}
+.vrsrc-h{display:flex;align-items:baseline;gap:7px;}
+.vrsrc-mark{flex:none;font-weight:800;font-size:1rem;width:14px;text-align:center;}
+.vrsrc.ok .vrsrc-mark{color:var(--gr);}
+.vrsrc.ko .vrsrc-mark{color:var(--rd);}
+.vrsrc.mid .vrsrc-mark,.vrsrc.skip .vrsrc-mark{color:var(--acc);}
+.vrsrc-name{flex:1 1 auto;font-weight:800;font-size:.86rem;line-height:1.35;}
+.vrsrc-real{color:var(--mu);font-weight:700;}
+.vrsrc-pts{flex:none;font-weight:800;font-size:.8rem;}
+.vrsrc-pts.pos{color:var(--gr);}
+.vrsrc-pts.neg{color:var(--rd);}
+.vrsrc-meta{color:var(--mu);font-size:.8rem;font-weight:700;margin:2px 0 5px 21px;}
+.vrsrc-fb{color:var(--mu);font-size:.84rem;line-height:1.45;margin-left:21px;}
+/* Sur un écran large, les quatre sources se lisent en deux colonnes : c'est ce
+   qui les fait tenir à l'écran sans défiler, même avec les feedbacks les plus longs. */
+@media(min-width:700px){
+  #vrsources{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+  .vrsrc-title{grid-column:1/-1;margin-bottom:0;}
+  .vrsrc{margin-bottom:0;}
+}
+@media(max-width:560px){
+  .vrsrc-meta,.vrsrc-fb{margin-left:0;}
+}
