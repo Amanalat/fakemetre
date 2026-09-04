@@ -530,7 +530,7 @@
 <script src="creator_template.js"></script>
 <script src="questions_fr.js"></script>
 <script src="questions_en.js"></script>
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="fakemetre-cards.js"></script><script>
+<script src="fakemetre-cards.js"></script><script>
 
 // ═══════════════════════════════════════════════
 // I18N
@@ -1569,6 +1569,9 @@ function renderQ(){
   $('qn').textContent=qi+1;
   $('sc').textContent=score;
   $('vzone').style.display='none';
+  // sh doit être tiré AVANT updCounter(), qui compte sh.length : sinon la première
+  // question de chaque partie annonce « 0 disponibles ».
+  sh=shuf(q.src);
   updMeter();updDots();updCounter();
   // Afficher le bouton "Pas de consensus" sur TOUTES les questions en niveau pro
   const btnConsensus = $('btn-consensus');
@@ -1579,7 +1582,6 @@ function renderQ(){
   if((currentLevel==='pro'||currentLevel==='inter')&&qi===0&&!cursorTutorialSeen){
     setTimeout(()=>show('mhint-cursor'),200);
   }
-  sh=shuf(q.src);
   const g=$('sgrid');g.innerHTML='';
   sh.forEach((src,i)=>{
     const b=document.createElement('button');
@@ -1941,9 +1943,24 @@ function nextQ(){
   if(qi>=QS.length)showFinal();else renderQ();
 }
 
+// Points maximum atteignables sur une question, d'après sa composition réelle :
+// une source fiable reconnue vaut 30, une source non fiable écartée 20, le vote 50
+// (60 quand « pas de consensus » est la bonne réponse, bouton réservé au niveau Pro).
+// Les sources notées à l'échelle de Likert ne rapportent pas de points.
+function maxPtsQuestion(q){
+  let m=(q.nuance&&currentLevel==='pro')?60:50;
+  if(currentLevel==='junior'){
+    (q.src||[]).forEach(src=>{
+      if(src.g===true) m+=30;
+      else if(src.g!=='free') m+=20;
+    });
+  }
+  return m;
+}
+
 function showFinal(){
   $('game').style.display='none';$('scorebar').style.display='none';$('dots').style.display='none';
-  const maxPts=QS.length*(3*30+50);
+  const maxPts=QS.reduce((tot,q)=>tot+maxPtsQuestion(q),0);
   const pct=score/maxPts;
   let m,c;
   if(pct>=.8){m='🥇';c=t('finalMedal1');}
